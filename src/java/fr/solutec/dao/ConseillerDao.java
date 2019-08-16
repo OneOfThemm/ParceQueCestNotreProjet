@@ -71,7 +71,7 @@ public class ConseillerDao {
     public static List<Conseiller> getAll() throws SQLException {
         List<Conseiller> result = new ArrayList<>();
 
-        String sql = "SELECT * FROM conseiller";
+        String sql = "SELECT * FROM conseiller INNER JOIN user ON user.idUser=conseiller.idUser";
 
         Connection connexion = AccessDao.getConnection();
 

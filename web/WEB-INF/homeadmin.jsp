@@ -30,7 +30,7 @@
         <br><br><br>
         <div class="container text-center">
             <h2>Liste des conseillers</h2>         
-            <table id="userTable" class="table table-striped table-bordered"> 
+            <table id="ConsTable" class="table table-striped table-bordered"> 
                 <thead class="thead-dark sticky">
                     <tr>
                         <th>#</th>
@@ -43,14 +43,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${listcons}" var="cn">
+                    <c:forEach items="${listcons}" var="conseiller">
                         <tr>
-                            <td>${cn.id}</td>
-                            <td>${cn.prenom}</td>
-                            <td>${cn.nom}</td>
-                            <td>${cn.login_conseiller}</td>
-                            <td>${cn.email}</td>
-                            <td>${cn.tel}</td>
+
+                            <td>${conseiller.id}</td>
+                            <td>${conseiller.prenom}</td>
+                            <td>${conseiller.nom}</td>
+                            <td>${conseiller.login_conseiller}</td>
+                            <td>${conseiller.email}</td>
+                            <td>${conseiller.tel}</td>
                             <td> <button class="btn"><i class="fa fa-trash"></i></button> </td>
                         </tr>
 
@@ -66,7 +67,7 @@
 
         <div class="container text-center">
             <h2>Liste des administrateurs</h2>         
-            <table id="userTable" class="table table-striped table-bordered"> 
+            <table id="AdminTable" class="table table-striped table-bordered"> 
                 <thead class="thead-dark sticky">
                     <tr>
                         <th>#</th>
