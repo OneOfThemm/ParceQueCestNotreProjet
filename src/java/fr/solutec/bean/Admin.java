@@ -12,15 +12,13 @@ package fr.solutec.bean;
 public class Admin {
     private User user;
     private String loginAdmin;
-    private String mdp;
 
     public Admin() {
     }
 
-    public Admin(User user, String loginAdmin, String mdp) {
+    public Admin(User user, String loginAdmin) {
         this.user = user;
         this.loginAdmin = loginAdmin;
-        this.mdp = mdp;
     }
 
     public User getUser() {
@@ -31,10 +29,6 @@ public class Admin {
         return loginAdmin;
     }
 
-    public String getMdp() {
-        return mdp;
-    }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -43,19 +37,11 @@ public class Admin {
         this.loginAdmin = loginAdmin;
     }
 
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
-    }
-
     @Override
     public String toString() {
-        return "Admin{" + "user=" + user + ", login=" + loginAdmin + ", mdp=" + mdp + '}';
-        
-        
-    }
-   
-
-        
+        return "Admin{" + "user=" + user + ", loginAdmin=" + loginAdmin + '}';
+    } 
+    
     }
  
     
