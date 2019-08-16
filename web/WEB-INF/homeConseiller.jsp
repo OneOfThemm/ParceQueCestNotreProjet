@@ -18,12 +18,31 @@
         
         <div class='container' >
             
-            <div id='Bonjour'> 
+            <div id='Bonjour' style='background:#33b5e5; color: white'  > 
                 <hr>
                 <h1 class='text-center'> Bonjour ${conseiller.prenom} ${conseiller.nom} </h1> 
-                <h4 > votre dernière connexion était le ${conseiller.dateConnexion} </h4>            
+                <h4 class='text-center' > votre dernière connexion était le ${conseiller.dateConnexion} </h4>            
                 <hr>
             </div>
+            
+                
+            <div id='bouttons' border border-primary > 
+                <div> 
+                    
+                </div>
+            </div>
+                
+            <div id='bouttons' border border-primary > 
+                <div> 
+                   <%-- voir les message non lu --%> 
+                </div>
+                <div> 
+                   <%-- voir clients à decouvert--%> 
+                </div>
+                <div> 
+                   <%-- voir clients à decouvert--%> 
+                </div>
+            </div>           
             
                 
             
