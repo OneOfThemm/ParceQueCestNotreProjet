@@ -17,20 +17,25 @@ import java.util.List;
  */
 public class AdminDao {
     
-    public static User getByLoginPass(String mail, String mdp) throws SQLException {
-        User result = null;
-        String sql = "SELECT* FROM user WHERE mailuser=?AND mdpuser=?";
+    public static Admin getByLoginPass(String login, String mdp) throws SQLException {
+        Admin result = null;
+        String sql = "SELECT * FROM admin INNER JOIN user ON user.iduser=admin.iduser WHERE mdp =? AND loginAdmin =?";
 
         Connection connexion = AccessDao.getConnection();
 
         PreparedStatement requette = connexion.prepareStatement(sql); //vient de java sql
 
-        requette.setString(1, mail);
+        requette.setString(1, login);
         requette.setString(2, mdp);
 
         ResultSet rs = requette.executeQuery(); //on stock la réponse de la requette sql dans rs
 
         if (rs.next()) {
+            
+            result = new Admin();
+            
+            
+            /*
             result = new User();
             result.setId(rs.getInt("iduser"));
             result.setNom(rs.getString("nomuser"));
@@ -40,7 +45,7 @@ public class AdminDao {
             result.setSexe(rs.getString("sexeuser"));
             result.setTaille(rs.getInt("tailleuser"));
             result.setMail(rs.getString("mailuser"));
-            result.setMdp(rs.getString("mdpuser"));
+            result.setMdp(rs.getString("mdpuser")); */
 
         }
 
