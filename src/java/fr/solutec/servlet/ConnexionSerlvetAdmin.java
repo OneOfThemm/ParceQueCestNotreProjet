@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -77,8 +78,10 @@ public class ConnexionSerlvetAdmin extends HttpServlet {
         //processRequest(request, response);
         
             String login = request.getParameter("login");
-            String mdp = request.getParameter("mdp");             
+            String mdp = request.getParameter("mdp");  
             
+
+               
             try {
                 Admin ad = AdminDao.getByLoginPassAdmin(login, mdp);
              if (ad!= null) {
@@ -93,7 +96,6 @@ public class ConnexionSerlvetAdmin extends HttpServlet {
             out.println(e.getMessage());
         }
     }
-
     /**
      * Returns a short description of the servlet.
      *
