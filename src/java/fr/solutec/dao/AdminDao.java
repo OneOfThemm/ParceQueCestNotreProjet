@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package fr.solutec.dao;
+
 import fr.solutec.bean.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,12 +12,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author esic
  */
 public class AdminDao {
-    
+
     public static Admin getByLoginPassAdmin(String login, String mdp) throws SQLException {
         Admin result = null;
         String sql = "SELECT * FROM admin INNER JOIN user ON user.iduser=admin.iduser WHERE mdp =? AND loginAdmin =?";
@@ -31,7 +33,7 @@ public class AdminDao {
         ResultSet rs = requette.executeQuery(); //on stock la réponse de la requette sql dans rs
 
         if (rs.next()) {
-            
+
             result = new Admin();
             result.setLoginAdmin(rs.getString("loginAdmin"));
             result.setEmail(rs.getString("email"));
@@ -41,15 +43,14 @@ public class AdminDao {
             result.setPrenom(rs.getString("prenom"));
             result.setTel(rs.getString("tel"));
             result.setDateConnexion(rs.getDate("dateConnexion"));
-                     
 
         }
 
         return result;
     }
-    
-     public static void addAdmin(Admin admin) throws SQLException {
-       
+
+    public static void addAdmin(Admin admin) throws SQLException {
+
         String sqlAdmin = "INSERT INTO admin (loginAdmin, idUser)VALUES(?,?)";
         String sqlUser = "INSERT INTO user (idUser, nom, prenom, email, tel, dateConnexion,mdp) VALUES(?,?,?,?,?,?,?)";
         Connection connexion = AccessDao.getConnection();
@@ -58,7 +59,7 @@ public class AdminDao {
 
         ordreAdmin.setString(1, admin.getLoginAdmin());
         ordreAdmin.setInt(2, admin.getId());
-        
+
         ordreUser.setInt(1, admin.getId());
         ordreUser.setString(2, admin.getNom());
         ordreUser.setString(3, admin.getPrenom());
@@ -66,12 +67,12 @@ public class AdminDao {
         ordreUser.setString(5, admin.getTel());
         ordreUser.setDate(6, admin.getDateConnexion());
         ordreUser.setString(7, admin.getMdp());
-        
+
         ordreAdmin.execute();
         ordreUser.execute();
     }
-    
-     public static List<Admin> getAllAdmin() throws SQLException {
+
+    public static List<Admin> getAllAdmin() throws SQLException {
 
         List<Admin> result = new ArrayList<>();
 
@@ -83,7 +84,7 @@ public class AdminDao {
 
         ResultSet rs = requette.executeQuery(); //on stock la réponse de la requette sql dans rs
 
-        while (rs.next()) {                    
+        while (rs.next()) {
             Admin a = new Admin();
             a.setId(rs.getInt("idUser"));
             a.setNom(rs.getString("nom"));
@@ -92,8 +93,8 @@ public class AdminDao {
             a.setTel(rs.getString("tel"));
             a.setDateConnexion(rs.getDate("dateConnexion"));
             a.setMdp(rs.getString("mdp"));
-            a.setLoginAdmin(rs.getString("loginAdmin"));           
-            
+            a.setLoginAdmin(rs.getString("loginAdmin"));
+
             result.add(a);
         }
         return result;
