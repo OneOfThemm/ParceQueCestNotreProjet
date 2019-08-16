@@ -28,6 +28,8 @@
 
     <body>
         <br><br><br>
+        <div class="float-md-right " style="margin-right :200px"> <img src="Image/Logo.png" width="70" alt=""/></div>
+        <div class="float-md-left" style="margin-left :200px"> <img src="Image/Logo.png" width="70" alt=""/></div>
         <div class="container text-center">
             <h2>Liste des conseillers</h2>         
             <table id="ConsTable" class="table table-striped table-bordered"> 
