@@ -38,17 +38,14 @@ public class ConseillerDao {
     
     if (rs.next()) {
         result = new Conseiller( );
-        result.setId_Conseiller(rs.getInt("idUser"));
-        result.setLogin_conseiller(rs.getString("loginConseiller"));
-        
-        
+        result.setId(rs.getInt("idUser"));   
         result.setNom(rs.getString("nom"));
-        result.setNom(rs.getString("prenom"));
-        result.setNom(rs.getString("email"));
-        result.setNom(rs.getString("tel"));
-        result.setNom(rs.getString("dateConnexion"));
-
-
+        result.setPrenom(rs.getString("prenom"));
+        result.setEmail(rs.getString("email"));
+        result.setTel(rs.getString("tel"));
+        result.setDateConnexion(rs.getDate("dateConnexion"));
+        
+        result.setLogin_conseiller(rs.getString("loginConseiller"));
      }    
     return result;
 }
@@ -56,15 +53,18 @@ public class ConseillerDao {
     
     
        public static void insert (Conseiller person) throws SQLException {
-        String sql = "INSERT INTO conseiller (nom, prenom, login, mdp) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO conseiller (nom, prenom, email, tel,  dateConnexion,  mdp, login_conseiller) VALUES (?, ?, ?, ?)";
         
         Connection connexion = AccessDao.getConnection();
         
         PreparedStatement ordre = connexion.prepareStatement(sql);
         ordre.setString(1, person.getNom()  );
         ordre.setString(2, person.getPrenom()  );
-        ordre.setString(3, person.getLogin()  );
-        ordre.setString(4, person.getMdp()  );
+        ordre.setString(3, person.getEmail()  );
+        ordre.setString(4, person.getTel()  );
+        ordre.setDate(5, person.getDateConnexion()  );
+        ordre.setString(6, person.getMdp()  );
+        ordre.setString(7, person.getLogin_conseiller()  );
         
         
         ordre.execute();

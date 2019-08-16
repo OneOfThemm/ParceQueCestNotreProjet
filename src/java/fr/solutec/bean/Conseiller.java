@@ -5,30 +5,23 @@
  */
 package fr.solutec.bean;
 
+import java.sql.Date;
+
 /**
  *
  * @author esic
  */
 public class Conseiller extends User {
     
-    private int id_Conseiller;
+    
     private String login_conseiller;
 
     public Conseiller() {
     }
 
-    public Conseiller(int id_Conseiller, String login_conseiller) {
-        super();
-        this.id_Conseiller = id_Conseiller;
+    public Conseiller(int id, String nom, String prenom, String email, String tel, Date dateConnexion, String mdp, String login_conseiller) {
+        super(id,  nom,prenom, email, tel,  dateConnexion,  mdp);
         this.login_conseiller = login_conseiller;
-    }
-
-    public int getId_Conseiller() {
-        return id_Conseiller;
-    }
-
-    public void setId_Conseiller(int id_Conseiller) {
-        this.id_Conseiller = id_Conseiller;
     }
 
     public String getLogin_conseiller() {
