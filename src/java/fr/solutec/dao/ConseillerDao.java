@@ -16,12 +16,17 @@ import java.sql.SQLException;
  * @author esic
  */
 public class ConseillerDao {
-    
+ 
+    // `user` (`idUser`, `nom`, `prenom`, `email`, `tel`, `dateConnexion`, `mdp`)
+    // `loginConseiller` varchar(45) NOT NULL,
+    // `idUser` int(11) NOT NULL,
+    // `idMessage` int(11) NOT NULL,
+    // `idClient` int(11) NOT NULL,
     
     public static Conseiller getByLoginPass (String login, String mdp) throws SQLException{
     Conseiller result = null;
     
-    String sql = "SELECT * FROM personne WHERE login=? AND mdp =?";
+    String sql = "SELECT * FROM conseiller WHERE login=? AND mdp =?";
     
     Connection connexion = AccessDao.getConnection();
     
@@ -33,10 +38,17 @@ public class ConseillerDao {
     
     if (rs.next()) {
         result = new Conseiller( );
-        result.setId(rs.getInt("idpersonne"));
+        result.setId_Conseiller(rs.getInt("idUser"));
+        result.setLogin_conseiller(rs.getString("loginConseiller"));
+        
+        
         result.setNom(rs.getString("nom"));
-        result.setPrenom(rs.getString("prenom"));
-        result.setLogin(rs.getString("login"));     
+        result.setNom(rs.getString("prenom"));
+        result.setNom(rs.getString("email"));
+        result.setNom(rs.getString("tel"));
+        result.setNom(rs.getString("dateConnexion"));
+
+
      }    
     return result;
 }
@@ -44,7 +56,7 @@ public class ConseillerDao {
     
     
        public static void insert (Conseiller person) throws SQLException {
-        String sql = "INSERT INTO personne (nom, prenom, login, mdp) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO conseiller (nom, prenom, login, mdp) VALUES (?, ?, ?, ?)";
         
         Connection connexion = AccessDao.getConnection();
         
