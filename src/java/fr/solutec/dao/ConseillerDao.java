@@ -75,7 +75,7 @@ public class ConseillerDao {
     }
        
        
-       public static List<Conseiller> getAll() throws SQLException {
+    public static List<Conseiller> getAll() throws SQLException {
         List<Conseiller> result = new ArrayList<>();
 
         String sql = "SELECT * FROM conseiller";
@@ -102,6 +102,6 @@ public class ConseillerDao {
 
         }
         return result;
-    }
-
+    } 
+     
 }
