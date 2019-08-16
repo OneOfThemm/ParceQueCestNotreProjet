@@ -17,6 +17,7 @@ public class Compte {
     private String numCompte;
     private int client_idUser;
 
+    //Constructors
     public Compte() {
     }
 
@@ -29,6 +30,7 @@ public class Compte {
     }
 
     
+    //Getters
     public int getIdCompte() {
         return idCompte;
     }
@@ -54,6 +56,7 @@ public class Compte {
     }
 
     
+    //Setters
     public void setSolde(double solde) {
         this.solde = solde;
     }
