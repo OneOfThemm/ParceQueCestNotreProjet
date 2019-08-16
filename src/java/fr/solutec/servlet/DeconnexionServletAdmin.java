@@ -5,27 +5,20 @@
  */
 package fr.solutec.servlet;
 
-import com.sun.faces.application.resource.LibraryInfo;
-import fr.solutec.bean.Admin;
-import fr.solutec.bean.User;
-import fr.solutec.dao.AdminDao;
-import fr.solutec.dao.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author esic
  */
-@WebServlet(name = "HomeServletAdmin", urlPatterns = {"/homeadmin"})
-public class HomeServletAdmin extends HttpServlet {
+@WebServlet(name = "DeconnexionServletAdmin", urlPatterns = {"/deconnexionadmin"})
+public class DeconnexionServletAdmin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +37,10 @@ public class HomeServletAdmin extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeServletAdmin</title>");
+            out.println("<title>Servlet DeconnexionServletAdmin</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeServletAdmin at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeconnexionServletAdmin at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,27 +58,8 @@ public class HomeServletAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-
-        Admin ad = (Admin) session.getAttribute("admin");
-
-        request.setAttribute("adminn", ad);
-
-        if (ad != null) {
-            try {
-                List<Admin> admins = AdminDao.getAllAdmin();
-                request.setAttribute("listadmin", admins);
-            } catch (Exception e) {
-
-                PrintWriter out = response.getWriter();
-                out.println(e.getMessage());
-
-            }
-            request.getRequestDispatcher("WEB-INF/homeadmin.jsp").forward(request, response);
-        } else {
-            request.setAttribute("msg", "Entrée refusée. Veuillez vous connecter pour continuer");
-            request.getRequestDispatcher("LoginAdmin.jsp").forward(request, response);
-        }
+        request.getSession().invalidate();
+          request.getRequestDispatcher("LoginAdmin.jsp").forward(request, response);
     }
 
     /**
@@ -99,7 +73,7 @@ public class HomeServletAdmin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**
