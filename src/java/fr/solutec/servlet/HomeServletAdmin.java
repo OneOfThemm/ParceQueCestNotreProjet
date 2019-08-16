@@ -81,7 +81,7 @@ public class HomeServletAdmin extends HttpServlet {
                 out.println(e.getMessage());
 
             }
-            request.getRequestDispatcher("WEB-INF/homeAdmin.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/homeadmin.jsp").forward(request, response);
         } else {
             request.setAttribute("msg", "Entrée refusée");
             request.getRequestDispatcher("LoginAdmin.jsp").forward(request, response);

@@ -83,7 +83,7 @@ public class ConnexionSerlvetAdmin extends HttpServlet {
                 Admin ad = AdminDao.getByLoginPassAdmin(login, mdp);
              if (ad!= null) {
                 request.getSession(true).setAttribute("admin", ad);
-                response.sendRedirect("homeAdmin");
+                response.sendRedirect("homeadmin");
             } else {
                 request.setAttribute("msg", "Connexion refusée. Login ou mot de passe incorrect.");
                 request.getRequestDispatcher("LoginAdmin.jsp").forward(request, response);
