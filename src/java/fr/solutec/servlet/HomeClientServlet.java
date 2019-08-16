@@ -69,8 +69,8 @@ public class HomeClientServlet extends HttpServlet {
         if (u1 != null) {
 
             try {
-                List<Client> clients = ClientDao.getAll();
-                request.setAttribute("membres", clients);
+              //  List<Client> clients = ClientDao.getAll();
+               // request.setAttribute("membres", clients);
                 request.getRequestDispatcher("WEB-INF/homeclient.jsp").forward(request, response);
             } catch (Exception e) {
                 PrintWriter out = response.getWriter();
