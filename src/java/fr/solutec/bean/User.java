@@ -9,13 +9,13 @@ import java.sql.Date;
 
 public abstract class User {
 
-    private int id;
-    private String nom;
-    private String prenom;
-    private String email;
-    private String tel;
-    private Date dateConnexion;
-    private String mdp;
+    protected int id;
+    protected String nom;
+    protected String prenom;
+    protected String email;
+    protected String tel;
+    protected Date dateConnexion;
+    protected String mdp;
 
     public User(int id, String nom, String prenom, String email, String tel, Date dateConnexion, String mdp) {
         this.id = id;
