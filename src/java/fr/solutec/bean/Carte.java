@@ -52,6 +52,11 @@ public class Carte {
     }
     
     //Setters
+    public void setIdCarte(int idCarte) {
+        this.idCarte = idCarte;
+    }
+    
+    
     public void setNumCarte(String numCarte) {
         this.numCarte = numCarte;
     }

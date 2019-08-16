@@ -31,7 +31,7 @@ public class Message {
     }
 
     
-    //getters
+    //Getters
     public int getIdMessage() {
         return idMessage;
     }
@@ -52,7 +52,11 @@ public class Message {
         return user_idRecepteur;
     }
 
-    //setters
+    //Setters
+    public void setIdMessage(int idMessage) {
+        this.idMessage = idMessage;
+    }
+
     public void setCorpMessage(String corpMessage) {
         this.corpMessage = corpMessage;
     }
