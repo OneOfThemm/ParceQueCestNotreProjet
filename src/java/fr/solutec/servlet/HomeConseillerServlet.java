@@ -5,7 +5,9 @@
  */
 package fr.solutec.servlet;
 
+import fr.solutec.bean.ClientDecouvert;
 import fr.solutec.bean.Conseiller;
+import fr.solutec.dao.ClientDecouvertDao;
 import fr.solutec.dao.ConseillerDao;
 
 import java.io.IOException;
@@ -72,6 +74,8 @@ public class HomeConseillerServlet extends HttpServlet {
             try {
                /* List<Conseiller> conseillers = ConseillerDao.getAll();
                 request.setAttribute("member", conseillers);*/
+               List<ClientDecouvert> clients = ClientDecouvertDao.getAll();
+               request.setAttribute("clients", clients);
                 request.getRequestDispatcher("WEB-INF/homeConseiller.jsp").forward(request, response);
             } catch (Exception e) {
                 PrintWriter out = response.getWriter();

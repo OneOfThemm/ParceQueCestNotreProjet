@@ -37,39 +37,32 @@
                     <div>
                         <%-- affihher tous les message non lus --%>
                     </div>
+                    
                     <div>
-                        <%-- affihher les clients à decouverts --%>
-                        <script>
-                            $(document).ready(function () {
-                            $('#tablo').dataTable();
-                            });
-                        </script>
-                        
-                        <table id="tablo" class='table table-striped' >
-                        <thead class="thead-dark">
+                        <%-- affihher les clients à decouverts --%>  
+                        <table>
+                        <thead >
                             <tr>
-                                <th scope="col">%</th>
-                                <th> Nom</th>
-                                <th> Prénom</th>
+                                <th> Nom </th>
+                                <th> Prénom </th>
                                 <th> Téléphone </th>
-                                <th> n Compte</th>
-                                <th> solde</th>
-                                <th> decouvert autorisé </th>                                
+                                <th> N° Compte </th>
+                                <th> Solde </th>
+                                <th> Decouvert autorisé </th>                                
                             </tr>
                         </thead>
-                        
                         <tbody>
-                            <c:forEach items="${ClientDecouvert}" var="member"> 
-                                <tr>
-                                    <td scopa="row">${member.nom}</td>
-                                    <td scopa="row">${member.prenom}</td>
-                                    <td scopa="row">${member.tel}</td>
-                                    <td scopa="row">${member.numCompte}</td>
-                                    <td scopa="row">${member.solde}</td>
-                                    <td scopa="row">${member.decouvert}</td>
+                            <c:forEach items="${clients}" var="member"> 
+                                    <tr>
+                                        <td scopa="row">${member.nom}</td>
+                                        <td scopa="row">${member.prenom}</td>
+                                        <td scopa="row">${member.tel}</td>
+                                        <td scopa="row">${member.numCompte}</td>
+                                        <td scopa="row">${member.solde}</td>
+                                        <td scopa="row">${member.decouvert}</td>
 
-                                </tr>
-                            </c:forEach>
+                                    </tr>
+                                </c:forEach>
                         </tbody>
                         
                         
