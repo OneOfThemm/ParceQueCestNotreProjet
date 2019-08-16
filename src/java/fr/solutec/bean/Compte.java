@@ -56,7 +56,11 @@ public class Compte {
     }
 
     
-    //Setters
+    //Setters 
+    public void setIdCompte(int idCompte) {
+        this.idCompte = idCompte;
+    }
+
     public void setSolde(double solde) {
         this.solde = solde;
     }
