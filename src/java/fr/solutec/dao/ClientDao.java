@@ -31,7 +31,7 @@ public class ClientDao {
 
         if (rs.next()) {
             result = new Client();
-            result.setId(rs.getInt("idpersonne"));
+            result.setId(rs.getInt("idUser"));
             result.setNom(rs.getString("nom"));
             result.setPrenom(rs.getString("prenom"));
             result.setEmail(rs.getString("email"));
@@ -77,7 +77,7 @@ public class ClientDao {
         while (rs.next()) {
 
             Client u = new Client();
-            u.setId(rs.getInt("idpersonne"));
+            u.setId(rs.getInt("idUser"));
             u.setNom(rs.getString("nom"));
             u.setPrenom(rs.getString("prenom"));
             u.setEmail(rs.getString("email"));
