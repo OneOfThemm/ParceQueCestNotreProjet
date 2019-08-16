@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `nom` varchar(45) NOT NULL,
   `prenom` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `tel` int(11) NOT NULL,
+  `tel` varchar(45) NOT NULL,
   `dateConnexion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mdp` varchar(45) NOT NULL,
   PRIMARY KEY (`idUser`)
