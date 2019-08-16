@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 14 août 2019 à 14:50
+-- Généré le :  ven. 16 août 2019 à 09:09
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`loginAdmin`, `idUser`) VALUES
-('test', 1);
+('testAdmin', 1);
 
 -- --------------------------------------------------------
 
@@ -57,9 +57,18 @@ CREATE TABLE IF NOT EXISTS `carte` (
   `numCarte` varchar(45) NOT NULL,
   `dateExpirationCarte` datetime NOT NULL,
   `codeCarte` int(11) NOT NULL,
+  `compte_idCompte` int(11) NOT NULL,
   PRIMARY KEY (`idCarte`),
-  UNIQUE KEY `numCarte_UNIQUE` (`numCarte`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  UNIQUE KEY `numCarte_UNIQUE` (`numCarte`),
+  KEY `fk_carte_compte1_idx` (`compte_idCompte`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `carte`
+--
+
+INSERT INTO `carte` (`idCarte`, `numCarte`, `dateExpirationCarte`, `codeCarte`, `compte_idCompte`) VALUES
+(1, 'testCarte', '0000-00-00 00:00:00', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -71,14 +80,19 @@ DROP TABLE IF EXISTS `client`;
 CREATE TABLE IF NOT EXISTS `client` (
   `numClient` varchar(45) NOT NULL,
   `idUser` int(11) NOT NULL,
-  `idCompte` int(11) NOT NULL,
-  `idMessage` int(11) NOT NULL,
+  `conseiller_idUser` int(11) NOT NULL,
   PRIMARY KEY (`idUser`),
   UNIQUE KEY `numClient_UNIQUE` (`numClient`),
   KEY `fk_Client_User_idx` (`idUser`),
-  KEY `fk_Client_Compte1_idx` (`idCompte`),
-  KEY `fk_Client_Message1_idx` (`idMessage`)
+  KEY `fk_client_conseiller1_idx` (`conseiller_idUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `client`
+--
+
+INSERT INTO `client` (`numClient`, `idUser`, `conseiller_idUser`) VALUES
+('testClient', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -93,11 +107,18 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `plafond` double NOT NULL,
   `decouvert` double NOT NULL,
   `numCompte` varchar(45) NOT NULL,
-  `idCarte` int(11) NOT NULL,
+  `client_idUser` int(11) NOT NULL,
   PRIMARY KEY (`idCompte`),
   UNIQUE KEY `numCompte_UNIQUE` (`numCompte`),
-  KEY `fk_Compte_Carte1_idx` (`idCarte`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `fk_compte_client1_idx` (`client_idUser`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `compte`
+--
+
+INSERT INTO `compte` (`idCompte`, `solde`, `plafond`, `decouvert`, `numCompte`, `client_idUser`) VALUES
+(1, 1000, 100, 100, 'testCompte', 3);
 
 -- --------------------------------------------------------
 
@@ -109,13 +130,17 @@ DROP TABLE IF EXISTS `conseiller`;
 CREATE TABLE IF NOT EXISTS `conseiller` (
   `loginConseiller` varchar(45) NOT NULL,
   `idUser` int(11) NOT NULL,
-  `idMessage` int(11) NOT NULL,
-  `idClient` int(11) NOT NULL,
   PRIMARY KEY (`idUser`),
   UNIQUE KEY `login_UNIQUE` (`loginConseiller`),
-  KEY `fk_Conseiller_User1_idx` (`idUser`),
-  KEY `fk_Conseiller_Message1_idx` (`idMessage`)
+  KEY `fk_Conseiller_User1_idx` (`idUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `conseiller`
+--
+
+INSERT INTO `conseiller` (`loginConseiller`, `idUser`) VALUES
+('testConseiller', 2);
 
 -- --------------------------------------------------------
 
@@ -128,11 +153,11 @@ CREATE TABLE IF NOT EXISTS `message` (
   `idMessage` int(11) NOT NULL AUTO_INCREMENT,
   `corpsMessage` varchar(45) DEFAULT NULL,
   `dateMessage` datetime DEFAULT CURRENT_TIMESTAMP,
-  `Client_idUser` int(11) NOT NULL,
-  `Conseiller_idUser` int(11) NOT NULL,
+  `user_idEmetteur` int(11) NOT NULL,
+  `user_idRecepteur` int(11) NOT NULL,
   PRIMARY KEY (`idMessage`),
-  KEY `fk_Message_Client1_idx` (`Client_idUser`),
-  KEY `fk_Message_Conseiller1_idx` (`Conseiller_idUser`)
+  KEY `fk_message_user1_idx` (`user_idEmetteur`),
+  KEY `fk_message_user2_idx` (`user_idRecepteur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -151,15 +176,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `dateConnexion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mdp` varchar(45) NOT NULL,
   PRIMARY KEY (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`idUser`, `nom`, `prenom`, `email`, `tel`, `dateConnexion`, `mdp`) VALUES
-(1, 'test', 'test', 'test@test.fr', 0, '2019-08-14 16:47:08', 'test'),
-(2, 'clienttest', 'clienttest', 'test@test.fr', 0, '2019-08-14 16:48:07', 'clienttest');
+(1, 'testAdmin', 'testAdmin', 'testAdmin', 'testAdmin', '2019-08-16 08:55:55', 'testAdmin'),
+(2, 'testConseiller', 'testConseiller', 'testConseiller', 'testConseiller', '2019-08-16 08:55:55', 'testConseiller'),
+(3, 'testClient', 'testClient', 'testClient', 'testClient', '2019-08-16 08:55:55', 'testClient');
 
 --
 -- Contraintes pour les tables déchargées
@@ -172,32 +198,36 @@ ALTER TABLE `admin`
   ADD CONSTRAINT `fk_Admin_User1` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Contraintes pour la table `carte`
+--
+ALTER TABLE `carte`
+  ADD CONSTRAINT `fk_carte_compte1` FOREIGN KEY (`compte_idCompte`) REFERENCES `compte` (`idCompte`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Contraintes pour la table `client`
 --
 ALTER TABLE `client`
-  ADD CONSTRAINT `fk_Client_Compte1` FOREIGN KEY (`idCompte`) REFERENCES `compte` (`idCompte`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Client_Message1` FOREIGN KEY (`idMessage`) REFERENCES `message` (`idMessage`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Client_User` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Client_User` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_client_conseiller1` FOREIGN KEY (`conseiller_idUser`) REFERENCES `conseiller` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `compte`
 --
 ALTER TABLE `compte`
-  ADD CONSTRAINT `fk_Compte_Carte1` FOREIGN KEY (`idCarte`) REFERENCES `carte` (`idCarte`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_compte_client1` FOREIGN KEY (`client_idUser`) REFERENCES `client` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `conseiller`
 --
 ALTER TABLE `conseiller`
-  ADD CONSTRAINT `fk_Conseiller_Message1` FOREIGN KEY (`idMessage`) REFERENCES `message` (`idMessage`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Conseiller_User1` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `message`
 --
 ALTER TABLE `message`
-  ADD CONSTRAINT `fk_Message_Client1` FOREIGN KEY (`Client_idUser`) REFERENCES `client` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Message_Conseiller1` FOREIGN KEY (`Conseiller_idUser`) REFERENCES `conseiller` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_message_user1` FOREIGN KEY (`user_idEmetteur`) REFERENCES `user` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_message_user2` FOREIGN KEY (`user_idRecepteur`) REFERENCES `user` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
