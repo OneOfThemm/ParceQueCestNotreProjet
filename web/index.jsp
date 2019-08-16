@@ -17,7 +17,7 @@
     <body>
         <br> <br> <br> <br> <br>
         
-        <img class="text-center" src="../src/java/Image/Logo Caribou.png" alt=""/>
+        <img src="../src/java/Image/Logo.png"/>
         
         <div class="container border border-primary">
             <br>
