@@ -82,7 +82,7 @@ public class ConseillerDao {
         while (rs.next()) {
 
             Conseiller u = new Conseiller();
-            u.setId(rs.getInt("idpersonne"));
+            u.setId(rs.getInt("idUser"));
             u.setNom(rs.getString("nom"));
             u.setPrenom(rs.getString("prenom"));
             u.setEmail(rs.getString("email"));
