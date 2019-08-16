@@ -26,6 +26,9 @@
                 <div class="col-sm-2">
                     <button onclick="location.href = 'deco'"> Deconnexion </button>
                 </div>
+                <div class="col-sm-10">
+                    <h4 > votre dernière connexion était le ${client.dateConnexion} </h4>    
+                </div>
             </div>
                
                 <br>
