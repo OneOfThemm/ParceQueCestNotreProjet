@@ -7,7 +7,7 @@ package fr.solutec.bean;
 
 import java.sql.Date;
 
-public class User {
+public abstract class User {
 
     private int id;
     private String nom;
