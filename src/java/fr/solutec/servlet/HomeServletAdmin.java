@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author esic
  */
-@WebServlet(name = "HomeServletAdmin", urlPatterns = {"/HomeServletAdmin"})
+@WebServlet(name = "HomeServletAdmin", urlPatterns = {"/homeadmin"})
 public class HomeServletAdmin extends HttpServlet {
 
     /**
