@@ -25,6 +25,7 @@
                 </div>
                 <div class="col-sm-2">
                     <button onclick="location.href = 'deco'"> Deconnexion </button>
+                    <button onclick="location.href = 'MessagesClient'"> Messages </button>
                 </div>
             </div>
                
