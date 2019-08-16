@@ -33,7 +33,7 @@ public class AdminDao {
         if (rs.next()) {
             
             result = new Admin();
-            result.
+       
             
             /*
             result = new User();
