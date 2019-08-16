@@ -11,6 +11,20 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+                    <form action ="ConnexionConseillerServlet" method="POST">
+                <div class = "form-group">
+                    <input type="text" value="${param['login']}" name='login'
+                    placeholder="login" 
+                    class="form-control">
+                </div>
+                <div class = "form-group">
+                        <input name="mdp" type="password"
+                        placeholder="password" 
+                        class="form-control">
+                    </div>
+                <div class='text-center'>
+                    <button type="submit" class="btn btn-outline-dark"> Connexion</button>                    
+                </div>
+            </form>
     </body>
 </html>
