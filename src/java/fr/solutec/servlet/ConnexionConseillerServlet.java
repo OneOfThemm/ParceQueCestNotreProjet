@@ -85,7 +85,7 @@ public class ConnexionConseillerServlet extends HttpServlet {
                 Conseiller u = ConseillerDao.getByLoginPass(loginConseiller, mdp);
                 if (u != null) {
                     request.getSession(true).setAttribute("member", u);
-                    request.getRequestDispatcher("homeConseiller.jsp").forward(request, response);
+                    response.sendRedirect("homeConseiller.jsp");
                 } else {
                     request.setAttribute("msg", "cette zone est interdite");
                     request.getRequestDispatcher("LoginConseiller.jsp").forward(request, response);
