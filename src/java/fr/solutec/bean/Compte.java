@@ -10,6 +10,7 @@ package fr.solutec.bean;
  * @author esic
  */
 public class Compte {
+    private int idCompte;
     private double solde;
     private double plafond;
     private double decouvert;
@@ -26,8 +27,11 @@ public class Compte {
         this.numCompte = numCompte;
         this.client_idUser = client_idUser;
     }
+
     
-    
+    public int getIdCompte() {
+        return idCompte;
+    }
 
     public double getSolde() {
         return solde;
