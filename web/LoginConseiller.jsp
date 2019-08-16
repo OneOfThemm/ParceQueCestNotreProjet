@@ -14,11 +14,11 @@
     </head>
     <body>
             <div class="container">
-        <h1 class='text-center' style='color : #FF1493'>Login</h1>
+        <h1 class='text-center'>loginConseiller</h1>
         <div style="margin:auto; width: 50%">
             <form action ="ConnexionConseillerServlet" method="POST">
                 <div class = "form-group">
-                    <input type="text" value="${param['login']}" name='login'
+                    <input type="text" value="${param['loginConseiller']}" name='loginConseiller'
                     placeholder="login" 
                     class="form-control">
                 </div>
