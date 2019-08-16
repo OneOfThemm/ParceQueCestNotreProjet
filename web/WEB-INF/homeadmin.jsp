@@ -18,6 +18,8 @@
         <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
         <link  rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <title>JSP Page</title>
     </head>
     <nav class="navbar navbar-dark bg-dark">
@@ -28,6 +30,8 @@
 
     <body>
         <br><br><br>
+        <div class="float-md-right " style="margin-right :200px"> <img src="Image/Logo.png" width="70" alt=""/></div>
+        <div class="float-md-left" style="margin-left :200px"> <img src="Image/Logo.png" width="70" alt=""/></div>
         <div class="container text-center">
             <h2>Liste des conseillers</h2>         
             <table id="ConsTable" class="table table-striped table-bordered"> 
@@ -39,7 +43,9 @@
                         <th>Login</th>
                         <th>Email</th>
                         <th>Téléphone</th>
-                        <th>Supprimer</th>
+
+                        <th>Désactiver</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -52,12 +58,13 @@
                             <td>${conseiller.login_conseiller}</td>
                             <td>${conseiller.email}</td>
                             <td>${conseiller.tel}</td>
-                            <td> <button class="btn"><i class="fa fa-trash"></i></button> </td>
+                            <td> <button class="btn"><i class="fa fa-close"></i></button> </td>
                         </tr>
 
                     </c:forEach>
                 </tbody>
             </table>   
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Ajouter un conseiller</button> 
             <br>
             <br>
         </div>   
@@ -95,6 +102,50 @@
             </table>   
         </div>
 
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title " id="addModalLabel">Ajouter un conseiller : </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="POST" >
+                            <div class="form-group">
+                                <input type="text" value="${param['loginConseiller']}" name="login" placeholder="Login" required class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" value="${param['nom']}" name="nom" placeholder="Nom" required class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" value="${param['prenom']}" name="login" placeholder="Prénom" required class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" value="${param['email']}" name="email" placeholder="Email" required class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" name ="mdp1" value="${param['mdp1']}" placeholder="Mot de passe" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name ="mdp2" value="${param['mdp2']}" placeholder="Répéter le mot de passe" required class="form-control">
+                            </div>
+
+
+                            <div class="text-center">
+                                <button type ="submit" class="btn btn-primary">Ajouter le conseiller</button>   
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abandonner</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </body>
