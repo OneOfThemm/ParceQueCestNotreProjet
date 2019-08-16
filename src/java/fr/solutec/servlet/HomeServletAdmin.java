@@ -83,7 +83,7 @@ public class HomeServletAdmin extends HttpServlet {
             }
             request.getRequestDispatcher("WEB-INF/homeadmin.jsp").forward(request, response);
         } else {
-            request.setAttribute("msg", "Entrée refusée");
+            request.setAttribute("msg", "Entrée refusée. Veuillez vous connecter pour continuer");
             request.getRequestDispatcher("LoginAdmin.jsp").forward(request, response);
         }
     }
