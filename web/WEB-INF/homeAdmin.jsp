@@ -1,6 +1,6 @@
 <%-- 
-    Document   : homeConseiller
-    Created on : 16 août 2019, 10:23:32
+    Document   : homeAdmin
+    Created on : 16 août 2019, 11:18:14
     Author     : esic
 --%>
 
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Hello Admin!</h1>
     </body>
 </html>
