@@ -13,7 +13,7 @@ import java.sql.Date;
  */
 public class Admin extends User {
 
-    protected String loginAdmin;
+    protected String loginAdmin; 
 
     public Admin() {
     }
