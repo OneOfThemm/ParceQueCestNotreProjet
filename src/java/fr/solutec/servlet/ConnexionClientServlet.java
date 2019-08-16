@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author ESIC
  */
 @WebServlet(name = "ConnexionClient", urlPatterns = {"/ConnexionClient"})
-public class ConnexionClient extends HttpServlet {
+public class ConnexionClientServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
