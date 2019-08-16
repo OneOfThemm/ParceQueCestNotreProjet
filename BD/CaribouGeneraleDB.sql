@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 16 août 2019 à 09:09
+-- Généré le :  ven. 16 août 2019 à 14:00
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `carte` (
   `dateExpirationCarte` datetime NOT NULL,
   `codeCarte` int(11) NOT NULL,
   `compte_idCompte` int(11) NOT NULL,
+  `actif` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCarte`),
   UNIQUE KEY `numCarte_UNIQUE` (`numCarte`),
   KEY `fk_carte_compte1_idx` (`compte_idCompte`)
@@ -67,8 +68,8 @@ CREATE TABLE IF NOT EXISTS `carte` (
 -- Déchargement des données de la table `carte`
 --
 
-INSERT INTO `carte` (`idCarte`, `numCarte`, `dateExpirationCarte`, `codeCarte`, `compte_idCompte`) VALUES
-(1, 'testCarte', '0000-00-00 00:00:00', 0, 1);
+INSERT INTO `carte` (`idCarte`, `numCarte`, `dateExpirationCarte`, `codeCarte`, `compte_idCompte`, `actif`) VALUES
+(1, 'testCarte', '0000-00-00 00:00:00', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -175,6 +176,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `tel` varchar(45) NOT NULL,
   `dateConnexion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mdp` varchar(45) NOT NULL,
+  `actifuser` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idUser`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -182,10 +184,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`idUser`, `nom`, `prenom`, `email`, `tel`, `dateConnexion`, `mdp`) VALUES
-(1, 'testAdmin', 'testAdmin', 'testAdmin', 'testAdmin', '2019-08-16 08:55:55', 'testAdmin'),
-(2, 'testConseiller', 'testConseiller', 'testConseiller', 'testConseiller', '2019-08-16 08:55:55', 'testConseiller'),
-(3, 'testClient', 'testClient', 'testClient', 'testClient', '2019-08-16 08:55:55', 'testClient');
+INSERT INTO `user` (`idUser`, `nom`, `prenom`, `email`, `tel`, `dateConnexion`, `mdp`, `actifuser`) VALUES
+(1, 'testAdmin', 'testAdmin', 'testAdmin', 'testAdmin', '2019-08-16 08:55:55', 'testAdmin', 1),
+(2, 'testConseiller', 'testConseiller', 'testConseiller', 'testConseiller', '2019-08-16 08:55:55', 'testConseiller', 1),
+(3, 'testClient', 'testClient', 'testClient', 'testClient', '2019-08-16 08:55:55', 'testClient', 1);
 
 --
 -- Contraintes pour les tables déchargées

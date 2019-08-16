@@ -41,7 +41,7 @@ public class ConnexionClientServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConnexionClient</title>");            
+            out.println("<title>Servlet ConnexionClient</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ConnexionClient at " + request.getContextPath() + "</h1>");
@@ -62,7 +62,7 @@ public class ConnexionClientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     /**
@@ -76,24 +76,23 @@ public class ConnexionClientServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String numClient = request.getParameter("numClient");
+        String numClient = request.getParameter("numClient");
         String mdp = request.getParameter("mdp");
-        
-        
+
         try {
             Client u = ClientDao.getByLoginPass(numClient, mdp);
-            
-             if(u != null){
-        
-       // request.getSession(true).setAttribute("member", u);
-       // response.sendRedirect("homeclient"); 
-       
-       request.getRequestDispatcher("WEB-INF/homeclient.jsp").forward(request, response);
-       
-        }else{
-            request.setAttribute("msg", "Cette zone t'es inderdite");
-           request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
+
+            if (u != null) {
+
+                request.getSession(true).setAttribute("member", u);
+                response.sendRedirect("HomeClientServlet"); 
+
+                // request.getRequestDispatcher("WEB-INF/homeclient.jsp").forward(request, response);
+
+            } else {
+                request.setAttribute("msg", "Cette zone t'es inderdite");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
             out.println(e.getMessage());
