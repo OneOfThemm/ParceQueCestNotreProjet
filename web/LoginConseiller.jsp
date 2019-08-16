@@ -41,10 +41,10 @@
             
         <div class="container border border-primary">
             <br>
-            <h4 class="text-center login">Bienvenue sur votre site de connexion Conseiller</h4>
+            <h4 class="text-center login">Bienvenue sur votre site Conseiller</h4>
             <div class="container">
-                <h1 class='text-center'>loginConseiller</h1>
-                <div style="margin:auto; width: 50%">
+                <h3 class='text-center login'>Se Connecter</h3>
+                <div style="margin:auto; width: 80%">
                     <form action ="ConnexionConseillerServlet" method="POST">
                         <div class = "form-group">
                             <input type="text" value="${param['loginConseiller']}" name='loginConseiller'
@@ -57,7 +57,7 @@
                                 class="form-control">
                         </div>
                         <div class='text-center'>
-                            <button type="submit" class="btn btn-outline-dark"> Connexion</button>                    
+                            <button type="submit" class="btn btn btn-info"> Connexion</button>                    
                         </div>
                     </form>
                     <p class="text-danger">${msg}</p>
