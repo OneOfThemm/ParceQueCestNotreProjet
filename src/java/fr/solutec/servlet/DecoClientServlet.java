@@ -5,9 +5,6 @@
  */
 package fr.solutec.servlet;
 
-import fr.solutec.bean.Conseiller;
-import fr.solutec.dao.ConseillerDao;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author esic
+ * @author ESIC
  */
-@WebServlet(name = "ConnexionConseillerServlet", urlPatterns = {"/ConnexionConseillerServlet"})
-public class ConnexionConseillerServlet extends HttpServlet {
+@WebServlet(name = "DecoClientServlet", urlPatterns = {"/deco"})
+public class DecoClientServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +37,10 @@ public class ConnexionConseillerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConnexionConseillerServlet</title>");            
+            out.println("<title>Servlet DecoClientServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ConnexionConseillerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DecoClientServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,8 +58,8 @@ public class ConnexionConseillerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        request.getRequestDispatcher("LoginConseiller.jsp").forward(request, response);
+        request.getSession().invalidate();
+        response.sendRedirect("connexionClient");
     }
 
     /**
@@ -76,29 +73,7 @@ public class ConnexionConseillerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        
-        String loginConseiller = request.getParameter("loginConseiller");
-        String mdp = request.getParameter("mdp");
-        
-        try {
-            
-            Conseiller u = ConseillerDao.getByLoginPass(loginConseiller, mdp);
-            
-            if (u != null) {
-                // request.getSession(true).setAttribute("member", u);
-                // response.sendRedirect("homeclient"); 
-                
-                request.getRequestDispatcher("WEB-INF/homeConseiller.jsp").forward(request, response);
-            } else {
-                request.setAttribute("msg", "Cette zone t'es inderdite");
-                request.getRequestDispatcher("LoginConseiller.jsp").forward(request, response);
-            }
-           
-        } catch (Exception e) {
-            PrintWriter out = response.getWriter();
-            out.println(e.getMessage());
-        }
+        processRequest(request, response);
     }
 
     /**

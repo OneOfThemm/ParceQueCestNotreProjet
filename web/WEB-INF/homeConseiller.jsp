@@ -11,24 +11,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>page conseiller/title>
+        <title>page conseiller</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-        <div>            
-            <%-- <button type="button" onclick="location.href='deco'" class="btn btn-info bmd-btn-fab btn-pull-right"> D</button> --%> 
-        </div>
-        
-        <div class='text-center' style='color : #FF1493'>
-        <h1>Hello World!</h1>
-        </div>
+
         
         
-        <div class='container'>             
-            <hr>
-            <p> Bonjour ${conseiller.prenom} ${conseiller.nom} </p> 
-            <hr>
-        </div>
+        
+        
+        
+        
+        
         
     </body>
 </html>
