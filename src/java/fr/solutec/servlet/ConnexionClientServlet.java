@@ -5,6 +5,10 @@
  */
 package fr.solutec.servlet;
 
+import fr.solutec.bean.Client;
+import fr.solutec.bean.User;
+import fr.solutec.dao.ClientDao;
+import fr.solutec.dao.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ESIC
  */
-@WebServlet(name = "ConnexionClient", urlPatterns = {"/ConnexionClient"})
+@WebServlet(name = "ConnexionClient", urlPatterns = {"/connexionClient"})
 public class ConnexionClientServlet extends HttpServlet {
 
     /**
@@ -58,7 +62,7 @@ public class ConnexionClientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     /**
@@ -72,7 +76,25 @@ public class ConnexionClientServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       String numClient = request.getParameter("numClient");
+        String mdp = request.getParameter("mdp");
+        
+        
+        try {
+            Client u = ClientDao.getByLoginPass(numClient, mdp);
+            
+             if(u != null){
+        
+       request.getSession(true).setAttribute("member", u);
+       response.sendRedirect("homeclient");
+        }else{
+            request.setAttribute("msg", "Cette zone t'es inderdite");
+           request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+        }
     }
 
     /**
