@@ -29,7 +29,7 @@ public class ConseillerDao {
     public static Conseiller getByLoginPass (String login, String mdp) throws SQLException{
     Conseiller result = null;
     
-    String sql = "SELECT * FROM client INNER JOIN user ON user.idUser=client.idUser WHERE login=? AND mdp =?";
+    String sql = "SELECT * FROM conseiller INNER JOIN user ON user.idUser=conseiller.idUser WHERE loginConseiller=? AND mdp =?";
     
     Connection connexion = AccessDao.getConnection();
     
@@ -75,7 +75,7 @@ public class ConseillerDao {
     }
        
        
-       public static List<Conseiller> getAll() throws SQLException {
+    public static List<Conseiller> getAll() throws SQLException {
         List<Conseiller> result = new ArrayList<>();
 
         String sql = "SELECT * FROM conseiller";
@@ -102,6 +102,6 @@ public class ConseillerDao {
 
         }
         return result;
-    }
-
+    } 
+     
 }
