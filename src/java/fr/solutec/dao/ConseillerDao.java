@@ -19,14 +19,7 @@ import java.util.List;
  * @author esic
  */
 public class ConseillerDao {
- 
-    // `user` (`idUser`, `nom`, `prenom`, `email`, `tel`, `dateConnexion`, `mdp`)
-    // `loginConseiller` varchar(45) NOT NULL,
-    // `idUser` int(11) NOT NULL,
-    // `idMessage` int(11) NOT NULL,
-    // `idClient` int(11) NOT NULL,
-    
-    public static Conseiller getByLoginPass (String login, String mdp) throws SQLException{
+    public static Conseiller getByLoginPass (String loginConseiller, String mdp) throws SQLException{
     Conseiller result = null;
     
     String sql = "SELECT * FROM conseiller INNER JOIN user ON user.idUser=conseiller.idUser WHERE loginConseiller=? AND mdp =?";
@@ -34,7 +27,7 @@ public class ConseillerDao {
     Connection connexion = AccessDao.getConnection();
     
     PreparedStatement requette = connexion.prepareStatement(sql);
-    requette.setString(1, login);
+    requette.setString(1, loginConseiller);
     requette.setString(2, mdp);
     
     ResultSet rs = requette.executeQuery();

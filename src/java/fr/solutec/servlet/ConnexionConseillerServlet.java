@@ -78,11 +78,11 @@ public class ConnexionConseillerServlet extends HttpServlet {
         //processRequest(request, response);
         
         
-        String login = request.getParameter("login");
+        String loginConseiller = request.getParameter("loginConseiller");
         String mdp = request.getParameter("mdp");
 
         try {
-                Conseiller u = ConseillerDao.getByLoginPass(login, mdp);
+                Conseiller u = ConseillerDao.getByLoginPass(loginConseiller, mdp);
                 if (u != null) {
                     request.getSession(true).setAttribute("member", u);
                     request.getRequestDispatcher("homeConseiller.jsp").forward(request, response);
