@@ -33,6 +33,7 @@
             
           
         </div>
+         <p class="text-danger">${msg}</p>
     </div>
     </body>
 </html>

@@ -85,8 +85,11 @@ public class ConnexionClientServlet extends HttpServlet {
             
              if(u != null){
         
-       request.getSession(true).setAttribute("member", u);
-       response.sendRedirect("homeclient");
+       // request.getSession(true).setAttribute("member", u);
+       // response.sendRedirect("homeclient"); 
+       
+       request.getRequestDispatcher("homeclient.jsp").forward(request, response);
+       
         }else{
             request.setAttribute("msg", "Cette zone t'es inderdite");
            request.getRequestDispatcher("index.jsp").forward(request, response);
