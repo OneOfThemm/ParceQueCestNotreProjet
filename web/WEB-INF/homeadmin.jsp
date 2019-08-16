@@ -23,7 +23,7 @@
         <title>JSP Page</title>
     </head>
     <nav class="navbar navbar-dark bg-dark">
-        <p style="color:whitesmoke">Bonjour ${adminn.prenom}</p>    
+        <p style="color:whitesmoke">Bonjour ${adminn.prenom}</p>
         <button type="button" class="btn btn-raised btn-danger" onclick="location.href = 'deconnexionadmin'">Déconnexion</button>
 
     </nav>
@@ -66,6 +66,10 @@
             </table>   
             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Ajouter un conseiller</button> 
             <br>
+            <br>
+            <br>
+            <p class="text-danger">${msg}</p>
+            <p class="text-success">${msg2}</p>
             <br>
         </div>   
         <br>
@@ -112,30 +116,33 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="" method="POST" >
+                        <form action="ajoutconseiller" method="POST" >
                             <div class="form-group">
-                                <input type="text" value="${param['loginConseiller']}" name="login" placeholder="Login" required class="form-control">
+                                <input type="text"  name="login" placeholder="Login" required class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <input type="text" value="${param['nom']}" name="nom" placeholder="Nom" required class="form-control">
+                                <input type="text"  name="nom" placeholder="Nom" required class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <input type="text" value="${param['prenom']}" name="login" placeholder="Prénom" required class="form-control">
+                                <input type="text"  name="prenom" placeholder="Prénom" required class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <input type="email" value="${param['email']}" name="email" placeholder="Email" required class="form-control">
+                                <input type="email"  name="email" placeholder="Email" required class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <input type="password" name ="mdp1" value="${param['mdp1']}" placeholder="Mot de passe" required class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name ="mdp2" value="${param['mdp2']}" placeholder="Répéter le mot de passe" required class="form-control">
+                                <input type="text" name="tel" placeholder="Téléphone" required class="form-control">
                             </div>
 
+                            <div class="form-group">
+                                <input type="password" name ="mdp1"  placeholder="Mot de passe" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name ="mdp2"  placeholder="Répéter le mot de passe" required class="form-control">
+                            </div>
 
                             <div class="text-center">
                                 <button type ="submit" class="btn btn-primary">Ajouter le conseiller</button>   
