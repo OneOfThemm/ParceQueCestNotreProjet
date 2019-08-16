@@ -5,6 +5,8 @@
  */
 package fr.solutec.servlet;
 
+import fr.solutec.bean.Admin;
+import fr.solutec.dao.AdminDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -72,7 +74,24 @@ public class ConnexionSerlvetAdmin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        
+            String login = request.getParameter("login");
+            String mdp = request.getParameter("mdp");             
+            
+            try {
+                Admin ad = AdminDao.getByLoginPassAdmin(login, mdp);
+             if (ad!= null) {
+                request.getSession(true).setAttribute("admin", ad);
+                response.sendRedirect("homeAdmin");
+            } else {
+                request.setAttribute("msg", "Connexion refusée. Login ou mot de passe incorrect.");
+                request.getRequestDispatcher("LoginAdmin.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+        }
     }
 
     /**
