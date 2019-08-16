@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -46,13 +49,13 @@ public class ConseillerDao {
         result.setDateConnexion(rs.getDate("dateConnexion"));
         
         result.setLogin_conseiller(rs.getString("loginConseiller"));
-     }    
+        }    
     return result;
-}
+    }
     
     
     
-       public static void insert (Conseiller person) throws SQLException {
+    public static void insert (Conseiller person) throws SQLException {
         String sql = "INSERT INTO user (nom, prenom, email, tel,  dateConnexion,  mdp,login_conseiller) VALUES (?, ?, ?,? ,?,?,?)";
         
         Connection connexion = AccessDao.getConnection();
@@ -70,4 +73,35 @@ public class ConseillerDao {
         
         ordre.execute();
     }
+       
+       
+       public static List<Conseiller> getAll() throws SQLException {
+        List<Conseiller> result = new ArrayList<>();
+
+        String sql = "SELECT * FROM conseiller";
+
+        Connection connexion = AccessDao.getConnection();
+
+        Statement requette = connexion.createStatement();
+
+        ResultSet rs = requette.executeQuery(sql);
+
+        while (rs.next()) {
+
+            Conseiller u = new Conseiller();
+            u.setId(rs.getInt("idpersonne"));
+            u.setNom(rs.getString("nom"));
+            u.setPrenom(rs.getString("prenom"));
+            u.setEmail(rs.getString("email"));
+            u.setTel(rs.getString("tel"));
+            u.setDateConnexion(rs.getDate("dateConnexion"));
+            u.setMdp(rs.getString("mdp"));
+            u.setLogin_conseiller(rs.getString("loginConseiller"));
+
+            result.add(u);
+
+        }
+        return result;
+    }
+
 }
