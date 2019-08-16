@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-     <head>
+    <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
               <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
@@ -17,10 +17,14 @@
         <div class="container text-center">
             <h1 style ="color: #0099CC">CaribouGénéral <br> </h1>
         </div>
-        <div class="container">
+        <div class="container text-center">
             <hr>
+            <br>
+            <img src="Image/Logo.png" width="30" alt=""/>
         </div>
+
         <div class="container">
+            <br>
             <h2 class="text-center" style="color: #33b5e5">Connexion Administrateur</h2>
             <br><br>
             <div style="margin: auto; width :40%">
@@ -35,7 +39,10 @@
                         <button type ="submit" class="btn btn-outline-primary btn-lg">Valider</button>                     
                     </div>
                 </form>
-                <p class="text-danger">${msg}</p>
+                    <br><br>
+                <div class ="text-center">
+                    <p class="text-danger">${msg}</p>
+                </div>
             </div>
         </div>
 </html>
