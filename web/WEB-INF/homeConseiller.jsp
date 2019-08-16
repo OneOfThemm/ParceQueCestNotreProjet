@@ -17,17 +17,41 @@
     <body>
         
         <div class='container' >
+             
             
-            <div id='Bonjour'> 
+            <div id='Bonjour' style='background:#33b5e5; color: white'  > 
                 <hr>
                 <h1 class='text-center'> Bonjour ${conseiller.prenom} ${conseiller.nom} </h1> 
-                <h4 > votre dernière connexion était le ${conseiller.dateConnexion} </h4>            
+                <h4 class='text-center' > votre dernière connexion était le ${conseiller.dateConnexion} </h4>            
                 <hr>
             </div>
-            
+        </div>
+                
+        <div class='container' >        
+            <div class="row">
+                <div id='corps' class="col-md-9"style='border-color: #33b5e5;height:200px;'>
+                    <div>
+                        <%-- affihher tous les message non lus --%>
+                    </div>
+                    <div>
+                        <%-- affihher les clients à decouverts --%>
+                        
+                    </div>
+                </div>
+                <div class="col-md-1 " style='border-color: #33b5e5;height:200px;'>
+                    <br>
+                </div>
+                <div id='buttons' class="col-md-2 " style='border-color: #33b5e5;height:200px;'>
+                    Menu
+                </div>
+            </div>
+        </div>        
+
+                
+        
                 
             
-        </div>
+       
             
             
             
