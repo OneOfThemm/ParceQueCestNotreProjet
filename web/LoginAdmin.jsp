@@ -20,12 +20,11 @@
         <div class="container">
             <hr>
         </div>
-
         <div class="container">
             <h2 class="text-center" style="color: #33b5e5">Connexion Administrateur</h2>
             <br><br>
             <div style="margin: auto; width :40%">
-                <form action="connexionAdmin" method="POST" >
+                <form action="connexionadmin" method="POST" >
                     <div class="form-group">
                         <input type="text" value="${param['login']}" name="login" placeholder="Login" <%--required--%> class="form-control">
                     </div>
