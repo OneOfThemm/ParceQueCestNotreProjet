@@ -7,6 +7,7 @@ package fr.solutec.servlet;
 
 import fr.solutec.bean.Conseiller;
 import fr.solutec.dao.ConseillerDao;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -61,7 +62,7 @@ public class ConnexionConseillerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("LoginConseiller.jsp").forward(request, response);
     }
 
     /**
@@ -77,21 +78,24 @@ public class ConnexionConseillerServlet extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         
-        
-        String login = request.getParameter("login");
+        String loginConseiller = request.getParameter("loginConseiller");
         String mdp = request.getParameter("mdp");
-
+        
         try {
-                Conseiller u = ConseillerDao.getByLoginPass(login, mdp);
-                if (u != null) {
-                    request.getSession(true).setAttribute("member", u);
-                    request.getRequestDispatcher("homeConseiller.jsp").forward(request, response);
-                } else {
-                    request.setAttribute("msg", "cette zone est interdite");
-                    request.getRequestDispatcher("LoginConseiller.jsp").forward(request, response);
-                }            
-            } 
-        catch (Exception e) {
+            
+            Conseiller u = ConseillerDao.getByLoginPass(loginConseiller, mdp);
+            
+            if (u != null) {
+                // request.getSession(true).setAttribute("member", u);
+                // response.sendRedirect("homeclient"); 
+                
+                request.getRequestDispatcher("WEB-INF/homeConseiller.jsp").forward(request, response);
+            } else {
+                request.setAttribute("msg", "Cette zone t'es inderdite");
+                request.getRequestDispatcher("LoginConseiller.jsp").forward(request, response);
+            }
+           
+        } catch (Exception e) {
             PrintWriter out = response.getWriter();
             out.println(e.getMessage());
         }
