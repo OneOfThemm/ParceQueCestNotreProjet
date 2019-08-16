@@ -20,8 +20,8 @@
             
             <div id='Bonjour'> 
                 <hr>
-                <h1 class='text-center'> Bonjour ${conseiller.prenom} ${user.nom} </h1> 
-                <h4 > votre dernière connexion était le ${user.dateConnexion} </h4>            
+                <h1 class='text-center'> Bonjour ${conseiller.prenom} ${conseiller.nom} </h1> 
+                <h4 > votre dernière connexion était le ${conseiller.dateConnexion} </h4>            
                 <hr>
             </div>
             
