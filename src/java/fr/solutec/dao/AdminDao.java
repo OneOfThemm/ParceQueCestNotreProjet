@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class AdminDao {
     
-    public static Admin getByLoginPass(String login, String mdp) throws SQLException {
+    public static Admin getByLoginPassAdmin(String login, String mdp) throws SQLException {
         Admin result = null;
         String sql = "SELECT * FROM admin INNER JOIN user ON user.iduser=admin.iduser WHERE mdp =? AND loginAdmin =?";
 
@@ -71,7 +71,7 @@ public class AdminDao {
         ordreUser.execute();
     }
     
-     public static List<Admin> getAll() throws SQLException {
+     public static List<Admin> getAllAdmin() throws SQLException {
 
         List<Admin> result = new ArrayList<>();
 
