@@ -26,7 +26,9 @@ public class ConseillerDao {
     public static Conseiller getByLoginPass (String login, String mdp) throws SQLException{
     Conseiller result = null;
     
-    String sql = "SELECT * FROM conseiller WHERE login=? AND mdp =?";
+    String sql = "SELECT * FROM conseiller "
+            + "INNER JOIN user ON coneiller.idUser=user.idUser,"
+            + "WHERE login=? AND mdp =?";
     
     Connection connexion = AccessDao.getConnection();
     
@@ -53,7 +55,8 @@ public class ConseillerDao {
     
     
        public static void insert (Conseiller person) throws SQLException {
-        String sql = "INSERT INTO conseiller (nom, prenom, email, tel,  dateConnexion,  mdp, login_conseiller) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO user (nom, prenom, email, tel,  dateConnexion,  mdp) VALUES (?, ?, ?,? ,?,?)"
+                      + "INSERT INTO conseiller (login_conseiller) VALUES (?)";
         
         Connection connexion = AccessDao.getConnection();
         
@@ -62,8 +65,9 @@ public class ConseillerDao {
         ordre.setString(2, person.getPrenom()  );
         ordre.setString(3, person.getEmail()  );
         ordre.setString(4, person.getTel()  );
-        ordre.setDate(5, person.getDateConnexion()  );
+        ordre.setDate  (5, person.getDateConnexion()  );
         ordre.setString(6, person.getMdp()  );
+        
         ordre.setString(7, person.getLogin_conseiller()  );
         
         
