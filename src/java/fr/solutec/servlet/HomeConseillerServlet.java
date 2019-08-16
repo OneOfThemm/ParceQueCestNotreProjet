@@ -70,8 +70,8 @@ public class HomeConseillerServlet extends HttpServlet {
         if (u1 != null) {
 
             try {
-                List<Conseiller> conseillers = ConseillerDao.getAll();
-                request.setAttribute("member", conseillers);
+               /* List<Conseiller> conseillers = ConseillerDao.getAll();
+                request.setAttribute("member", conseillers);*/
                 request.getRequestDispatcher("WEB-INF/homeConseiller.jsp").forward(request, response);
             } catch (Exception e) {
                 PrintWriter out = response.getWriter();
