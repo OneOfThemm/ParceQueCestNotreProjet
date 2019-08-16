@@ -7,8 +7,10 @@ package fr.solutec.servlet;
 
 import com.sun.faces.application.resource.LibraryInfo;
 import fr.solutec.bean.Admin;
+import fr.solutec.bean.Conseiller;
 import fr.solutec.bean.User;
 import fr.solutec.dao.AdminDao;
+import fr.solutec.dao.ConseillerDao;
 import fr.solutec.dao.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -75,6 +77,9 @@ public class HomeServletAdmin extends HttpServlet {
             try {
                 List<Admin> admins = AdminDao.getAllAdmin();
                 request.setAttribute("listadmin", admins);
+                List<Conseiller> cons = ConseillerDao.getAll();
+                request.setAttribute("listcons", cons);
+                
             } catch (Exception e) {
 
                 PrintWriter out = response.getWriter();
