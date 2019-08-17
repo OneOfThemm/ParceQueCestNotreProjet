@@ -15,8 +15,8 @@ public class Client extends User {
     
     protected String numClient;
 
-    public Client(String numClient, int id, String nom, String prenom, String email, String tel, Date dateConnexion, String mdp) {
-        super(id, nom, prenom, email, tel, dateConnexion, mdp);
+    public Client(String numClient, int id, String nom, String prenom, String email, String tel, Date dateConnexion, String mdp, boolean actifuser) {
+        super(id, nom, prenom, email, tel, dateConnexion, mdp, actifuser);
         this.numClient = numClient;
     }
     

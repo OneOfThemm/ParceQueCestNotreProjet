@@ -19,7 +19,7 @@ public abstract class User {
     protected boolean actifuser;
 
 
-    public User(int id, String nom, String prenom, String email, String tel, Date dateConnexion, String mdp) {
+    public User(int id, String nom, String prenom, String email, String tel, Date dateConnexion, String mdp, boolean actifuser) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
