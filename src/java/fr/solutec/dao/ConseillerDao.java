@@ -70,6 +70,7 @@ public class ConseillerDao {
         ordreUser.setString(4, person.getTel());
         ordreUser.setDate  (5, person.getDateConnexion());
         ordreUser.setString(6, person.getMdp());
+        ordreUser.setBoolean(7, true);
         
         ordreConseiler.setString(1, person.getLogin_conseiller()  );
         
@@ -102,6 +103,67 @@ public class ConseillerDao {
             u.setDateConnexion(rs.getDate("dateConnexion"));
             u.setMdp(rs.getString("mdp"));
             u.setLogin_conseiller(rs.getString("loginConseiller"));
+            u.setActifUser(rs.getBoolean("actifuser"));
+
+            result.add(u);
+
+        }
+        return result;
+    } 
+    
+        public static List<Conseiller> getAllActifs() throws SQLException {
+        List<Conseiller> result = new ArrayList<>();
+
+        String sql = "SELECT * FROM conseiller INNER JOIN user ON user.idUser=conseiller.idUser WHERE actifuser = 1";
+
+        Connection connexion = AccessDao.getConnection();
+
+        Statement requette = connexion.createStatement();
+
+        ResultSet rs = requette.executeQuery(sql);
+
+        while (rs.next()) {
+
+            Conseiller u = new Conseiller();
+            u.setId(rs.getInt("idUser"));
+            u.setNom(rs.getString("nom"));
+            u.setPrenom(rs.getString("prenom"));
+            u.setEmail(rs.getString("email"));
+            u.setTel(rs.getString("tel"));
+            u.setDateConnexion(rs.getDate("dateConnexion"));
+            u.setMdp(rs.getString("mdp"));
+            u.setLogin_conseiller(rs.getString("loginConseiller"));
+            u.setActifUser(rs.getBoolean("actifuser"));
+
+            result.add(u);
+
+        }
+        return result;
+    } 
+        
+            public static List<Conseiller> getAllInactifs() throws SQLException {
+        List<Conseiller> result = new ArrayList<>();
+
+        String sql = "SELECT * FROM conseiller INNER JOIN user ON user.idUser=conseiller.idUser WHERE actifuser = 0";
+
+        Connection connexion = AccessDao.getConnection();
+
+        Statement requette = connexion.createStatement();
+
+        ResultSet rs = requette.executeQuery(sql);
+
+        while (rs.next()) {
+
+            Conseiller u = new Conseiller();
+            u.setId(rs.getInt("idUser"));
+            u.setNom(rs.getString("nom"));
+            u.setPrenom(rs.getString("prenom"));
+            u.setEmail(rs.getString("email"));
+            u.setTel(rs.getString("tel"));
+            u.setDateConnexion(rs.getDate("dateConnexion"));
+            u.setMdp(rs.getString("mdp"));
+            u.setLogin_conseiller(rs.getString("loginConseiller"));
+            u.setActifUser(rs.getBoolean("actifuser"));
 
             result.add(u);
 
