@@ -43,7 +43,7 @@ public class AdminDao {
             result.setPrenom(rs.getString("prenom"));
             result.setTel(rs.getString("tel"));
             result.setDateConnexion(rs.getDate("dateConnexion"));
-            result.setActifUser(true);
+            result.setActifUser(rs.getBoolean("actifuser"));
         }
 
         return result;
