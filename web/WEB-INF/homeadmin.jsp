@@ -33,7 +33,7 @@
         <div class="float-md-right " style="margin-right :200px"> <img src="Image/Logo.png" width="70" alt=""/></div>
         <div class="float-md-left" style="margin-left :200px"> <img src="Image/Logo.png" width="70" alt=""/></div>
         <div class="container text-center">
-            <h2>Liste des conseillers</h2>         
+            <h2>Liste des conseillers actifs</h2>         
             <table id="ConsTable" class="table table-striped table-bordered"> 
                 <thead class="thead-dark sticky">
                     <tr>
@@ -43,13 +43,11 @@
                         <th>Login</th>
                         <th>Email</th>
                         <th>Téléphone</th>
-
                         <th>Désactiver</th>
-
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${listcons}" var="conseiller">
+                    <c:forEach items="${listconsActifs}" var="conseiller">
                         <tr>
 
                             <td>${conseiller.id}</td>
@@ -66,16 +64,50 @@
             </table>   
             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Ajouter un conseiller</button> 
             <br>
-            <br>
-            <br>
+
+
             <p class="text-danger">${msg}</p>
             <p class="text-success">${msg2}</p>
             <br>
+             <hr>
         </div>   
+       
         <br>
-        <hr>
-        <br>
+        <div class="container text-center">
+            <h2>Liste des conseillers inactivés</h2>         
+            <table id="ConsTable" class="table table-striped table-bordered"> 
+                <thead class="thead-dark sticky">
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Login</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Désactiver</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${listconsInactifs}" var="conseiller">
+                        <tr>
 
+                            <td>${conseiller.id}</td>
+                            <td>${conseiller.prenom}</td>
+                            <td>${conseiller.nom}</td>
+                            <td>${conseiller.login_conseiller}</td>
+                            <td>${conseiller.email}</td>
+                            <td>${conseiller.tel}</td>
+                            <td> <button class="btn"><i class="fa fa-close"></i></button> </td>
+                        </tr>
+
+                    </c:forEach>
+                </tbody>
+            </table>   
+            <br>
+         
+            <br>
+        </div>  
+          <hr>
         <div class="container text-center">
             <h2>Liste des administrateurs</h2>         
             <table id="AdminTable" class="table table-striped table-bordered"> 
