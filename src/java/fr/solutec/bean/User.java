@@ -32,6 +32,13 @@ public abstract class User {
     public User(){
         
     }
+    public boolean getActifUser(){
+        return actifuser;
+    }
+    
+       public void setActifUser(boolean actifuser) {
+        this.actifuser = actifuser;
+    }
 
     public int getId() {
         return id;
@@ -101,11 +108,6 @@ public abstract class User {
     public String toString() {
         return "User{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", tel=" + tel + ", dateConnexion=" + dateConnexion + ", mdp=" + mdp + ", actifuser=" + actifuser + '}';
     }
-    
-
-    
-
-    
     
     
 }
