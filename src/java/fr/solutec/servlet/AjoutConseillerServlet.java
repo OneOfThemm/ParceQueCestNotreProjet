@@ -10,6 +10,8 @@ import fr.solutec.dao.ConseillerDao;
 import fr.solutec.dao.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -97,6 +99,8 @@ public class AjoutConseillerServlet extends HttpServlet {
                 c.setEmail(email);
                 c.setTel(tel);
                 c.setMdp(mdp1);
+                c.setActifUser(true);
+
 
                 ConseillerDao.insert(c);
 

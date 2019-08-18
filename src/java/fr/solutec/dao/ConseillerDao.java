@@ -49,11 +49,11 @@ public class ConseillerDao {
     
     
     public static void insert (Conseiller person) throws SQLException {
-        String sql = "INSERT INTO user (nom, prenom, email, tel,  dateConnexion,  mdp,login_conseiller) VALUES (?, ?, ?,? ,?,?,?)";
+        //String sql = "INSERT INTO user (nom, prenom, email, tel,  dateConnexion,  mdp,login_conseiller) VALUES (?, ?, ?,? ,?,?,?)";
         
-        //On va chercher à inserer les valeurs dans user et conseiller (car le conseiller dépend aussi de la table user, on a donc deux requetes SQL
+       //On va chercher à inserer les valeurs dans user et conseiller (car le conseiller dépend aussi de la table user, on a donc deux requetes SQL
         String sqlUser = "INSERT INTO user (nom, prenom, email, tel, dateConnexion,mdp,actifuser) VALUES(?,?,?,?,?,?,?)";
-        String sqlAdmin = "INSERT INTO conseiller (login_conseiller)VALUES(?)";
+        String sqlAdmin = "INSERT INTO conseiller (loginConseiller)VALUES(?)";
                 
         Connection connexion = AccessDao.getConnection();
         
@@ -70,7 +70,7 @@ public class ConseillerDao {
         ordreUser.setString(4, person.getTel());
         ordreUser.setDate  (5, person.getDateConnexion());
         ordreUser.setString(6, person.getMdp());
-        ordreUser.setBoolean(7, true);
+        ordreUser.setBoolean(7, person.getActifUser());
         
         ordreConseiler.setString(1, person.getLogin_conseiller()  );
         

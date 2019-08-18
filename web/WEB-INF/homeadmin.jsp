@@ -69,9 +69,9 @@
             <p class="text-danger">${msg}</p>
             <p class="text-success">${msg2}</p>
             <br>
-             <hr>
-        </div>   
-       
+            <hr>
+        </div>  
+
         <br>
         <div class="container text-center">
             <h2>Liste des conseillers inactivés</h2>         
@@ -84,7 +84,7 @@
                         <th>Login</th>
                         <th>Email</th>
                         <th>Téléphone</th>
-                        <th>Désactiver</th>
+                        <th>Activer</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,17 +97,20 @@
                             <td>${conseiller.login_conseiller}</td>
                             <td>${conseiller.email}</td>
                             <td>${conseiller.tel}</td>
-                            <td> <button class="btn"><i class="fa fa-close"></i></button> </td>
+                            <td> <button class="btn"><i class="fa fa-plus"></i></button> </td>
                         </tr>
 
                     </c:forEach>
                 </tbody>
             </table>   
             <br>
-         
+
             <br>
         </div>  
-          <hr>
+        <hr>
+        <br>
+        <div class="float-md-right " style="margin-right :200px"> <img src="Image/Logo.png" width="70" alt=""/></div>
+        <div class="float-md-left" style="margin-left :200px"> <img src="Image/Logo.png" width="70" alt=""/></div>
         <div class="container text-center">
             <h2>Liste des administrateurs</h2>         
             <table id="AdminTable" class="table table-striped table-bordered"> 
