@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -49,35 +50,45 @@ public class ConseillerDao {
     
     
     public static void insert (Conseiller person) throws SQLException {
-        //String sql = "INSERT INTO user (nom, prenom, email, tel,  dateConnexion,  mdp,login_conseiller) VALUES (?, ?, ?,? ,?,?,?)";
+       //String sql = "INSERT INTO user (nom, prenom, email, tel,  dateConnexion,  mdp,login_conseiller) VALUES (?, ?, ?,? ,?,?,?)";
         
        //On va chercher à inserer les valeurs dans user et conseiller (car le conseiller dépend aussi de la table user, on a donc deux requetes SQL
-        String sqlUser = "INSERT INTO user (nom, prenom, email, tel, dateConnexion,mdp,actifuser) VALUES(?,?,?,?,?,?,?)";
-        String sqlAdmin = "INSERT INTO conseiller (loginConseiller)VALUES(?)";
+        String sqlUser = "INSERT INTO user (nom, prenom, email, tel, mdp, actifuser) VALUES(?,?,?,?,?,?)";
+    
                 
         Connection connexion = AccessDao.getConnection();
         
         //On défini égalemnt deux preparestatement ORDRE : un pour CONSEILLER, un pour USER
         
         PreparedStatement ordreUser = connexion.prepareStatement(sqlUser);
-        PreparedStatement ordreConseiler = connexion.prepareStatement(sqlAdmin);
+      
         
         //ON RECUPERE LES INFOS DANS LA PERSONN PASSEE EN PARAMETRE, puis on prépare la requete SQL - côté USER et CONSEILLER
         
         ordreUser.setString(1, person.getNom());
         ordreUser.setString(2, person.getPrenom());
         ordreUser.setString(3, person.getEmail());
-        ordreUser.setString(4, person.getTel());
-        ordreUser.setDate  (5, person.getDateConnexion());
-        ordreUser.setString(6, person.getMdp());
-        ordreUser.setBoolean(7, person.getActifUser());
-        
-        ordreConseiler.setString(1, person.getLogin_conseiller()  );
-        
-        //On éxecute les deux ordres que l'on vient de préparer 
-        
+        ordreUser.setString(4, person.getTel());        
+        ordreUser.setString(5, person.getMdp());
+        ordreUser.setBoolean(6, person.getActifUser());
         ordreUser.execute();
+        
+        
+        String sqlGetIDUSER = "SELECT idUser FROM user WHERE email=?";
+        PreparedStatement requetteID = connexion.prepareStatement(sqlGetIDUSER);
+        requetteID.setString(1, person.getEmail());
+        
+        ResultSet rs = requetteID.executeQuery(); 
+        rs.next();
+        int ID = rs.getInt("idUser");
+            
+        String sqlCons = "INSERT INTO conseiller (loginConseiller,idUser) VALUES(?,?) ";
+        PreparedStatement ordreConseiler = connexion.prepareStatement(sqlCons);
+        ordreConseiler.setString(1, person.getLogin_conseiller());        
+        ordreConseiler.setInt(2, ID);
         ordreConseiler.execute();
+        
+        //On éxecute les deux ordres que l'on vient de préparer      
     }
        
        

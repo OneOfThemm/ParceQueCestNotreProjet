@@ -103,10 +103,7 @@ public class AjoutConseillerServlet extends HttpServlet {
 
 
                 ConseillerDao.insert(c);
-
-                request.getRequestDispatcher("WEB-INF/homeadmin.jsp").forward(request, response);
-                request.setAttribute("msg2", "Le nouveau conseiller a été créé avec succès");
-
+                response.sendRedirect("homeadmin");
             } catch (Exception e) {
                 PrintWriter out = response.getWriter();
                 out.println(e.getMessage());
