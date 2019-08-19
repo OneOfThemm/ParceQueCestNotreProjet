@@ -55,6 +55,14 @@ public class ConseillerDao {
         ordreModif.setInt(1, c.getId());
         ordreModif.execute();
     }
+    
+        public static void activerConseiller (Conseiller c) throws SQLException {
+        String sql = "UPDATE user SET actifUser = 1 WHERE idUser =?;";
+        Connection connexion = AccessDao.getConnection();
+        PreparedStatement ordreModif = connexion.prepareStatement(sql);
+        ordreModif.setInt(1, c.getId());
+        ordreModif.execute();
+    }
 
     public static void insert(Conseiller person) throws SQLException {
         //String sql = "INSERT INTO user (nom, prenom, email, tel,  dateConnexion,  mdp,login_conseiller) VALUES (?, ?, ?,? ,?,?,?)";

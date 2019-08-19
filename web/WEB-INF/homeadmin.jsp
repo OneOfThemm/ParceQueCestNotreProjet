@@ -130,10 +130,14 @@
                             <td>${conseiller.login_conseiller}</td>
                             <td>${conseiller.email}</td>
                             <td>${conseiller.tel}</td>
-                            <td> <button class="btn"><i class="fa fa-plus"></i></button> </td>
-                        </tr>
+                    <form method="GET" action="activerconseiller">
+                        <input type="hidden" value="${conseiller.id}" name="conseillerId">
+                        <td> <button type="submit" class="btn" ><i class="fa fa-plus"></i></button> </td>
+                    </form>
+                            
+                    </tr>
 
-                    </c:forEach>
+                </c:forEach>
                 </tbody>
             </table>   
             <br>
@@ -251,7 +255,7 @@
         <script>
 
             function recup(value) {
-                 document.getElementById("test").value = value;
+                document.getElementById("test").value = value;
             }
         </script>
     </body>
