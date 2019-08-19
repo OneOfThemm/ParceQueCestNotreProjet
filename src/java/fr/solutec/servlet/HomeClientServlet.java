@@ -43,7 +43,7 @@ public class HomeClientServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeClientServlet</title>");            
+            out.println("<title>Servlet HomeClientServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet HomeClientServlet at " + request.getContextPath() + "</h1>");
@@ -69,15 +69,16 @@ public class HomeClientServlet extends HttpServlet {
         Client u1 = (Client) session.getAttribute("member");
         request.setAttribute("client", u1);
         String NumC = u1.getNumClient();
-        
+
         if (u1 != null) {
 
             try {
-              //  List<Client> clients = ClientDao.getAll();
-               // request.setAttribute("membres", clients);
+                //  List<Client> clients = ClientDao.getAll();
+                // request.setAttribute("membres", clients);
+                List<Compte> comptes = CompteDao.getByOwner(NumC);
+                request.setAttribute("comptes", comptes);
                 request.getRequestDispatcher("WEB-INF/homeclient.jsp").forward(request, response);
-                List<Compte> messages = CompteDao.getByOwner(NumC);
-                request.setAttribute("comptes", messages);
+
             } catch (Exception e) {
                 PrintWriter out = response.getWriter();
                 out.println(e.getMessage());
