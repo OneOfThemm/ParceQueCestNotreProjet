@@ -17,7 +17,8 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"> 
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> </head>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> 
+    </head>
     <body>
         
         <div class='container' >
@@ -36,9 +37,9 @@
             
             
             <div class="btn-group float-right" id='buttonsVoir'>
-                <button button type="button" class="btn btn-info">Voir un client</button>
+                <button button type="button" class="btn btn-info" >Voir un client</button>
                     <%-- creer un compte, modifier compte(solde,plafond,decouvert), bloquer la carte du compte, voir l'historique du client--%>
-                <button button type="button" class="btn btn-outline-info">Voir tous mes clients</button>
+                <button button type="button" class="btn btn-outline-info" onclick="location.href='allClients'" >Voir tous mes clients</button>
             </div>        
         </div>
 
@@ -68,14 +69,14 @@
                     </thead>
                     
                     <tbody>
-                        <c:forEach items="${clientsD}" var="member"> 
+                        <c:forEach items="${clientsD}" var="clientsD"> 
                                     <tr>
-                                        <td scopa="row">${member.nom}</td>
-                                        <td scopa="row">${member.prenom}</td>
-                                        <td scopa="row">${member.tel}</td>
-                                        <td scopa="row">${member.numCompte}</td>
-                                        <td scopa="row">${member.solde}</td>
-                                        <td scopa="row">${member.decouvert}</td>
+                                        <td scopa="row">${clientsD.nom}</td>
+                                        <td scopa="row">${clientsD.prenom}</td>
+                                        <td scopa="row">${clientsD.tel}</td>
+                                        <td scopa="row">${clientsD.numCompte}</td>
+                                        <td scopa="row">${clientsD.solde}</td>
+                                        <td scopa="row">${clientsD.decouvert}</td>
                                     </tr>
                         </c:forEach>
                     </tbody>
