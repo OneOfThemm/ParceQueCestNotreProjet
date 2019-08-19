@@ -6,6 +6,7 @@
 package fr.solutec.servlet;
 
 import fr.solutec.bean.Client;
+import fr.solutec.bean.User;
 import fr.solutec.dao.ClientDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -93,7 +94,7 @@ public class ModificationProfilClientServlet extends HttpServlet {
             u1.setTel(tel);
             u1.setMdp(mdp);
             u1.setActifUser(true);
-
+            
            request.setAttribute("msgmodif","Modifications réalisées avec succès");
             response.sendRedirect("HomeClientServlet");
         } catch (Exception e) {

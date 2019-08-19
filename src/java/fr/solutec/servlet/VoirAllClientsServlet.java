@@ -5,10 +5,11 @@
  */
 package fr.solutec.servlet;
 
-import fr.solutec.bean.Client;
-import fr.solutec.bean.Compte;
-import fr.solutec.dao.ClientDao;
-import fr.solutec.dao.CompteDao;
+import fr.solutec.bean.ClientDecouvert;
+import fr.solutec.bean.Conseiller;
+import fr.solutec.dao.ClientDecouvertDao;
+import static fr.solutec.dao.ClientDecouvertDao.getAllClients;
+import fr.solutec.dao.ConseillerDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -21,10 +22,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ESIC
+ * @author esic
  */
-@WebServlet(name = "HomeClientServlet", urlPatterns = {"/HomeClientServlet"})
-public class HomeClientServlet extends HttpServlet {
+@WebServlet(name = "VoirAllClientsServlet", urlPatterns = {"/allClients"})
+public class VoirAllClientsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +44,10 @@ public class HomeClientServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeClientServlet</title>");            
+            out.println("<title>Servlet VoirAllClientsServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeClientServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet VoirAllClientsServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,20 +65,23 @@ public class HomeClientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-
-        Client u1 = (Client) session.getAttribute("member");
-        request.setAttribute("client", u1);
-        String NumC = u1.getNumClient();
         
+        HttpSession session = request.getSession(true);
+        Conseiller u1 = (Conseiller) session.getAttribute("member");
+        int idConseiller = u1.getId();
+        request.setAttribute("conseiller", u1);
         if (u1 != null) {
 
             try {
-              //  List<Client> clients = ClientDao.getAll();
-               // request.setAttribute("membres", clients);
-                request.getRequestDispatcher("WEB-INF/homeclient.jsp").forward(request, response);
-                List<Compte> messages = CompteDao.getByOwner(NumC);
-                request.setAttribute("comptes", messages);
+               List<Conseiller> conseillers = ConseillerDao.getAll();
+               request.setAttribute("member", conseillers);
+               
+               List<ClientDecouvert> clients = ClientDecouvertDao.getAllClients(idConseiller);
+               
+               request.setAttribute("clients", clients);
+               
+               request.getRequestDispatcher("WEB-INF/AllClient.jsp").forward(request, response);
+               
             } catch (Exception e) {
                 PrintWriter out = response.getWriter();
                 out.println(e.getMessage());
@@ -85,7 +89,7 @@ public class HomeClientServlet extends HttpServlet {
 
         } else {
             request.setAttribute("msg", "Petit malin");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("LoginConseiller.jsp").forward(request, response);
         }
     }
 
