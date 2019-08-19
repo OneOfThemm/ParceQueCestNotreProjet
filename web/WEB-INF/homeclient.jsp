@@ -118,20 +118,28 @@
                 <button id="popupmodifprofil" class="float-left"> Modifier votre profil </button>
             </div>
             <div id="modifprofil" title="Modification de Votre Profil Client">
+                <form action="ModificationProfilClientServlet" method="POST">
                 <h4>N° ${client.numClient}</h4>
-                <p><input type="text" value="${param['nom']}"
-                           placeholder="${client.nom}" required class="form-control text-center" name="nom"></p>
-                <p><input type="text" value="${param['prenom']}"
-                           placeholder="${client.prenom}" required class="form-control text-center" name="prenom"> </p>
+                <p>Nom</p>
+                <p><input type="text" value="${client.nom}"
+                            required class="form-control text-center" name="nom"></p>
+                <p>Prénom</p>
+                <p><input type="text" value="${client.prenom}"
+                           required class="form-control text-center" name="prenom"> </p>
                 <br>
-               <p><input type="text" value="${param['tel']}"
-                           placeholder="${client.tel}" required class="form-control text-center" name="tel"></p>
-                <p><input type="text" value="${param['email']}"
-                           placeholder="${client.email}" required class="form-control text-center" name="email"></p>
-                 <p><input type="password" value="${param['mdp']}"
-                           placeholder="${client.mdp}" required class="form-control text-center" name="mdp"></p>
-                <button id="validermodif" class="float-left"> Valider les modifications</button>
+                <p>Téléphone</p>
+               <p><input type="text" value="${client.tel}"
+                           required class="form-control text-center" name="tel"></p>
+               <p>E-mail</p>
+                <p><input type="text" value="${client.email}"
+                           required class="form-control text-center" name="email"></p>
+                <p>Mot de passe</p>
+                 <p><input type="text" value="${client.mdp}"
+                           required class="form-control text-center" name="mdp"></p>
+                 <button id="validermodif" class="float-left" type="submit"> Valider les modifications</button>
+                </form>
             </div>
+                <p class="text-success">${msgmodif}</p>
             <br>
 
         </div>
