@@ -5,26 +5,25 @@
  */
 package fr.solutec.servlet;
 
-import fr.solutec.bean.ClientDecouvert;
 import fr.solutec.bean.Conseiller;
-import fr.solutec.dao.ClientDecouvertDao;
 import fr.solutec.dao.ConseillerDao;
-
+import fr.solutec.dao.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.sql.Date;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author esic
  */
-@WebServlet(name = "HomeConseillerServlet", urlPatterns = {"/HomeConseillerServlet"})
-public class HomeConseillerServlet extends HttpServlet {
+@WebServlet(name = "AjoutConseillerServlet", urlPatterns = {"/ajoutconseiller"})
+public class AjoutConseillerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +42,10 @@ public class HomeConseillerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeConseillerServlet</title>");            
+            out.println("<title>Servlet AjoutConseillerServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeConseillerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AjoutConseillerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,28 +63,7 @@ public class HomeConseillerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // processRequest(request, response);
-        
-        HttpSession session = request.getSession(true);
-        Conseiller u1 = (Conseiller) session.getAttribute("member");
-        request.setAttribute("conseiller", u1);
-        if (u1 != null) {
-
-            try {
-               List<Conseiller> conseillers = ConseillerDao.getAll();
-                request.setAttribute("member", conseillers);
-               List<ClientDecouvert> clientsD = ClientDecouvertDao.getAll();
-               request.setAttribute("clientsD", clientsD);
-                request.getRequestDispatcher("WEB-INF/homeConseiller.jsp").forward(request, response);
-            } catch (Exception e) {
-                PrintWriter out = response.getWriter();
-                out.println(e.getMessage());
-            }
-
-        } else {
-            request.setAttribute("msg", "Petit malin");
-            request.getRequestDispatcher("LoginConseiller.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -99,7 +77,39 @@ public class HomeConseillerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // processRequest(request, response)
+
+        String loginConseiller = request.getParameter("login");
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
+        String email = request.getParameter("email");
+        String tel = request.getParameter("tel");
+        String mdp1 = request.getParameter("mdp1");
+        String mdp2 = request.getParameter("mdp2");
+
+        if (!(mdp1.equals(mdp2))) {
+            request.setAttribute("msg", "Les deux mots de passe doivent être indentiques. Échec de l'ajout d'un conseiller");
+            request.getRequestDispatcher("WEB-INF/homeadmin.jsp").forward(request, response);
+        } else {
+            try {
+                Conseiller c = new Conseiller();
+                c.setLogin_conseiller(loginConseiller);
+                c.setNom(nom);
+                c.setPrenom(prenom);
+                c.setEmail(email);
+                c.setTel(tel);
+                c.setMdp(mdp1);
+                c.setActifUser(true);
+
+
+                ConseillerDao.insert(c);
+                response.sendRedirect("homeadmin");
+            } catch (Exception e) {
+                PrintWriter out = response.getWriter();
+                out.println(e.getMessage());
+            }
+        }
+
     }
 
     /**

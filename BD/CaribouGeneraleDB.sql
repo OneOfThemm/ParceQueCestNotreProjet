@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 16 août 2019 à 14:00
+-- Généré le :  sam. 17 août 2019 à 10:49
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -141,7 +141,8 @@ CREATE TABLE IF NOT EXISTS `conseiller` (
 --
 
 INSERT INTO `conseiller` (`loginConseiller`, `idUser`) VALUES
-('testConseiller', 2);
+('testConseiller', 2),
+('testConsInactif', 4);
 
 -- --------------------------------------------------------
 
@@ -178,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `mdp` varchar(45) NOT NULL,
   `actifuser` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
@@ -187,7 +188,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`idUser`, `nom`, `prenom`, `email`, `tel`, `dateConnexion`, `mdp`, `actifuser`) VALUES
 (1, 'testAdmin', 'testAdmin', 'testAdmin', 'testAdmin', '2019-08-16 08:55:55', 'testAdmin', 1),
 (2, 'testConseiller', 'testConseiller', 'testConseiller', 'testConseiller', '2019-08-16 08:55:55', 'testConseiller', 1),
-(3, 'testClient', 'testClient', 'testClient', 'testClient', '2019-08-16 08:55:55', 'testClient', 1);
+(3, 'testClient', 'testClient', 'testClient', 'testClient', '2019-08-16 08:55:55', 'testClient', 1),
+(4, 'testConsIncactif', 'testConsInactif', 'testConsInactif', 'testConsInactif', '2019-08-17 12:29:12', 'testConsInactif', 0);
 
 --
 -- Contraintes pour les tables déchargées

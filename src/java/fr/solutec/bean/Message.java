@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 public class Message {
     
     private int idMessage;
-    private String corpMessage;
+    private String corpsMessage;
     private Timestamp dateMessage;
     private int user_idEmetteur;
     private int user_idRecepteur;
@@ -24,7 +24,7 @@ public class Message {
     }
 
     public Message(String corpMessage, Timestamp dateMessage, int user_idEmetteur, int user_idRecepteur) {
-        this.corpMessage = corpMessage;
+        this.corpsMessage = corpMessage;
         this.dateMessage = dateMessage;
         this.user_idEmetteur = user_idEmetteur;
         this.user_idRecepteur = user_idRecepteur;
@@ -36,8 +36,8 @@ public class Message {
         return idMessage;
     }
 
-    public String getCorpMessage() {
-        return corpMessage;
+    public String getCorpsMessage() {
+        return corpsMessage;
     }
 
     public Timestamp getDateMessage() {
@@ -57,8 +57,8 @@ public class Message {
         this.idMessage = idMessage;
     }
 
-    public void setCorpMessage(String corpMessage) {
-        this.corpMessage = corpMessage;
+    public void setCorpsMessage(String corpsMessage) {
+        this.corpsMessage = corpsMessage;
     }
 
     public void setDateMessage(Timestamp dateMessage) {

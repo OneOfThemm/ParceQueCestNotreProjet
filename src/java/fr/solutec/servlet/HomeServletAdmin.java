@@ -77,8 +77,12 @@ public class HomeServletAdmin extends HttpServlet {
             try {
                 List<Admin> admins = AdminDao.getAllAdmin();
                 request.setAttribute("listadmin", admins);
-                List<Conseiller> cons = ConseillerDao.getAll();
-                request.setAttribute("listcons", cons);
+                
+                List<Conseiller> consactifs = ConseillerDao.getAllActifs();
+                request.setAttribute("listconsActifs", consactifs);
+                
+                List<Conseiller> consInactifs = ConseillerDao.getAllInactifs();
+                request.setAttribute("listconsInactifs", consInactifs);
                 
             } catch (Exception e) {
 

@@ -43,7 +43,7 @@ public class AdminDao {
             result.setPrenom(rs.getString("prenom"));
             result.setTel(rs.getString("tel"));
             result.setDateConnexion(rs.getDate("dateConnexion"));
-
+            result.setActifUser(rs.getBoolean("actifuser"));
         }
 
         return result;
@@ -52,7 +52,7 @@ public class AdminDao {
     public static void addAdmin(Admin admin) throws SQLException {
 
         String sqlAdmin = "INSERT INTO admin (loginAdmin, idUser)VALUES(?,?)";
-        String sqlUser = "INSERT INTO user (idUser, nom, prenom, email, tel, dateConnexion,mdp) VALUES(?,?,?,?,?,?,?)";
+        String sqlUser = "INSERT INTO user (idUser, nom, prenom, email, tel, dateConnexion,mdp,actifuser) VALUES(?,?,?,?,?,?,?,?)";
         Connection connexion = AccessDao.getConnection();
         PreparedStatement ordreAdmin = connexion.prepareStatement(sqlAdmin);
         PreparedStatement ordreUser = connexion.prepareStatement(sqlUser);
@@ -67,6 +67,7 @@ public class AdminDao {
         ordreUser.setString(5, admin.getTel());
         ordreUser.setDate(6, admin.getDateConnexion());
         ordreUser.setString(7, admin.getMdp());
+        ordreUser.setBoolean(8, true);
 
         ordreAdmin.execute();
         ordreUser.execute();
@@ -76,7 +77,7 @@ public class AdminDao {
 
         List<Admin> result = new ArrayList<>();
 
-        String sql = "SELECT admin.idUser, nom, prenom, email, tel, dateConnexion, mdp, loginAdmin  FROM user INNER JOIN admin ON admin.idUser = user.idUser;";
+        String sql = "SELECT admin.idUser, nom, prenom, email, tel, dateConnexion, mdp, actifuser, loginAdmin  FROM user INNER JOIN admin ON admin.idUser = user.idUser;";
 
         Connection connexion = AccessDao.getConnection();
 
@@ -93,6 +94,7 @@ public class AdminDao {
             a.setTel(rs.getString("tel"));
             a.setDateConnexion(rs.getDate("dateConnexion"));
             a.setMdp(rs.getString("mdp"));
+            a.setActifUser(rs.getBoolean("actifuser"));
             a.setLoginAdmin(rs.getString("loginAdmin"));
 
             result.add(a);

@@ -16,8 +16,10 @@ public abstract class User {
     protected String tel;
     protected Date dateConnexion;
     protected String mdp;
+    protected boolean actifuser;
 
-    public User(int id, String nom, String prenom, String email, String tel, Date dateConnexion, String mdp) {
+
+    public User(int id, String nom, String prenom, String email, String tel, Date dateConnexion, String mdp, boolean actifuser) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -25,9 +27,17 @@ public abstract class User {
         this.tel = tel;
         this.dateConnexion = dateConnexion;
         this.mdp = mdp;
+        this.actifuser = actifuser;
     }
     public User(){
         
+    }
+    public boolean getActifUser(){
+        return actifuser;
+    }
+    
+       public void setActifUser(boolean actifuser) {
+        this.actifuser = actifuser;
     }
 
     public int getId() {
@@ -86,12 +96,18 @@ public abstract class User {
         this.mdp = mdp;
     }
 
-    
-    public String infoUser() {
-        return "User{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", tel=" + tel + ", dateConnexion=" + dateConnexion + ", mdp=" + mdp + '}';
+    public boolean isActifuser() {
+        return actifuser;
     }
-    
-    
+
+    public void setActifuser(boolean actifuser) {
+        this.actifuser = actifuser;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", tel=" + tel + ", dateConnexion=" + dateConnexion + ", mdp=" + mdp + ", actifuser=" + actifuser + '}';
+    }
     
     
 }

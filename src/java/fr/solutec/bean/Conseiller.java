@@ -19,8 +19,8 @@ public class Conseiller extends User {
     public Conseiller() {
     }
 
-    public Conseiller(int id, String nom, String prenom, String email, String tel, Date dateConnexion, String mdp, String login_conseiller) {
-        super(id,  nom,prenom, email, tel,  dateConnexion,  mdp);
+    public Conseiller(int id, String nom, String prenom, String email, String tel, Date dateConnexion, String mdp, boolean actifuser,String login_conseiller) {
+        super(id,  nom,prenom, email, tel,  dateConnexion,  mdp, actifuser);
         this.login_conseiller = login_conseiller;
     }
 
