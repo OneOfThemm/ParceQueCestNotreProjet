@@ -3,6 +3,7 @@
     Created on : 16 août 2019, 11:18:14
     Author     : esic
 --%>
+<%@page import="fr.solutec.servlet.HomeServletAdmin"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="fr.solutec.bean.*"%>
@@ -67,7 +68,9 @@
 
 
             <p class="text-danger">${msg}</p>
-            <p class="text-success">${msg2}</p>
+            <p class="text-success">${createOk}</p>            
+            <% HomeServletAdmin.msgCreateCOk = ""; %>
+            
             <br>
             <hr>
         </div>  
