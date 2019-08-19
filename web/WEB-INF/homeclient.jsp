@@ -12,13 +12,48 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home Client</title>
+
+        <style>
+            html
+            {
+                height: 100%;
+            }
+            .txt{
+                font-size: 50px; 
+            }
+            .fond{
+                height: 650px;
+                width: 1250px;
+            }
+
+            body
+            {
+                background-color:lightsteelblue !important;
+                height:100%;
+                margin:0;
+                padding:0;
+                
+            }
+            #main{
+            
+                    color: black;
+                    margin: auto;
+                    min-height:100%;
+                    width: 1024px;
+                    background-color: #f1f0f0 !important;
+                
+            }
+        </style>
     </head>
     <body>
-        <div class="container border border-primary">
+        
+       
+        
+        <div id="main" class="container border border-primary">
             <br>
             <div class="row">
-                <div >
-                    <img class="col-sm-2" src="../Image/Logo Caribou.png" alt=""/>
+                <div class="col-sm-2"  >
+                    <img src="../Image/Logo Caribou.png" alt=""/>
                 </div>
                 <div class="col-sm-8">
                     <h1>Bienvenu ${client.nom} ${client.prenom}</h1>
@@ -26,14 +61,18 @@
                 <div class="col-sm-2">
                     <button onclick="location.href = 'deco'"> Deconnexion </button>
                 </div>
-                <div class="col-sm-10">
-                    <h4 > votre dernière connexion était le ${client.dateConnexion} </h4>    
+                <div class="col-sm-9">
+                    
+                </div>
+                <div class="col-sm-3">
+                   
+                    <p> votre dernière connexion était le ${client.dateConnexion} </p>    
                 </div>
             </div>
-               
-                <br>
-                
+
+            <br>
+
         </div>
-                
+
     </body>
 </html>

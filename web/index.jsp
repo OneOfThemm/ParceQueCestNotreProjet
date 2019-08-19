@@ -19,10 +19,26 @@
                 margin-left: auto;
                 margin-right: auto }
             .titre{
-                color: #0099CC;
+                color: white;
             }
             .login{
                 color: #33b5e5;
+            }
+            body
+            {
+                background-color:lightsteelblue !important;
+                height:100%;
+                margin:0;
+                padding:0;
+            }
+            .main{
+            
+                    color: black;
+                    margin: auto;
+                    min-height:100%;
+                    width: 1024px;
+                    background-color: #f1f0f0 !important;
+                
             }
             </style>
 
@@ -36,7 +52,7 @@
                 <h2 class="text-center titre">Caribou Général, la banque de tous vos désirs.</h2>
             <br> <br>
         </div>
-        <div class="container border border-primary">
+        <div class="main container border border-primary">
             <br>
             <h4 class="text-center login">Bienvenue sur votre site de connexion client</h4>
             <div>
