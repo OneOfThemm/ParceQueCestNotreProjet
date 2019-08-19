@@ -67,17 +67,18 @@ public class VoirAllClientsServlet extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession(true);
-        Conseiller u1 = (Conseiller) session.getAttribute("member");
+        Conseiller u1 = (Conseiller) session.getAttribute("member");        
         int idConseiller = u1.getId();
-        request.setAttribute("conseiller", u1);
+        request.setAttribute("conseiller", u1);        
+        
+        
         if (u1 != null) {
 
             try {
                List<Conseiller> conseillers = ConseillerDao.getAll();
                request.setAttribute("member", conseillers);
                
-               List<ClientDecouvert> clients = ClientDecouvertDao.getAllClients(idConseiller);
-               
+               List<ClientDecouvert> clients = ClientDecouvertDao.getAllClients(idConseiller);               
                request.setAttribute("clients", clients);
                
                request.getRequestDispatcher("WEB-INF/AllClient.jsp").forward(request, response);

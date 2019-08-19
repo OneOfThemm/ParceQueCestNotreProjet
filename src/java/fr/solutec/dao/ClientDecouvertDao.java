@@ -59,7 +59,7 @@ public class ClientDecouvertDao {
     public static List<ClientDecouvert> getAllClients(int idConseiller) throws SQLException {
         List<ClientDecouvert> result = new ArrayList<>();
 
-        String sql = "SELECT Client.numClient, User.nom, User.prenom, User.email, User.tel, User.actifuser,compte.numCompte, compte.solde, compte.decouvert, compte.plafond  FROM user INNER JOIN client ON user.idUser = client.idUser INNER JOIN compte ON user.idUser = compte.client_idUser WHERE client.conseiller_IdUser = ? ORDER BY User.nom, User.prenom,compte.numCompte";
+        String sql = "SELECT Client.numClient, User.nom, User.prenom, User.email, User.tel, User.actifuser, compte.numCompte, compte.solde, compte.decouvert, compte.plafond FROM user INNER JOIN client ON user.idUser = client.idUser INNER JOIN compte ON user.idUser = compte.client_idUser WHERE client.conseiller_IdUser =? ORDER BY User.nom, User.prenom,compte.numCompte" ;
         
         Connection connexion = AccessDao.getConnection();
         PreparedStatement requette = connexion.prepareStatement(sql);

@@ -3,6 +3,7 @@
     Created on : 19 août 2019, 10:00:30
     Author     : esic
 --%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,7 +21,8 @@
     <body>
         <div id='Bonjour' style='background:#33b5e5; color: white'  >        
             <h1 class='text-center'> Bonjour ${conseiller.prenom} ${conseiller.nom} </h1> 
-            <h4 class='text-center' > Voici la liste de tous vos clients </h4>
+            <h4 class='text-center' > Liste de tous mes clients </h4>
+            
         </div>
          
         <div class='container' >
