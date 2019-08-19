@@ -6,13 +6,9 @@
 package fr.solutec.servlet;
 
 import fr.solutec.bean.Client;
-import fr.solutec.bean.User;
-import fr.solutec.dao.AccessDao;
-import fr.solutec.dao.ClientDao;
+import fr.solutec.bean.Message;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,10 +18,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ESIC
+ * @author esic
  */
-@WebServlet(name = "ModificationProfilClientServlet", urlPatterns = {"/ModificationProfilClientServlet"})
-public class ModificationProfilClientServlet extends HttpServlet {
+@WebServlet(name = "NewMessageServlet", urlPatterns = {"/NewMessage"})
+public class NewMessageServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +40,10 @@ public class ModificationProfilClientServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ModificationProfilClientServlet</title>");
+            out.println("<title>Servlet NewMessageServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ModificationProfilClientServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet NewMessageServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,7 +61,25 @@ public class ModificationProfilClientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(true);
+
+        Client u = (Client) session.getAttribute("member");
+        request.setAttribute("client", u);
+        Message m = new Message();
+       
+        if (u != null) {
+
+            try {
+                request.getRequestDispatcher("WEB-INF/newMessageClient.jsp").forward(request, response);
+            } catch (Exception e) {
+                PrintWriter out = response.getWriter();
+                out.println(e.getMessage());
+            }
+
+        } else {
+            
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -79,47 +93,7 @@ public class ModificationProfilClientServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String nom = request.getParameter("nom");
-        String prenom = request.getParameter("prenom");
-        String email = request.getParameter("email");
-        String tel = request.getParameter("tel");
-        String mdp = request.getParameter("mdp");
-
-        try {
-            HttpSession session = request.getSession(true);
-            Client u1 = (Client) session.getAttribute("member");
-            request.setAttribute("client", u1);
-
-            u1.setNom(nom);
-            u1.setPrenom(prenom);
-            u1.setEmail(email);
-            u1.setTel(tel);
-            u1.setMdp(mdp);
-            u1.setActifUser(true); 
-            
-            
-            String sqlUser = "UPDATE user SET nom = ?, prenom = ?, email = ?, tel = ?, mdp = ?, actifuser = ? WHERE idUser = ?;";
-            Connection connexion = AccessDao.getConnection();
-            PreparedStatement ordreUser = connexion.prepareStatement(sqlUser);
-            ordreUser.setString(1, nom);
-            ordreUser.setString(2, prenom);
-            ordreUser.setString(3, email);
-            ordreUser.setString(4, tel);
-            ordreUser.setString(5, mdp);
-            ordreUser.setBoolean(6, u1.getActifUser());
-            ordreUser.setInt(7, u1.getId());
-            ordreUser.execute();
-            
-            
-
-            request.setAttribute("msgmodif", "Modifications réalisées avec succès");
-            response.sendRedirect("HomeClientServlet");
-        } catch (Exception e) {
-            PrintWriter out = response.getWriter();
-            out.println(e.getMessage());
-
-        }
+        processRequest(request, response);
     }
 
     /**
