@@ -24,7 +24,7 @@ public class ClientDecouvertDao {
             public static List<ClientDecouvert> getAll() throws SQLException {
         List<ClientDecouvert> result = new ArrayList<>();
 
-        String sql = "SELECT User.idUser, User.nom, User.prenom, User.tel, compte.numCompte, compte.solde, compte.decouvert  FROM user INNER JOIN compte ON compte.client_idUser  = user.idUser WHERE compte.solde < compte.decouvert";
+        String sql = "SELECT User.idUser, User.nom, User.prenom, User.tel, compte.numCompte, compte.solde, compte.decouvert  FROM user INNER JOIN compte ON compte.client_idUser  = user.idUser WHERE compte.solde < -(compte.decouvert)";
 
         Connection connexion = AccessDao.getConnection();
 
