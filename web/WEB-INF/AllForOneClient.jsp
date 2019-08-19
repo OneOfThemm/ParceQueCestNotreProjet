@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>page conseiller Voir all clients</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -14,6 +15,7 @@
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> 
     </head>
     <body>
+        
         <div id='Bonjour' style='background:#33b5e5; color: white'  >        
             <h1 class='text-center'> Bonjour ${conseiller.prenom} ${conseiller.nom} </h1> 
             <h4 class='text-center' > Tous les compte de mon client </h4>
@@ -24,8 +26,12 @@
             </div>
             
         </div>
+        <br> <br><br> 
+        <div class='float-md-left'>            
+            <button type="button" id='popuAjoutCompt' class="btn btn-info"> + </button>
+        </div>
         
-        
+       
         
         <div class='container' >
             <table class="table table-striped">                            

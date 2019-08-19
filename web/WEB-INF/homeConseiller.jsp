@@ -149,23 +149,23 @@
                         <h4>N° ${client.numClient}</h4>
                         <p>Nom</p>
                         <p><input type="text" value="${conseiller.nom}"
-                                  required class="form-control text-center" name="nom" style="color: whitesmoke"></p>
+                                  required class="form-control text-center" name="nom" ></p>
                         <p>Prénom</p>
                         <p><input type="text" value="${conseiller.prenom}"
-                                  required class="form-control text-center" name="prenom" style="color: whitesmoke"> </p>
+                                  required class="form-control text-center" name="prenom" > </p>
                         <br>
                         <p>Téléphone</p>
                         <p><input type="text" value="${conseiller.tel}"
-                                  required class="form-control text-center" name="tel" style="color: whitesmoke"></p>
+                                  required class="form-control text-center" name="tel" ></p>
                         <p>E-mail</p>
                         <p><input type="text" value="${conseiller.email}"
-                                  required class="form-control text-center" name="email" style="color: whitesmoke"></p>
+                                  required class="form-control text-center" name="email" "></p>
                         <p>Login Conseiller</p>
                         <p><input type="text" value="${conseiller.login_conseiller}"
-                                  required class="form-control text-center" name="login_conseiller" style="color: whitesmoke"></p>
+                                  required class="form-control text-center" name="login_conseiller" ></p>
                         <p>Mot de passe</p>
                         <p><input type="text" value="${conseiller.mdp}"
-                                  required class="form-control text-center" name="mdp" style="color: whitesmoke"></p>
+                                  required class="form-control text-center" name="mdp" ></p>
                         <button id="validermodif" class="buttondial" type="submit" ><span>Valider les modifications</button>
                     </form>
                 </div>
