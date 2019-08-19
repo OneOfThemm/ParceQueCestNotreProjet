@@ -6,13 +6,10 @@
 package fr.solutec.servlet;
 
 import fr.solutec.bean.Client;
-import fr.solutec.bean.Message;
-import fr.solutec.dao.MessageDao;
+import fr.solutec.bean.Compte;
+import fr.solutec.dao.CompteDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,10 +19,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author esic
+ * @author ESIC
  */
-@WebServlet(name = "NewMessageServlet", urlPatterns = {"/NewMessage"})
-public class NewMessageServlet extends HttpServlet {
+@WebServlet(name = "VirementServlet", urlPatterns = {"/VirementServlet"})
+public class VirementServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +41,10 @@ public class NewMessageServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NewMessageServlet</title>");            
+            out.println("<title>Servlet VirementServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NewMessageServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet VirementServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,25 +62,7 @@ public class NewMessageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-
-        Client u = (Client) session.getAttribute("member");
-        request.setAttribute("client", u);
-
-       
-        if (u != null) {
-
-            try {
-                request.getRequestDispatcher("WEB-INF/newMessageClient.jsp").forward(request, response);
-            } catch (Exception e) {
-                PrintWriter out = response.getWriter();
-                out.println(e.getMessage());
-            }
-
-        } else {
-            
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -97,42 +76,22 @@ public class NewMessageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-
-        Client u = (Client) session.getAttribute("member");
-        request.setAttribute("client", u);
-        Message m = new Message();
-        m.setUser_idEmetteur(u.getId());
-        m.setUser_idRecepteur(u.getConseiller_idUser());
-        m.setCorpsMessage(request.getParameter("text"));
-        Date d = new Date();
-        Timestamp ts = new Timestamp(d.getTime());
-        m.setDateMessage(ts);
-        
+        String numcc = request.getParameter("numCompte1");
+        Double montant = Double.parseDouble(request.getParameter("montant"));
+        String numcd = request.getParameter("numCompte1");
         try {
-            MessageDao.insert (m);
-            if (u != null) {
+            Compte c1 = CompteDao.getByNum(numcc);
+            Compte c2 = CompteDao.getByNum(numcd);
+            Compte.virement(c1, c2, montant);
 
-            try {
-                List<Message> messages = MessageDao.getByUser(u);
-                request.setAttribute("messages", messages);
-                request.getRequestDispatcher("WEB-INF/messagesClient.jsp").forward(request, response);
-            } catch (Exception e) {
-                PrintWriter out = response.getWriter();
-                out.println(e.getMessage());
-            }
+            request.setAttribute("msgmodif", "Modifications réalisées avec succès");
+            response.sendRedirect("HomeClientServlet");
 
-        } else {
-            
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
-                out.println(e.getMessage());
-        }
-        
+            out.println(e.getMessage());
 
-        
+        }
     }
 
     /**

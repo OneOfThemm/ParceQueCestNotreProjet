@@ -81,7 +81,23 @@ public class Compte {
         this.client_idUser = client_idUser;
     }
     
-    
+    public static Double retrait(Compte c, Double montant){
+        Double nvsolde = c.getSolde();
+        nvsolde= nvsolde-montant;
+        
+       return nvsolde;
+    }
+    public static Double depot(Compte c, Double montant){
+        Double nvsolde = c.getSolde();
+        nvsolde= nvsolde+montant;
+        
+       return nvsolde;
+    }
+    public static void virement(Compte c, Compte d, Double montant){
+        retrait(c, montant);
+        depot(d, montant);
+        
+    }
     
     
 }
