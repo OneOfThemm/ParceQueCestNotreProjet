@@ -123,12 +123,15 @@
                 opacity: 1;
                 right: 0;
             }
-            #compteliste.ui-dialog{
-                width: 100% !important;
-            }
-            #compteliste.ui-dialog-content{
-                width: 100% !important;
-            }
+            /*  #compteliste.ui-dialog{
+                   height: 800px;
+                 
+                 width: 800;
+                 modal: true;
+             }
+             #compteliste.ui-dialog-content{
+                 width: 100% !important;
+             } */
         </style>
     </head>
     <body>
@@ -171,6 +174,7 @@
                 });
 
                 $("#compteclient").dialog({
+
                     autoOpen: false,
                     show: {
                         effect: "fade",
@@ -179,7 +183,18 @@
                     hide: {
                         effect: "fade",
                         duration: 1000
-                    }
+                    },
+                    maxWidth: 600,
+                    modal: true
+                   
+                    
+                });
+                $("#compteclient").dialog({
+                    minWidth: 800,
+                    minHeight: 700,
+                    position:{my: "bottom", at: "bottom", of: window}
+                    
+                  
                 });
 
                 $("#popupcompte").on("click", function () {
@@ -255,7 +270,7 @@
                     </form>
                 </div>
 
-                
+
 
 
                 <div id="compteclient" class="modal-fade" title="Vos Comptes">                  

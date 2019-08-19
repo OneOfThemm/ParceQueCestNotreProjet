@@ -24,6 +24,40 @@
     <body>
 <script>
             $(function () {
+                $("#profil").dialog({
+                    autoOpen: false,
+                    show: {
+                        effect: "fade",
+                        duration: 1000
+                    },
+                    hide: {
+                        effect: "fade",
+                        duration: 1000
+                    }
+                });
+
+                $("#popupprofil").on("click", function () {
+                    $("#profil").dialog("open");
+                });
+
+                $("#modifprofil").dialog({
+
+                    autoOpen: false,
+                    show: {
+                        effect: "fade",
+                        duration: 1000
+                    },
+                    hide: {
+                        effect: "fade",
+                        duration: 1000
+                    }
+
+                });
+                $("#popupmodifprofil").on("click", function () {
+                    $("#modifprofil").dialog("open");
+                    $("#profil").dialog("close");
+                });
+                
                     $("#creationprofil").dialog({
                           autoOpen: false,
                           show: {
@@ -50,6 +84,9 @@
                 <h1 class='text-center'> Bonjour ${conseiller.prenom} ${conseiller.nom} </h1> 
                 <h4 class='text-center' > votre dernière connexion était le ${conseiller.dateConnexion} </h4>            
                 <hr>
+                <div class="btn-group float-right" id='buttonsRight'>
+                    <button id="popupprofil" class="buttonmenu" style="color: aliceblue"> <span> Mon Profil </button>
+                </div>    
             </div>
         </div>
                 
@@ -94,7 +131,39 @@
                            required class="form-control text-center" name="mdp"></p>
                  <button id="validermodif" class="float-left" type="submit"> Valider</button>
                 </form>
-        </div>       
+        </div> 
+                
+        <div id="profil" class="modal-fade" title="Votre Profil Conseiller">
+                    <p>${conseiller.prenom} ${conseiller.nom} </p>
+                    <br>
+                    <p>login Conseiller : ${conseiller.login_conseiller}</p>
+                    <p>E-mail : ${conseiller.email}</p>
+                    <p>Téléphone : ${conseiller.tel}</p>
+                    <button id="popupmodifprofil" class="float-left buttondial"><span> Modifier mon profil </button>
+        </div>
+                    
+         <div id="modifprofil" title="Modification de Votre Profil Conseiller">
+                    <form action="XXXXXX" method="POST">
+                        <h4>N° ${client.numClient}</h4>
+                        <p>Nom</p>
+                        <p><input type="text" value="${conseiller.nom}"
+                                  required class="form-control text-center" name="nom" style="color: whitesmoke"></p>
+                        <p>Prénom</p>
+                        <p><input type="text" value="${conseiller.prenom}"
+                                  required class="form-control text-center" name="prenom" style="color: whitesmoke"> </p>
+                        <br>
+                        <p>Téléphone</p>
+                        <p><input type="text" value="${conseiller.tel}"
+                                  required class="form-control text-center" name="tel" style="color: whitesmoke"></p>
+                        <p>E-mail</p>
+                        <p><input type="text" value="${conseiller.email}"
+                                  required class="form-control text-center" name="email" style="color: whitesmoke"></p>
+                        <p>Mot de passe</p>
+                        <p><input type="text" value="${conseiller.mdp}"
+                                  required class="form-control text-center" name="mdp" style="color: whitesmoke"></p>
+                        <button id="validermodif" class="buttondial" type="submit" ><span>Valider les modifications</button>
+                    </form>
+                </div>
                 
                 
                 
@@ -108,7 +177,7 @@
                     
                 <div>                        
                     <%-- affihher les clients à decouverts --%> 
-                    <h1 class='text-center'> Mes clients à decouvert </h1>
+                    <h1 class='text-center'> Les clients à decouvert </h1>
                     
                     <table class="table table-striped">                            
                     <thead class="thead table-primary">
