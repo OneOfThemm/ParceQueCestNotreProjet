@@ -74,13 +74,13 @@ public class AjoutClientServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // int idClient = request.getParameter("id");
+        
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
         String email = request.getParameter("email");
         String tel = request.getParameter("tel");
-        String mdp1 = request.getParameter("mdp");
-        String actifuser = request.getParameter("actifuser");
+        String mdp = request.getParameter("mdp");
+        //String actifuser = request.getParameter("actifuser");
         
         String numClient = request.getParameter("numClient"); 
                 
@@ -88,13 +88,13 @@ public class AjoutClientServlet extends HttpServlet {
                 
         try {
                 Client c = new Client();
-                // c.setId(idClient);
+                c.setNumClient(numClient);
                 c.setNom(nom);
                 c.setPrenom(prenom);
                 c.setEmail(email);
                 c.setTel(tel);
-                c.setMdp(mdp1);
-                c.setActifUser(true);
+                c.setMdp(mdp);
+                //c.setActifUser(true);
 
                 ClientDao.insert(c);
                 //HomeServletAdmin.msgCreateCOk = "Client créé avec succès";
@@ -103,7 +103,7 @@ public class AjoutClientServlet extends HttpServlet {
                 PrintWriter out = response.getWriter();
                 out.println(e.getMessage());
             }
-        
+            response.sendRedirect("HomeConseillerServlet"); 
 
     }
    

@@ -76,13 +76,16 @@ public class ClientDao {
         
         ResultSet rs = requetteID.executeQuery(); 
         rs.next();
-        String NumClient = rs.getString("numClient");
+        int ID = rs.getInt("idUser");
             
-        String sqlCli = "INSERT INTO Client (numClient) VALUES(?) ";
-        PreparedStatement ordreConseiler = connexion.prepareStatement(sqlCli);              
-        ordreConseiler.setString(1, NumClient);
+        String sqlCli = "INSERT INTO client (numClient,idUser, conseiller_idUser) VALUES(?,?,?) ";
+        PreparedStatement ordreConseiler = connexion.prepareStatement(sqlCli);
+        ordreConseiler.setString(1, person.getNumClient());
+        ordreConseiler.setInt(2, ID);
+        ordreConseiler.setInt(3, 2);
         ordreConseiler.execute();
     }
+ 
 
     public static List<Client> getAll() throws SQLException {
         List<Client> result = new ArrayList<>();
