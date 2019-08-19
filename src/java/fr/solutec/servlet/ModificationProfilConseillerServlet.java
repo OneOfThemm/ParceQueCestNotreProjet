@@ -5,14 +5,12 @@
  */
 package fr.solutec.servlet;
 
-import fr.solutec.bean.Client;
-import fr.solutec.bean.Message;
-import fr.solutec.dao.MessageDao;
+import fr.solutec.bean.Conseiller;
+import fr.solutec.dao.AccessDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author esic
  */
-@WebServlet(name = "NewMessageServlet", urlPatterns = {"/NewMessage"})
-public class NewMessageServlet extends HttpServlet {
+@WebServlet(name = "ModificationProfilConseillerServlet", urlPatterns = {"/ModificationProfilConseillerServlet"})
+public class ModificationProfilConseillerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +42,10 @@ public class NewMessageServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NewMessageServlet</title>");            
+            out.println("<title>Servlet ModificationProfilConseillerServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NewMessageServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ModificationProfilConseillerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,25 +63,7 @@ public class NewMessageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-
-        Client u = (Client) session.getAttribute("member");
-        request.setAttribute("client", u);
-
-       
-        if (u != null) {
-
-            try {
-                request.getRequestDispatcher("WEB-INF/newMessageClient.jsp").forward(request, response);
-            } catch (Exception e) {
-                PrintWriter out = response.getWriter();
-                out.println(e.getMessage());
-            }
-
-        } else {
-            
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -97,42 +77,55 @@ public class NewMessageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-
-        Client u = (Client) session.getAttribute("member");
-        request.setAttribute("client", u);
-        Message m = new Message();
-        m.setUser_idEmetteur(u.getId());
-        m.setUser_idRecepteur(u.getConseiller_idUser());
-        m.setCorpsMessage(request.getParameter("text"));
-        Date d = new Date();
-        Timestamp ts = new Timestamp(d.getTime());
-        m.setDateMessage(ts);
         
+        
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
+        String email = request.getParameter("email");
+        String tel = request.getParameter("tel");
+        String login_conseiller = request.getParameter("login_conseiller");
+        String mdp = request.getParameter("mdp");
+
         try {
-            MessageDao.insert (m);
-            if (u != null) {
+            HttpSession session = request.getSession(true);
+            Conseiller u1 = (Conseiller) session.getAttribute("member");
+            request.setAttribute("conseiller", u1);
 
-            try {
-                List<Message> messages = MessageDao.getByUser(u);
-                request.setAttribute("messages", messages);
-                request.getRequestDispatcher("WEB-INF/messagesClient.jsp").forward(request, response);
-            } catch (Exception e) {
-                PrintWriter out = response.getWriter();
-                out.println(e.getMessage());
-            }
-
-        } else {
+            u1.setNom(nom);
+            u1.setPrenom(prenom);            
+            u1.setEmail(email);
+            u1.setTel(tel);
+            u1.setLogin_conseiller(login_conseiller);
+            u1.setMdp(mdp);
+            u1.setActifUser(true); 
             
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
+            
+            String sqlUser = "UPDATE user SET nom = ?, prenom = ?, email = ?, tel = ?, mdp = ?, actifuser = ? WHERE idUser = ?;";
+            Connection connexion = AccessDao.getConnection();
+            PreparedStatement ordreUser = connexion.prepareStatement(sqlUser);
+            ordreUser.setString(1, nom);
+            ordreUser.setString(2, prenom);
+            ordreUser.setString(3, email);
+            ordreUser.setString(4, tel);            
+            ordreUser.setString(5, mdp);
+            ordreUser.setBoolean(6, u1.getActifUser());
+            ordreUser.setInt(7, u1.getId());
+            ordreUser.execute();
+            
+            String sqlCons = "UPDATE conseiller SET loginConseiller= ?";
+            PreparedStatement ordreConseiller = connexion.prepareStatement(sqlCons);
+            ordreConseiller.setString(1, login_conseiller);
+            ordreConseiller.execute();
+            
+            
+
+            request.setAttribute("msgmodif", "Modifications réalisées avec succès");
+            response.sendRedirect("HomeConseillerServlet");
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
-                out.println(e.getMessage());
-        }
-        
+            out.println(e.getMessage());
 
-        
+        }
     }
 
     /**

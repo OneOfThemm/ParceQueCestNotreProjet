@@ -59,6 +59,33 @@ public class CompteDao {
 
         ordre.execute();
     }
+     
+     
+     public static List<Compte> getAllCompt (String numClient) throws SQLException {
+         List<Compte> result = new ArrayList<>();
+         String sql = "SELECT * FROM compte INNER JOIN client ON compte.client_idUser=client.idUser where client.numClient=?";
+         
+         
+        Connection connexion = AccessDao.getConnection();
+        PreparedStatement requette = connexion.prepareStatement(sql);
+        requette.setString(1, numClient);
+        
+    
+        ResultSet rs = requette.executeQuery();
+        
+        while (rs.next()) {
+            Compte c = new Compte();               
+            c.setIdCompte(rs.getInt("idCompte"));
+            c.setSolde(rs.getDouble("solde"));
+            c.setPlafond(rs.getDouble("plafond"));
+            c.setDecouvert(rs.getDouble("decouvert"));
+            c.setNumCompte(rs.getString("numClient"));
+            c.setClient_idUser(rs.getInt("client_idUser"));
+
+            result.add(c);           
+        }
+        return result;
+     }
      public static Compte getByNum(String numCompte) throws SQLException {
        
         String sql = "SELECT * FROM compte numCompte=?";
@@ -81,6 +108,5 @@ public class CompteDao {
             c.setClient_idUser(rs.getInt("client_idUser"));
 
             
-        return c;
-     }
+        return c;}
 }
