@@ -6,6 +6,7 @@
 package fr.solutec.dao;
 
 import fr.solutec.bean.Client;
+import fr.solutec.bean.Conseiller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,7 +46,7 @@ public class ClientDao {
 
     }
 
-    public static void insert(Client person) throws SQLException {
+    public static void insert(Client person,Conseiller member) throws SQLException {
         //String sql = "INSERT INTO client (nom, prenom, email, tel, dateConnexion, mdp, numClient) VALUES (?, ?, ?, ?, ?, ?, ?)";
         String sqlUser = "INSERT INTO user (nom, prenom, email, tel, mdp, actifuser) VALUES(?,?,?,?,?,?)";
         //Connection connexion = AccessDao.getConnection();
@@ -77,12 +78,13 @@ public class ClientDao {
         ResultSet rs = requetteID.executeQuery(); 
         rs.next();
         int ID = rs.getInt("idUser");
+        int conseiller_idUser = member.getId();
             
         String sqlCli = "INSERT INTO client (numClient,idUser, conseiller_idUser) VALUES(?,?,?) ";
         PreparedStatement ordreConseiler = connexion.prepareStatement(sqlCli);
         ordreConseiler.setString(1, person.getNumClient());
         ordreConseiler.setInt(2, ID);
-        ordreConseiler.setInt(3, 2);
+        ordreConseiler.setInt(3, conseiller_idUser);
         ordreConseiler.execute();
     }
  

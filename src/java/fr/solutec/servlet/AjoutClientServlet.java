@@ -6,6 +6,7 @@
 package fr.solutec.servlet;
 
 import fr.solutec.bean.Client;
+import fr.solutec.bean.Conseiller;
 import fr.solutec.dao.ClientDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -74,6 +76,11 @@ public class AjoutClientServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        Conseiller u1 = (Conseiller) session.getAttribute("member");
+        request.setAttribute("conseiller", u1);
+        
+        
         
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
@@ -96,7 +103,7 @@ public class AjoutClientServlet extends HttpServlet {
                 c.setMdp(mdp);
                 //c.setActifUser(true);
 
-                ClientDao.insert(c);
+                ClientDao.insert(c, u1);
                 //HomeServletAdmin.msgCreateCOk = "Client créé avec succès";
                 //response.sendRedirect("homeadmin");
             } catch (Exception e) {
