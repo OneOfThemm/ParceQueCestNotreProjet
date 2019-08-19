@@ -39,7 +39,7 @@
                 transform: translateY(6rem);
                 border-radius: 3px;
                 width: 700px;
-                height: 650px;
+                height: 600px;
                 padding-top: 5rem !important;
                 padding: 0 2rem;
                 background: rgba(0,0,0,0.75);
@@ -52,7 +52,7 @@
     </head>
     <body>
 
-        <div class="view" style="background-image: url('https://davidsuzuki.org/wp-content/uploads/2018/05/caribou-winter.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center; height: 100%">
+        <div class="view" style="background-image: url('https://media2.ledevoir.com/images_galerie/nwd_509728_366024/image.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center; height: 100%">
 
             <form class="login" action="connexionadmin" method="POST">
                 <div class="container text-center">
@@ -77,7 +77,7 @@
                             <input type="password" name ="mdp" placeholder="Mot de passe" <%--required--%> class="form-control">
                         </div>
                         <div class="text-center">
-                            <button type ="submit" class="btn btn-primary btn-lg">Valider</button>                     
+                            <button type ="submit" class="btn btn-outline-primary btn-lg" >Valider</button>                     
                         </div>
 
                         <br><br>
