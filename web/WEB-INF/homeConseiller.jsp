@@ -55,15 +55,18 @@
                 
         <div class='container' >  
             
-            <div class="btn-group float-left" id='buttonAjout'>
-                
+            <div class="btn-group float-left" id='buttonLeft'>                
                 <button button id="popupCreaClient" type="button" class="btn btn-info"> Ajouter un client</button>
+                <button button type="button" class="btn btn-outline-info" onclick="location.href='allClients'" >Voir tous mes clients</button>
+                
             </div>  
-            <div class="btn-group float-right" id='buttonsVoir'>
+            <div class="btn-group float-right" id='buttonsRight'>
                 <button button type="button" class="btn btn-info" >Voir un client</button>
                     <%-- creer un compte, modifier compte(solde,plafond,decouvert), bloquer la carte du compte, voir l'historique du client--%>
-                <button button type="button" class="btn btn-outline-info" onclick="location.href='allClients'" >Voir tous mes clients</button>
-            </div>        
+                <button type="button" class="btn btn-raised btn-danger" onclick="location.href = 'DeconnexionConseillerServlet'">Déconnexion</button>
+            </div>
+                <br> <br>
+                
         </div>
 
         
