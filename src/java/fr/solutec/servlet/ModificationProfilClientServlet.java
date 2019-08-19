@@ -5,25 +5,23 @@
  */
 package fr.solutec.servlet;
 
-import fr.solutec.bean.Conseiller;
-import fr.solutec.dao.ConseillerDao;
-import fr.solutec.dao.UserDao;
+import fr.solutec.bean.Client;
+import fr.solutec.dao.ClientDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author esic
+ * @author ESIC
  */
-@WebServlet(name = "AjoutConseillerServlet", urlPatterns = {"/ajoutconseiller"})
-public class AjoutConseillerServlet extends HttpServlet {
+@WebServlet(name = "ModificationProfilClientServlet", urlPatterns = {"/ModificationProfilClientServlet"})
+public class ModificationProfilClientServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +40,10 @@ public class AjoutConseillerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AjoutConseillerServlet</title>");
+            out.println("<title>Servlet ModificationProfilClientServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AjoutConseillerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ModificationProfilClientServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,8 +61,7 @@ public class AjoutConseillerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-          request.getRequestDispatcher("/homeadmin").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -78,41 +75,33 @@ public class AjoutConseillerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // processRequest(request, response)
 
-        String loginConseiller = request.getParameter("login");
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
         String email = request.getParameter("email");
         String tel = request.getParameter("tel");
-        String mdp1 = request.getParameter("mdp1");
-        String mdp2 = request.getParameter("mdp2");
+        String mdp = request.getParameter("mdp");
 
-        if (!(mdp1.equals(mdp2))) {
-            request.setAttribute("msg", "Les deux mots de passe doivent être indentiques. Échec de l'ajout d'un conseiller");
-            request.getRequestDispatcher("WEB-INF/homeadmin.jsp").forward(request, response);
-        } else {
-            try {
-                Conseiller c = new Conseiller();
-                c.setLogin_conseiller(loginConseiller);
-                c.setNom(nom);
-                c.setPrenom(prenom);
-                c.setEmail(email);
-                c.setTel(tel);
-                c.setMdp(mdp1);
-                c.setActifUser(true);
+        try {
+            HttpSession session = request.getSession(true);
+            Client u1 = (Client) session.getAttribute("member");
+            request.setAttribute("client", u1);
 
-                ConseillerDao.insert(c);
-                HomeServletAdmin.msgCreateCOk = "Conseiller créé avec succès";
-                response.sendRedirect("homeadmin");
-            } catch (Exception e) {
-                PrintWriter out = response.getWriter();
-                out.println(e.getMessage());
-            }
+            u1.setNom(nom);
+            u1.setPrenom(prenom);
+            u1.setEmail(email);
+            u1.setTel(tel);
+            u1.setMdp(mdp);
+            u1.setActifUser(true);
+
+           request.setAttribute("msgmodif","Modifications réalisées avec succès");
+            response.sendRedirect("HomeClientServlet");
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+
         }
-
     }
-    public static int valMsg = 0;
 
     /**
      * Returns a short description of the servlet.

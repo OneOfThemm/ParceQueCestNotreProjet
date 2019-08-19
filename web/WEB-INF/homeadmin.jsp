@@ -22,6 +22,26 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <title>JSP Page</title>
+        
+        <script>
+            function verifMdp(){
+                var mdp1 = document.getElementById("mdp1").value;
+                var mdp2 = document.getElementById("mdp2").value;
+                
+                if (mdp1!== mdp2){
+                    document.querySelector('#alertmdp').innerHTML= 'Les deux mots de passe doivent être identiques.';
+                    document.querySelector("#mdp1").style = "color : red !important";
+                    document.querySelector("#mdp2").style = "color : red !important";
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+            
+        </script>
+        
+        
     </head>
     <nav class="navbar navbar-dark bg-dark">
         <p style="color:whitesmoke">Bonjour ${adminn.prenom}</p>
@@ -64,13 +84,10 @@
                 </tbody>
             </table>   
             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Ajouter un conseiller</button> 
-            <br>
-
-
-            <p class="text-danger">${msg}</p>
-            <p class="text-success">${createOk}</p>            
-            <% HomeServletAdmin.msgCreateCOk = ""; %>
+            <br>        
             
+            <p class="text-success">${createOk}</p>            
+            <% HomeServletAdmin.msgCreateCOk = ""; %>            
             <br>
             <hr>
         </div>  
@@ -176,16 +193,19 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="password" name ="mdp1"  placeholder="Mot de passe" required class="form-control">
+                                <input id="mdp1" type="password" name ="mdp1"  placeholder="Mot de passe" required class="form-control">
                             </div>
                             <div class="form-group">
-                                <input type="password" name ="mdp2"  placeholder="Répéter le mot de passe" required class="form-control">
+                                <input id="mdp2" type="password" name ="mdp2"  placeholder="Répéter le mot de passe" required class="form-control">
                             </div>
 
                             <div class="text-center">
-                                <button type ="submit" class="btn btn-primary">Ajouter le conseiller</button>   
+                                <button type ="submit" class="btn btn-primary" onclick="return verifMdp()">Ajouter le conseiller</button>   
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Abandonner</button>
+                                <br>
+                                <p id="alertmdp" class="text-danger">${msg}</p>
                             </div>
+                            
                         </form>
                     </div>
                 </div>
