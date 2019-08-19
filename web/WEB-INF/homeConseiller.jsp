@@ -36,12 +36,15 @@
                 <div id='corps' class="col-md-9"style='border-color: #33b5e5;height:200px;'>
                     <div>
                         <%-- affihher tous les message non lus --%>
+                        <h1 class='text-center'> Mes messages </h1>
+                        <br> <br>
                     </div>
                     
-                    <div>
-                        <%-- affihher les clients à decouverts --%>  
-                        <table>
-                        <thead >
+                    <div>                        
+                        <%-- affihher les clients à decouverts --%> 
+                        <h1 class='text-center'> Mes clients à decouvert </h1>
+                        <table class="table table-striped">                            
+                        <thead class="thead table-primary">
                             <tr>
                                 <th> Nom </th>
                                 <th> Prénom </th>
@@ -52,7 +55,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${clients}" var="member"> 
+                            <c:forEach items="${clientsD}" var="member"> 
                                     <tr>
                                         <td scopa="row">${member.nom}</td>
                                         <td scopa="row">${member.prenom}</td>
@@ -64,8 +67,7 @@
                                     </tr>
                                 </c:forEach>
                         </tbody>
-                        
-                        
+                        </table>                        
                     </div>
                 </div>
                 <div class="col-md-1 " style='border-color: #33b5e5;height:200px;'>

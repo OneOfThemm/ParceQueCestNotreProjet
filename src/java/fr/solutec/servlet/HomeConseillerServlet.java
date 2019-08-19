@@ -72,10 +72,10 @@ public class HomeConseillerServlet extends HttpServlet {
         if (u1 != null) {
 
             try {
-               /* List<Conseiller> conseillers = ConseillerDao.getAll();
-                request.setAttribute("member", conseillers);*/
-               List<ClientDecouvert> clients = ClientDecouvertDao.getAll();
-               request.setAttribute("clients", clients);
+               List<Conseiller> conseillers = ConseillerDao.getAll();
+                request.setAttribute("member", conseillers);
+               List<ClientDecouvert> clientsD = ClientDecouvertDao.getAll();
+               request.setAttribute("clientsD", clientsD);
                 request.getRequestDispatcher("WEB-INF/homeConseiller.jsp").forward(request, response);
             } catch (Exception e) {
                 PrintWriter out = response.getWriter();
