@@ -47,6 +47,29 @@ public class ConseillerDao {
         }
         return result;
     }
+    
+    
+        public static Conseiller getConseillerById (int id) throws SQLException {
+        String sql = "SELECT nom,prenom,email,tel,mdp,loginConseiller FROM user INNER JOIN conseiller ON user.idUser=conseiller.idUser WHERE conseiller.idUser = ?";
+        Conseiller c = null;
+        Connection connexion = AccessDao.getConnection();        
+        PreparedStatement requette = connexion.prepareStatement(sql);
+        requette.setInt(1, id);
+        ResultSet rs = requette.executeQuery();
+        
+        if (rs.next()) {
+            c = new Conseiller();
+            c.setNom(rs.getString("nom"));
+            c.setPrenom(rs.getString("prenom"));
+            c.setEmail(rs.getString("email"));
+            c.setTel(rs.getString("tel"));
+            c.setMdp(rs.getString("mdp"));
+            c.setLogin_conseiller(rs.getString("loginConseiller"));
+   
+        }
+        
+        return c;
+    }
 
     public static void desactiverConseiller (Conseiller c) throws SQLException {
         String sql = "UPDATE user SET actifUser = 0 WHERE idUser =?;";

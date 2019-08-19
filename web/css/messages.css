@@ -1,0 +1,33 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19 août 2019, 09:27:19
+    Author     : esic
+*/
+
+.message, .messageRecent{
+    width: 800px;
+    border: 2px solid cyan;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+@keyframes border-pulsate {
+    0%   { border-color: rgba(0, 255, 255, 1); }
+    50%  { border-color: rgba(0, 255, 255, 0); }
+    100% { border-color: rgba(0, 255, 255, 1); }
+}
+
+.messageRecent{
+    animation: border-pulsate 0.5s infinite;
+}
+
+#textMessage{
+    float: right;
+    width: 1500px;
+    height: 500px;
+}
+
