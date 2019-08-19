@@ -4,6 +4,11 @@
 <!DOCTYPE html>
 <html>
     <head>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>page conseiller Voir all clients</title>
@@ -15,6 +20,7 @@
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> 
     </head>
     <body>
+
         
         <div id='Bonjour' style='background:#33b5e5; color: white'  >        
             <h1 class='text-center'> Bonjour ${conseiller.prenom} ${conseiller.nom} </h1> 
@@ -31,7 +37,7 @@
             <button type="button" id='popuAjoutCompt' class="btn btn-info"> + </button>
         </div>
         
-       
+        
         
         <div class='container' >
             <table class="table table-striped">                            
