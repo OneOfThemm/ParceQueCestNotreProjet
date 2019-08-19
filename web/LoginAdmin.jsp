@@ -39,7 +39,7 @@
                 transform: translateY(6rem);
                 border-radius: 3px;
                 width: 700px;
-                height: 600px;
+                height: 650px;
                 padding-top: 5rem !important;
                 padding: 0 2rem;
                 background: rgba(0,0,0,0.75);
@@ -77,7 +77,7 @@
                             <input type="password" name ="mdp" placeholder="Mot de passe" <%--required--%> class="form-control">
                         </div>
                         <div class="text-center">
-                            <button type ="submit" class="btn btn-outline-primary btn-lg" >Valider</button>                     
+                            <button type ="submit" class="btn btn-outline-primary btn-block" >Valider</button>                     
                         </div>
 
                         <br><br>
