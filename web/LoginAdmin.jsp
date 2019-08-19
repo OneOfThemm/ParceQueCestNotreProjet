@@ -77,7 +77,7 @@
                             <input type="password" name ="mdp" placeholder="Mot de passe" <%--required--%> class="form-control">
                         </div>
                         <div class="text-center">
-                            <button type ="submit" class="btn btn-primary btn-lg">Valider</button>                     
+                            <button type ="submit" class="btn btn-outline-primary btn-lg" >Valider</button>                     
                         </div>
 
                         <br><br>
