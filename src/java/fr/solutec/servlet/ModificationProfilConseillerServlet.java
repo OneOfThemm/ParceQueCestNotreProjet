@@ -5,13 +5,18 @@
  */
 package fr.solutec.servlet;
 
+import fr.solutec.bean.Conseiller;
+import fr.solutec.dao.AccessDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -72,7 +77,55 @@ public class ModificationProfilConseillerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
+        String email = request.getParameter("email");
+        String tel = request.getParameter("tel");
+        String login_conseiller = request.getParameter("login_conseiller");
+        String mdp = request.getParameter("mdp");
+
+        try {
+            HttpSession session = request.getSession(true);
+            Conseiller u1 = (Conseiller) session.getAttribute("member");
+            request.setAttribute("conseiller", u1);
+
+            u1.setNom(nom);
+            u1.setPrenom(prenom);            
+            u1.setEmail(email);
+            u1.setTel(tel);
+            u1.setLogin_conseiller(login_conseiller);
+            u1.setMdp(mdp);
+            u1.setActifUser(true); 
+            
+            
+            String sqlUser = "UPDATE user SET nom = ?, prenom = ?, email = ?, tel = ?, mdp = ?, actifuser = ? WHERE idUser = ?;";
+            Connection connexion = AccessDao.getConnection();
+            PreparedStatement ordreUser = connexion.prepareStatement(sqlUser);
+            ordreUser.setString(1, nom);
+            ordreUser.setString(2, prenom);
+            ordreUser.setString(3, email);
+            ordreUser.setString(4, tel);            
+            ordreUser.setString(5, mdp);
+            ordreUser.setBoolean(6, u1.getActifUser());
+            ordreUser.setInt(7, u1.getId());
+            ordreUser.execute();
+            
+            String sqlCons = "UPDATE conseiller SET loginConseiller= ?";
+            PreparedStatement ordreConseiller = connexion.prepareStatement(sqlCons);
+            ordreConseiller.setString(1, login_conseiller);
+            ordreConseiller.execute();
+            
+            
+
+            request.setAttribute("msgmodif", "Modifications réalisées avec succès");
+            response.sendRedirect("HomeConseillerServlet");
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+
+        }
     }
 
     /**

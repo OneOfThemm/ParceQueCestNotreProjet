@@ -145,7 +145,7 @@
         </div>
                     
          <div id="modifprofil" title="Modification de Votre Profil Conseiller">
-                    <form action="XXXXXX" method="POST">
+                    <form action="ModificationProfilConseillerServlet" method="POST">
                         <h4>N° ${client.numClient}</h4>
                         <p>Nom</p>
                         <p><input type="text" value="${conseiller.nom}"
@@ -160,6 +160,9 @@
                         <p>E-mail</p>
                         <p><input type="text" value="${conseiller.email}"
                                   required class="form-control text-center" name="email" style="color: whitesmoke"></p>
+                        <p>Login Conseiller</p>
+                        <p><input type="text" value="${conseiller.login_conseiller}"
+                                  required class="form-control text-center" name="login_conseiller" style="color: whitesmoke"></p>
                         <p>Mot de passe</p>
                         <p><input type="text" value="${conseiller.mdp}"
                                   required class="form-control text-center" name="mdp" style="color: whitesmoke"></p>
