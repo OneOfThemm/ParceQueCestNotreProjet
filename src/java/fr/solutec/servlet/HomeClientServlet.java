@@ -6,7 +6,9 @@
 package fr.solutec.servlet;
 
 import fr.solutec.bean.Client;
+import fr.solutec.bean.Compte;
 import fr.solutec.dao.ClientDao;
+import fr.solutec.dao.CompteDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -66,12 +68,16 @@ public class HomeClientServlet extends HttpServlet {
 
         Client u1 = (Client) session.getAttribute("member");
         request.setAttribute("client", u1);
+        String NumC = u1.getNumClient();
+        
         if (u1 != null) {
 
             try {
               //  List<Client> clients = ClientDao.getAll();
                // request.setAttribute("membres", clients);
                 request.getRequestDispatcher("WEB-INF/homeclient.jsp").forward(request, response);
+                List<Compte> messages = CompteDao.getByOwner(NumC);
+                request.setAttribute("comptes", messages);
             } catch (Exception e) {
                 PrintWriter out = response.getWriter();
                 out.println(e.getMessage());

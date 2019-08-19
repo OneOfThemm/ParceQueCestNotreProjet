@@ -90,7 +90,7 @@ public class ConnexionClientServlet extends HttpServlet {
                 // request.getRequestDispatcher("WEB-INF/homeclient.jsp").forward(request, response);
 
             } else {
-                request.setAttribute("msg", "Cette zone t'es inderdite");
+                request.setAttribute("msg", "Login ou Mot de passe inconu.");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }
         } catch (Exception e) {
