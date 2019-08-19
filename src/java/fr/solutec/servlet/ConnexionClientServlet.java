@@ -7,10 +7,16 @@ package fr.solutec.servlet;
 
 import fr.solutec.bean.Client;
 import fr.solutec.bean.User;
+import fr.solutec.dao.AccessDao;
 import fr.solutec.dao.ClientDao;
 import fr.solutec.dao.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -78,13 +84,23 @@ public class ConnexionClientServlet extends HttpServlet {
             throws ServletException, IOException {
         String numClient = request.getParameter("numClient");
         String mdp = request.getParameter("mdp");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = new Date(0,0,0);
+        String timestamp= sdf.format(new Timestamp(System.currentTimeMillis()));
+        d=Date.valueOf(timestamp);
 
         try {
             Client u = ClientDao.getByLoginPass(numClient, mdp);
 
             if (u != null) {
-
+                String sqlUser = "UPDATE user SET dateConnexion = ? WHERE idUser = ?;";
+        Connection connexion = AccessDao.getConnection();
+            PreparedStatement ordreUser = connexion.prepareStatement(sqlUser);
+            ordreUser.setDate(1, d);
+            ordreUser.setInt(2, u.getId());
+            ordreUser.execute();
                 request.getSession(true).setAttribute("member", u);
+                
                 response.sendRedirect("HomeClientServlet"); 
 
                 // request.getRequestDispatcher("WEB-INF/homeclient.jsp").forward(request, response);
