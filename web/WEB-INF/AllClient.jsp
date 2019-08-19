@@ -23,6 +23,11 @@
             <h1 class='text-center'> Bonjour ${conseiller.prenom} ${conseiller.nom} </h1> 
             <h4 class='text-center' > Liste de tous mes clients </h4>
             
+            <div class="btn-group float-right" id='buttonsRight'>
+                <button type="button" class="btn " onclick="location.href = 'RetourHomeConseillerServlet'">Retour</button>
+                <button type="button" class="btn " onclick="location.href = 'DeconnexionConseillerServlet'">Déconnexion</button>
+            </div>
+            
         </div>
          
         <div class='container' >
