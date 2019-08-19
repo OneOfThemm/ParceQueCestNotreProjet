@@ -7,9 +7,12 @@ package fr.solutec.servlet;
 
 import fr.solutec.bean.Client;
 import fr.solutec.bean.User;
+import fr.solutec.dao.AccessDao;
 import fr.solutec.dao.ClientDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -93,9 +96,24 @@ public class ModificationProfilClientServlet extends HttpServlet {
             u1.setEmail(email);
             u1.setTel(tel);
             u1.setMdp(mdp);
-            u1.setActifUser(true);
+            u1.setActifUser(true); 
             
-           request.setAttribute("msgmodif","Modifications réalisées avec succès");
+            
+            String sqlUser = "UPDATE user SET nom = ?, prenom = ?, email = ?, tel = ?, mdp = ?, actifuser = ? WHERE idUser = ?;";
+            Connection connexion = AccessDao.getConnection();
+            PreparedStatement ordreUser = connexion.prepareStatement(sqlUser);
+            ordreUser.setString(1, nom);
+            ordreUser.setString(2, prenom);
+            ordreUser.setString(3, email);
+            ordreUser.setString(4, tel);
+            ordreUser.setString(5, mdp);
+            ordreUser.setBoolean(6, u1.getActifUser());
+            ordreUser.setInt(7, u1.getId());
+            ordreUser.execute();
+            
+            
+
+            request.setAttribute("msgmodif", "Modifications réalisées avec succès");
             response.sendRedirect("HomeClientServlet");
         } catch (Exception e) {
             PrintWriter out = response.getWriter();
