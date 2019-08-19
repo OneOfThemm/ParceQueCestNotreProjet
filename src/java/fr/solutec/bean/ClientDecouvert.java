@@ -11,31 +11,36 @@ package fr.solutec.bean;
  */
 public class ClientDecouvert {
     private int id_dec;
+    
+    private String numClient;
+    
     private String nom;
     private String prenom;
+    private String email;
     private String tel;
+    private int actifuser;
     
     private String numCompte;
     private double solde;
     private double decouvert;
-
-    
-
-
-    public ClientDecouvert(int id_dec, String nom, String prenom, String tel, String numCompte, double solde, double decouvert) {
-        this.id_dec = id_dec;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.tel = tel;
-        this.numCompte = numCompte;
-        this.solde = solde;
-        this.decouvert = decouvert;
-    }
+    private double plafond;
 
     public ClientDecouvert() {
     }
-    
-    
+
+    public ClientDecouvert(int id_dec, String numClient, String nom, String prenom, String email, String tel, int actifuser, String numCompte, double solde, double decouvert, double plafond) {
+        this.id_dec = id_dec;
+        this.numClient = numClient;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.tel = tel;
+        this.actifuser = actifuser;
+        this.numCompte = numCompte;
+        this.solde = solde;
+        this.decouvert = decouvert;
+        this.plafond = plafond;
+    }
 
     public int getId_dec() {
         return id_dec;
@@ -43,6 +48,14 @@ public class ClientDecouvert {
 
     public void setId_dec(int id_dec) {
         this.id_dec = id_dec;
+    }
+
+    public String getNumClient() {
+        return numClient;
+    }
+
+    public void setNumClient(String numClient) {
+        this.numClient = numClient;
     }
 
     public String getNom() {
@@ -61,12 +74,28 @@ public class ClientDecouvert {
         this.prenom = prenom;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getTel() {
         return tel;
     }
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public int getActifuser() {
+        return actifuser;
+    }
+
+    public void setActifuser(int actifuser) {
+        this.actifuser = actifuser;
     }
 
     public String getNumCompte() {
@@ -92,6 +121,17 @@ public class ClientDecouvert {
     public void setDecouvert(double decouvert) {
         this.decouvert = decouvert;
     }
+
+    public double getPlafond() {
+        return plafond;
+    }
+
+    public void setPlafond(double plafond) {
+        this.plafond = plafond;
+    }
+
+ 
+
     
     
     

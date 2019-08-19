@@ -102,7 +102,6 @@ public class AjoutConseillerServlet extends HttpServlet {
                 c.setMdp(mdp1);
                 c.setActifUser(true);
 
-
                 ConseillerDao.insert(c);
                 HomeServletAdmin.msgCreateCOk = "Conseiller créé avec succès";
                 response.sendRedirect("homeadmin");

@@ -5,26 +5,22 @@
  */
 package fr.solutec.servlet;
 
-import fr.solutec.bean.Client;
-import fr.solutec.bean.Compte;
-import fr.solutec.dao.ClientDao;
-import fr.solutec.dao.CompteDao;
+import fr.solutec.bean.Conseiller;
+import fr.solutec.dao.ConseillerDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ESIC
+ * @author esic
  */
-@WebServlet(name = "HomeClientServlet", urlPatterns = {"/HomeClientServlet"})
-public class HomeClientServlet extends HttpServlet {
+@WebServlet(name = "ActiverConseillerServlet", urlPatterns = {"/activerconseiller"})
+public class ActiverConseillerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +39,10 @@ public class HomeClientServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeClientServlet</title>");            
+            out.println("<title>Servlet ActiverConseillerServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeClientServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ActiverConseillerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,28 +60,18 @@ public class HomeClientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-
-        Client u1 = (Client) session.getAttribute("member");
-        request.setAttribute("client", u1);
-        String NumC = u1.getNumClient();
+                
+        int idConseiller = Integer.parseInt(request.getParameter("conseillerId"));
+        Conseiller c = new Conseiller();
+        c.setId(idConseiller);
         
-        if (u1 != null) {
+        try {
+            ConseillerDao.activerConseiller(c);
+            response.sendRedirect("homeadmin");
 
-            try {
-              //  List<Client> clients = ClientDao.getAll();
-               // request.setAttribute("membres", clients);
-                request.getRequestDispatcher("WEB-INF/homeclient.jsp").forward(request, response);
-                List<Compte> messages = CompteDao.getByOwner(NumC);
-                request.setAttribute("comptes", messages);
-            } catch (Exception e) {
-                PrintWriter out = response.getWriter();
-                out.println(e.getMessage());
-            }
-
-        } else {
-            request.setAttribute("msg", "Petit malin");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("msgEr", e.getMessage());
+            request.getRequestDispatcher("homeadmin.jsp").forward(request, response);
         }
     }
 

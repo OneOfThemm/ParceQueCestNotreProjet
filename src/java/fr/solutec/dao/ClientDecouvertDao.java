@@ -7,6 +7,7 @@ package fr.solutec.dao;
 
 import fr.solutec.bean.ClientDecouvert;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,10 +22,10 @@ public class ClientDecouvertDao {
     
     
     
-            public static List<ClientDecouvert> getAllDecouvert() throws SQLException {
+        public static List<ClientDecouvert> getAllDecouvert() throws SQLException {
         List<ClientDecouvert> result = new ArrayList<>();
 
-        String sql = "SELECT User.idUser, User.nom, User.prenom, User.tel, compte.numCompte, compte.solde, compte.decouvert  FROM user INNER JOIN compte ON compte.client_idUser  = user.idUser WHERE compte.solde < -(compte.decouvert) ORDER BY User.nom, User.prenom,compte.numCompte";
+        String sql = "SELECT Client.numClient, User.nom, User.prenom, User.email, User.tel, User.actifuser,compte.numCompte, compte.solde, compte.decouvert, compte.plafond  FROM user INNER JOIN client ON user.idUser = client.idUser INNER JOIN compte ON user.idUser = compte.client_idUser WHERE compte.solde < -(compte.decouvert) ORDER BY User.nom, User.prenom,compte.numCompte";
 
         Connection connexion = AccessDao.getConnection();
 
@@ -35,13 +36,19 @@ public class ClientDecouvertDao {
         while (rs.next()) {
             ClientDecouvert u = new ClientDecouvert();               
             
-            u.setId_dec(rs.getInt("idUser"));
+            
+            u.setNumClient(rs.getString("numClient")); 
+
             u.setNom(rs.getString("nom"));
             u.setPrenom(rs.getString("prenom"));
+            u.setEmail(rs.getString("email"));
             u.setTel(rs.getString("tel"));
+            u.setActifuser(rs.getInt("actifuser"));
+            
             u.setNumCompte(rs.getString("numCompte"));
             u.setSolde(rs.getDouble("solde"));
             u.setDecouvert(rs.getDouble("decouvert"));
+            u.setPlafond(rs.getDouble("Plafond"));
 
             result.add(u);
 
@@ -49,30 +56,36 @@ public class ClientDecouvertDao {
         return result;
     }
             
-    public static List<ClientDecouvert> getAllClients() throws SQLException {
+    public static List<ClientDecouvert> getAllClients(int idConseiller) throws SQLException {
         List<ClientDecouvert> result = new ArrayList<>();
 
-        String sql = "SELECT User.idUser, User.nom, User.prenom, User.tel, compte.numCompte, compte.solde, compte.decouvert  FROM user INNER JOIN compte ON compte.client_idUser  = user.idUser ORDER BY User.nom, User.prenom,compte.numCompte";
-
+        String sql = "SELECT Client.numClient, User.nom, User.prenom, User.email, User.tel, User.actifuser, compte.numCompte, compte.solde, compte.decouvert, compte.plafond FROM user INNER JOIN client ON user.idUser = client.idUser INNER JOIN compte ON user.idUser = compte.client_idUser WHERE client.conseiller_IdUser =? ORDER BY User.nom, User.prenom,compte.numCompte" ;
+        
         Connection connexion = AccessDao.getConnection();
-
-        Statement requette = connexion.createStatement();
-
-        ResultSet rs = requette.executeQuery(sql);
+        PreparedStatement requette = connexion.prepareStatement(sql);
+        requette.setInt(1, idConseiller);
+        
+    
+        ResultSet rs = requette.executeQuery();
 
         while (rs.next()) {
             ClientDecouvert u = new ClientDecouvert();               
             
-            u.setId_dec(rs.getInt("idUser"));
+                    
+            u.setNumClient(rs.getString("numClient")); 
+
             u.setNom(rs.getString("nom"));
             u.setPrenom(rs.getString("prenom"));
+            u.setEmail(rs.getString("email"));
             u.setTel(rs.getString("tel"));
+            u.setActifuser(rs.getInt("actifuser"));
+            
             u.setNumCompte(rs.getString("numCompte"));
             u.setSolde(rs.getDouble("solde"));
             u.setDecouvert(rs.getDouble("decouvert"));
+            u.setPlafond(rs.getDouble("Plafond"));
 
-            result.add(u);
-
+            result.add(u);           
         }
         return result;
     }

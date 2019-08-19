@@ -10,15 +10,39 @@
 
 <html>
     <head>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>page conseiller</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-       
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"> 
-        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> </head>
+  
+    </head>
     <body>
+<script>
+            $(function () {
+                    $("#creationprofil").dialog({
+                          autoOpen: false,
+                          show: {
+                              effect: "fade",
+                              duration: 1000
+                          },
+                          hide: {
+                              effect: "fade",
+                              duration: 1000
+                          }
+                    }); 
+                    
+                    $("#popupCreaClient").on("click", function () {
+                    $("#creationprofil").dialog("open");
+                    });
+
+              });
+</script>
+
         
         <div class='container' >
             <div id='Bonjour' style='background:#33b5e5; color: white'  > 
@@ -30,20 +54,51 @@
         </div>
                 
         <div class='container' >  
-            <div class="btn-group float-left" id='buttonAjout'>
-                <button button type="button" class="btn btn-info"> Ajouter un client</button>
-            </div> 
             
-            
-            <div class="btn-group float-right" id='buttonsVoir'>
-                <button button type="button" class="btn btn-info">Voir un client</button>
+            <div class="btn-group float-left" id='buttonLeft'>                
+                <button button id="popupCreaClient" type="button" class="btn btn-info"> Ajouter un client</button>
+                <button button type="button" class="btn btn-outline-info" onclick="location.href='allClients'" >Voir tous mes clients</button>
+                
+            </div>  
+            <div class="btn-group float-right" id='buttonsRight'>
+                <button button type="button" class="btn btn-info" >Voir un client</button>
                     <%-- creer un compte, modifier compte(solde,plafond,decouvert), bloquer la carte du compte, voir l'historique du client--%>
-                <button button type="button" class="btn btn-outline-info">Voir tous mes clients</button>
-            </div>        
+                <button type="button" class="btn btn-raised btn-danger" onclick="location.href = 'DeconnexionConseillerServlet'">Déconnexion</button>
+            </div>
+                <br> <br>
+                
         </div>
 
-
-        <div class='container' >      
+        
+        <div id="creationprofil" title="Creation Profil Client">
+                <form action='AjoutClientServlet' method="POST">
+             
+                <p>Numéro de Client</p>
+                 <p><input type="text" placeholder="numClient"
+                           required class="form-control text-center" name="numClient"></p>          
+                 <p>Nom du Client</p>
+                 <p><input type="text" placeholder="client.nom"
+                            required class="form-control text-center" name="nom"></p>
+                <p>Prénom</p>
+                <p><input type="text" placeholder="client.prenom"
+                           required class="form-control text-center" name="prenom"> </p>
+                <br>
+                <p>Téléphone</p>
+               <p><input type="text" placeholder="client.tel"
+                           required class="form-control text-center" name="tel"></p>
+               <p>E-mail</p>
+                <p><input type="text" placeholder="client.email"
+                           required class="form-control text-center" name="email"></p>
+                <p>Mot de passe</p>
+                 <p><input type="text" placeholder="client.mdp"
+                           required class="form-control text-center" name="mdp"></p>
+                 <button id="validermodif" class="float-left" type="submit"> Valider</button>
+                </form>
+        </div>       
+                
+                
+                
+        <div class='container' >
             <div id='corps' style='border-color: #33b5e5;height:200px;'>
                 <div>
                     <%-- affihher tous les message non lus --%>
@@ -68,14 +123,14 @@
                     </thead>
                     
                     <tbody>
-                        <c:forEach items="${clientsD}" var="member"> 
+                        <c:forEach items="${clientsD}" var="clientsD"> 
                                     <tr>
-                                        <td scopa="row">${member.nom}</td>
-                                        <td scopa="row">${member.prenom}</td>
-                                        <td scopa="row">${member.tel}</td>
-                                        <td scopa="row">${member.numCompte}</td>
-                                        <td scopa="row">${member.solde}</td>
-                                        <td scopa="row">${member.decouvert}</td>
+                                        <td scopa="row">${clientsD.nom}</td>
+                                        <td scopa="row">${clientsD.prenom}</td>
+                                        <td scopa="row">${clientsD.tel}</td>
+                                        <td scopa="row">${clientsD.numCompte}</td>
+                                        <td scopa="row">${clientsD.solde}</td>
+                                        <td scopa="row">${clientsD.decouvert}</td>
                                     </tr>
                         </c:forEach>
                     </tbody>
