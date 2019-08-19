@@ -30,7 +30,7 @@ public class UserDao {
         ResultSet rs = requette.executeQuery();
 
         if (rs.next()) {
-            result= rs.getString("nom")+rs.getString("prenom");
+            result= rs.getString("nom")+" "+rs.getString("prenom");
         }
         return result;
 
