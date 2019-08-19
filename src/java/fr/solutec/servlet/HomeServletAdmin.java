@@ -54,6 +54,8 @@ public class HomeServletAdmin extends HttpServlet {
             out.println("</html>");
         }
     }
+    
+    public static String msgCreateCOk;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -84,6 +86,9 @@ public class HomeServletAdmin extends HttpServlet {
                 List<Conseiller> consInactifs = ConseillerDao.getAllInactifs();
                 request.setAttribute("listconsInactifs", consInactifs);
                 
+                if(AjoutConseillerServlet.valMsg == 1){
+                    request.setAttribute("createOk", msgCreateCOk);
+                }
             } catch (Exception e) {
 
                 PrintWriter out = response.getWriter();

@@ -31,22 +31,33 @@
                     <p class="txt">Bonjour NOM</p>
 
                 </div>
-                <div class="text-center col-sm-6">
+                <div class="text-center col-sm-2">
                     <br> <br>
                     <img src="Image/Logo Caribou.png" alt=""/>
 
                 </div>
                 <div class="text-center col-sm-2">
+                    <br> <br>
+                    <img src="Image/Logo Caribou.png" alt=""/>
+
+                </div>
+                <div class="text-center col-sm-2">
+                    <br> <br>
+                    <img src="Image/Logo Caribou.png" alt=""/>
+
+                </div>
+                <div style="background-color: lightsteelblue" class="col-sm-2"> <br> <br> <br> </div>
+                <div class="text-center col-sm-1">
                     <br>
                     <br>
                     <button class="btn btn-center" onclick="location.href = 'deco'"> Profil </button> 
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                     <br>
                     <br>
                     <button class="btn btn-center" onclick="location.href = 'deco'"> Deconnexion </button>
                 </div>
-
+                
                 <div style="background-color: lightsteelblue" class="col-sm-2">
 
                     <p class="txt">PRENOM.</p>
@@ -61,8 +72,8 @@
                 <div style="background-color: lightsteelblue" class="col-sm-2">
                     <button class="btn btn-center" onclick="location.href = 'deco'"> Soldes </button>
                     <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
-                     <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
-                    
+                    <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
 
                 </div>
                 <div class="text-center col-sm-10">

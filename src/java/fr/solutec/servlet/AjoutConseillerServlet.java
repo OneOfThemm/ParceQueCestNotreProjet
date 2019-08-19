@@ -63,7 +63,8 @@ public class AjoutConseillerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+          request.getRequestDispatcher("/homeadmin").forward(request, response);
     }
 
     /**
@@ -103,6 +104,7 @@ public class AjoutConseillerServlet extends HttpServlet {
 
 
                 ConseillerDao.insert(c);
+                HomeServletAdmin.msgCreateCOk = "Conseiller créé avec succès";
                 response.sendRedirect("homeadmin");
             } catch (Exception e) {
                 PrintWriter out = response.getWriter();
@@ -111,6 +113,7 @@ public class AjoutConseillerServlet extends HttpServlet {
         }
 
     }
+    public static int valMsg = 0;
 
     /**
      * Returns a short description of the servlet.

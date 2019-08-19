@@ -21,10 +21,38 @@ public class ClientDecouvertDao {
     
     
     
-            public static List<ClientDecouvert> getAll() throws SQLException {
+            public static List<ClientDecouvert> getAllDecouvert() throws SQLException {
         List<ClientDecouvert> result = new ArrayList<>();
 
-        String sql = "SELECT User.idUser, User.nom, User.prenom, User.tel, compte.numCompte, compte.solde, compte.decouvert  FROM user INNER JOIN compte ON compte.client_idUser  = user.idUser WHERE compte.solde < compte.decouvert";
+        String sql = "SELECT User.idUser, User.nom, User.prenom, User.tel, compte.numCompte, compte.solde, compte.decouvert  FROM user INNER JOIN compte ON compte.client_idUser  = user.idUser WHERE compte.solde < -(compte.decouvert) ORDER BY User.nom, User.prenom,compte.numCompte";
+
+        Connection connexion = AccessDao.getConnection();
+
+        Statement requette = connexion.createStatement();
+
+        ResultSet rs = requette.executeQuery(sql);
+
+        while (rs.next()) {
+            ClientDecouvert u = new ClientDecouvert();               
+            
+            u.setId_dec(rs.getInt("idUser"));
+            u.setNom(rs.getString("nom"));
+            u.setPrenom(rs.getString("prenom"));
+            u.setTel(rs.getString("tel"));
+            u.setNumCompte(rs.getString("numCompte"));
+            u.setSolde(rs.getDouble("solde"));
+            u.setDecouvert(rs.getDouble("decouvert"));
+
+            result.add(u);
+
+        }
+        return result;
+    }
+            
+    public static List<ClientDecouvert> getAllClients() throws SQLException {
+        List<ClientDecouvert> result = new ArrayList<>();
+
+        String sql = "SELECT User.idUser, User.nom, User.prenom, User.tel, compte.numCompte, compte.solde, compte.decouvert  FROM user INNER JOIN compte ON compte.client_idUser  = user.idUser ORDER BY User.nom, User.prenom,compte.numCompte";
 
         Connection connexion = AccessDao.getConnection();
 
