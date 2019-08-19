@@ -42,19 +42,20 @@
                 </thead>
                     
                 <tbody>
-                    <c:forEach items="${clients}" var="clients"> 
+                    <c:forEach items="${clients}" var="client"> 
                         <tr>
                             
-                            <td scopa="row">${clients.numClient}</td>
-                            <td scopa="row">${clients.nom}</td>
-                            <td scopa="row">${clients.prenom}</td>
-                            <td scopa="row">${clients.tel}</td>
-                            <td scopa="row">${clients.email}</td>
-                            <td scopa="row">${clients.actifuser}</td>
-                            <td scopa="row">${clients.numCompte}</td>
-                            <td scopa="row">${clients.plafond}</td>
-                            <td scopa="row">${clients.decouvert}</td>
-                            <td scopa="row">${clients.solde}</td>
+                            <td scopa="row">${client.numClient}</td> 
+                            <td scopa="row"> ${client.nom}</td>
+                                
+                            <td scopa="row">${client.prenom}</td>
+                            <td scopa="row">${client.tel}</td>
+                            <td scopa="row">${client.email}</td>
+                            <td scopa="row">${client.actifuser}</td>
+                            <td scopa="row">${client.numCompte}</td>
+                            <td scopa="row">${client.plafond}</td>
+                            <td scopa="row">${client.decouvert}</td>
+                            <td scopa="row">${client.solde}</td>
                         </tr>
                     </c:forEach>
                 </tbody>                    

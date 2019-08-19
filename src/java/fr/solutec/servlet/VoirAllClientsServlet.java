@@ -76,7 +76,8 @@ public class VoirAllClientsServlet extends HttpServlet {
                List<Conseiller> conseillers = ConseillerDao.getAll();
                request.setAttribute("member", conseillers);
                
-               List<ClientDecouvert> clients = getAllClients(idConseiller);
+               List<ClientDecouvert> clients = ClientDecouvertDao.getAllClients(idConseiller);
+               
                request.setAttribute("clients", clients);
                
                request.getRequestDispatcher("WEB-INF/AllClient.jsp").forward(request, response);

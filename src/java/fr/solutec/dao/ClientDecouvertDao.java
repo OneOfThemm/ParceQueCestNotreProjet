@@ -85,8 +85,7 @@ public class ClientDecouvertDao {
             u.setDecouvert(rs.getDouble("decouvert"));
             u.setPlafond(rs.getDouble("Plafond"));
 
-            result.add(u);
-
+            result.add(u);           
         }
         return result;
     }
