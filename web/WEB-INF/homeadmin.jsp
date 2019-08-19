@@ -33,6 +33,18 @@
                 background: rgba(0,0,0,0.75);
                 margin: auto;
                 position: center;
+
+
+            }
+            .modal.desac {
+                position: absolute;
+                top:10px;
+                right: 1000px;
+                bottom: 500px;
+                left: 0;
+                z-index: 10040;
+                overflow: auto;
+                overflow-y: auto;
             }
         </style>
         <script>
@@ -79,6 +91,7 @@
                                     <th>Email</th>
                                     <th>Téléphone</th>
                                     <th>Désactiver</th>
+                                    <th>Modifier</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,6 +105,7 @@
                                         <td>${conseiller.email}</td>
                                         <td>${conseiller.tel}</td>
                                         <td> <button class="btn"><i class="fa fa-close"data-toggle="modal" onclick="recup(${conseiller.id})" data-target="#desactiver"></i></button> </td>
+                                        <td> <button class="btn"><i class="fa fa-address-card-o"data-toggle="modal" data-target="#modifier" ></i></button> </td>
                                     </tr>
 
                                 </c:forEach>
@@ -123,6 +137,7 @@
                                     <th>Email</th>
                                     <th>Téléphone</th>
                                     <th>Activer</th>
+                                    <th>Modifier</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -138,6 +153,7 @@
                                 <form method="GET" action="activerconseiller">
                                     <input type="hidden" value="${conseiller.id}" name="conseillerId">
                                     <td> <button type="submit" class="btn" ><i class="fa fa-plus"></i></button> </td>
+                                    <td> <button class="btn"><i class="fa fa-address-card-o"></i></button> </td>
                                 </form>
 
                                 </tr>
@@ -241,7 +257,7 @@
             </div>
         </div>
 
-        <div id="desactiver"class="modal" tabindex="-1" role="dialog">
+        <div id="desactiver"class="modal desac" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -264,11 +280,64 @@
             </div>
         </div>
 
+
+        <div class="modal fade" id="modifier" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title " id="addModalLabel">Modifier le conseiller :</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="ajoutconseiller" method="POST" >
+                            <div class="form-group">
+                                <input type="text"  name="login" placeholder="Login" required class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text"  name="nom" placeholder="Nom" required class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text"  name="prenom" placeholder="Prénom" required class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email"  name="email" placeholder="Email" required class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="tel" placeholder="Téléphone" required class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <input id="mdp1" type="password" name ="mdp1"  placeholder="Mot de passe" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input id="mdp2" type="password" name ="mdp2"  placeholder="Répéter le mot de passe" required class="form-control">
+                            </div>
+
+                            <div class="text-center">
+                                <button type ="submit" class="btn btn-primary" onclick="return verifMdp()">Ajouter le conseiller</button>   
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abandonner</button>
+                                <br>
+                                <p id="alertmdp" class="text-danger">${msg}</p>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
 
             function recup(value) {
                 document.getElementById("test").value = value;
             }
+            
         </script>
     </body>
 </html>
