@@ -21,8 +21,6 @@
     <body>
         
         <div class='container' >
-             
-            
             <div id='Bonjour' style='background:#33b5e5; color: white'  > 
                 <hr>
                 <h1 class='text-center'> Bonjour ${conseiller.prenom} ${conseiller.nom} </h1> 
@@ -31,31 +29,46 @@
             </div>
         </div>
                 
-        <div class='container' >        
-            <div class="row">
-                <div id='corps' class="col-md-9"style='border-color: #33b5e5;height:200px;'>
-                    <div>
-                        <%-- affihher tous les message non lus --%>
-                        <h1 class='text-center'> Mes messages </h1>
-                        <br> <br>
-                    </div>
+        <div class='container' >  
+            <div class="btn-group float-left" id='buttonAjout'>
+                <button button type="button" class="btn btn-info"> Ajouter un client</button>
+            </div> 
+            
+            
+            <div class="btn-group float-right" id='buttonsVoir'>
+                <button button type="button" class="btn btn-info">Voir un client</button>
+                    <%-- creer un compte, modifier compte(solde,plafond,decouvert), bloquer la carte du compte, voir l'historique du client--%>
+                <button button type="button" class="btn btn-outline-info">Voir tous mes clients</button>
+            </div>        
+        </div>
+
+
+        <div class='container' >      
+            <div id='corps' style='border-color: #33b5e5;height:200px;'>
+                <div>
+                    <%-- affihher tous les message non lus --%>
+                    <h1 class='text-center'> Mes messages </h1>
+                    <br> <br>
+                </div>
                     
-                    <div>                        
-                        <%-- affihher les clients à decouverts --%> 
-                        <h1 class='text-center'> Mes clients à decouvert </h1>
-                        <table class="table table-striped">                            
-                        <thead class="thead table-primary">
-                            <tr>
+                <div>                        
+                    <%-- affihher les clients à decouverts --%> 
+                    <h1 class='text-center'> Mes clients à decouvert </h1>
+                    
+                    <table class="table table-striped">                            
+                    <thead class="thead table-primary">
+                        <tr>
                                 <th> Nom </th>
                                 <th> Prénom </th>
                                 <th> Téléphone </th>
                                 <th> N° Compte </th>
                                 <th> Solde </th>
                                 <th> Decouvert autorisé </th>                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${clientsD}" var="member"> 
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <c:forEach items="${clientsD}" var="member"> 
                                     <tr>
                                         <td scopa="row">${member.nom}</td>
                                         <td scopa="row">${member.prenom}</td>
@@ -63,20 +76,13 @@
                                         <td scopa="row">${member.numCompte}</td>
                                         <td scopa="row">${member.solde}</td>
                                         <td scopa="row">${member.decouvert}</td>
-
                                     </tr>
-                                </c:forEach>
-                        </tbody>
-                        </table>                        
-                    </div>
-                </div>
-                <div class="col-md-1 " style='border-color: #33b5e5;height:200px;'>
-                    <br>
-                </div>
-                <div id='buttons' class="col-md-2 " style='border-color: #33b5e5;height:200px;'>
+                        </c:forEach>
+                    </tbody>
                     
+                    </table>                        
                 </div>
-            </div>
+            </div>   
         </div>        
 
                 
