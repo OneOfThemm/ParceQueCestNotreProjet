@@ -83,10 +83,7 @@
                 <hr>
                 <h1 class='text-center'> Bonjour ${conseiller.prenom} ${conseiller.nom} </h1> 
                 <h4 class='text-center' > votre dernière connexion était le ${conseiller.dateConnexion} </h4>            
-                <hr>
-                <div class="btn-group float-right" id='buttonsRight'>
-                    <button id="popupprofil" class="buttonmenu" style="color: aliceblue"> <span> Mon Profil </button>
-                </div>    
+                <hr>   
             </div>
         </div>
                 
@@ -98,11 +95,16 @@
                 
             </div>  
             <div class="btn-group float-right" id='buttonsRight'>
-                <button button type="button" class="btn btn-info" >Voir un client</button>
+                <form action ="VoirAllForOneClientServlet" method="POST">
+                    <input type='text' name='numClient' placeholder='string num client'> 
+                    <button button type="submit" class="btn btn-info" >Voir un client</button>
+                </form>
+                
                     <%-- creer un compte, modifier compte(solde,plafond,decouvert), bloquer la carte du compte, voir l'historique du client--%>
+                    <button id="popupprofil" class="btn btn-outline-info"> <span> Mon Profil </button>
                 <button type="button" class="btn btn-raised btn-danger" onclick="location.href = 'DeconnexionConseillerServlet'">Déconnexion</button>
             </div>
-                <br> <br>
+                <br> <br><br> <br><br> <br><br> <br>
                 
         </div>
 
