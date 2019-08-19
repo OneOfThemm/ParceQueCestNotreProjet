@@ -46,21 +46,42 @@ public class ClientDao {
     }
 
     public static void insert(Client person) throws SQLException {
-        String sql = "INSERT INTO client (nom, prenom, email, tel, dateConnexion, mdp, numClient) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+        //String sql = "INSERT INTO client (nom, prenom, email, tel, dateConnexion, mdp, numClient) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sqlUser = "INSERT INTO user (nom, prenom, email, tel, mdp, actifuser) VALUES(?,?,?,?,?,?)";
+        //Connection connexion = AccessDao.getConnection();
         Connection connexion = AccessDao.getConnection();
-
-        PreparedStatement ordre = connexion.prepareStatement(sql);
-
-        ordre.setString(1, person.getNom());
-        ordre.setString(2, person.getPrenom());
-        ordre.setString(3, person.getEmail());
-        ordre.setString(4, person.getTel());
-        ordre.setDate(5, person.getDateConnexion());
-        ordre.setString(6, person.getMdp());
-        ordre.setString(7, person.getNumClient());
-
-        ordre.execute();
+        //PreparedStatement ordre = connexion.prepareStatement(sql);
+        PreparedStatement ordreUser = connexion.prepareStatement(sqlUser);
+        //ordre.setString(1, person.getNom());
+        //ordre.setString(2, person.getPrenom());
+        //ordre.setString(3, person.getEmail());
+        //ordre.setString(4, person.getTel());
+        //ordre.setDate(5, person.getDateConnexion());
+        //ordre.setString(6, person.getMdp());
+        //ordre.setString(7, person.getNumClient());
+        
+        ordreUser.setString(1, person.getNom());
+        ordreUser.setString(2, person.getPrenom());
+        ordreUser.setString(3, person.getEmail());
+        ordreUser.setString(4, person.getTel());        
+        ordreUser.setString(5, person.getMdp());
+        ordreUser.setBoolean(6, person.getActifUser());
+               
+        ordreUser.execute();
+        //ordre.execute();
+        
+        String sqlGetIDUSER = "SELECT idUser FROM user WHERE email=?";
+        PreparedStatement requetteID = connexion.prepareStatement(sqlGetIDUSER);
+        requetteID.setString(1, person.getEmail());
+        
+        ResultSet rs = requetteID.executeQuery(); 
+        rs.next();
+        String NumClient = rs.getString("numClient");
+            
+        String sqlCli = "INSERT INTO Client (numClient) VALUES(?) ";
+        PreparedStatement ordreConseiler = connexion.prepareStatement(sqlCli);              
+        ordreConseiler.setString(1, NumClient);
+        ordreConseiler.execute();
     }
 
     public static List<Client> getAll() throws SQLException {
