@@ -103,6 +103,7 @@ public class AjoutConseillerServlet extends HttpServlet {
 
 
                 ConseillerDao.insert(c);
+                HomeServletAdmin.msgCreateCOk = "Conseiller créé avec succès";
                 response.sendRedirect("homeadmin");
             } catch (Exception e) {
                 PrintWriter out = response.getWriter();
@@ -111,6 +112,7 @@ public class AjoutConseillerServlet extends HttpServlet {
         }
 
     }
+    public static int valMsg = 0;
 
     /**
      * Returns a short description of the servlet.
