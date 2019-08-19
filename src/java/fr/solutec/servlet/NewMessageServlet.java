@@ -6,6 +6,7 @@
 package fr.solutec.servlet;
 
 import fr.solutec.bean.Client;
+import fr.solutec.bean.Message;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -64,7 +65,8 @@ public class NewMessageServlet extends HttpServlet {
 
         Client u = (Client) session.getAttribute("member");
         request.setAttribute("client", u);
-
+        Message m = new Message();
+       
         if (u != null) {
 
             try {

@@ -40,6 +40,7 @@ public class ClientDao {
             result.setDateConnexion(rs.getDate("dateConnexion"));
             result.setMdp(rs.getString("mdp"));
             result.setNumClient(rs.getString("numClient"));
+            result.setConseiller_idUser(rs.getInt("conseiller_idUser"));
 
         }
         return result;

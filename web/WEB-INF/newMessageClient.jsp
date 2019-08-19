@@ -21,9 +21,11 @@
     <body>
         <h1>Hello World!</h1>
 
-
-        <textarea id="textMessage" name="test"></textarea>
-        <button onclick="location.href = 'MessagesClient'" style="position : absolute; right: 20px; bottom: 50px;">Envoyer</button>
+        <form action="NewMessage" method="POST">
+            <textarea id="textMessage" name="text"></textarea>
+       
+            <input type="submit" >
+        </form>
         <button onclick="location.href = 'MessagesClient'" style="position : absolute; right: 20px; bottom: 20px;">Retour Messagerie</button>
     </body>
 </html>

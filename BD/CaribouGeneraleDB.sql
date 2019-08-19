@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 17 août 2019 à 10:49
+-- Généré le :  lun. 19 août 2019 à 14:36
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -58,7 +58,6 @@ CREATE TABLE IF NOT EXISTS `carte` (
   `dateExpirationCarte` datetime NOT NULL,
   `codeCarte` int(11) NOT NULL,
   `compte_idCompte` int(11) NOT NULL,
-  `actif` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCarte`),
   UNIQUE KEY `numCarte_UNIQUE` (`numCarte`),
   KEY `fk_carte_compte1_idx` (`compte_idCompte`)
@@ -68,8 +67,8 @@ CREATE TABLE IF NOT EXISTS `carte` (
 -- Déchargement des données de la table `carte`
 --
 
-INSERT INTO `carte` (`idCarte`, `numCarte`, `dateExpirationCarte`, `codeCarte`, `compte_idCompte`, `actif`) VALUES
-(1, 'testCarte', '0000-00-00 00:00:00', 0, 1, 1);
+INSERT INTO `carte` (`idCarte`, `numCarte`, `dateExpirationCarte`, `codeCarte`, `compte_idCompte`) VALUES
+(1, 'testCarte', '0000-00-00 00:00:00', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -141,8 +140,7 @@ CREATE TABLE IF NOT EXISTS `conseiller` (
 --
 
 INSERT INTO `conseiller` (`loginConseiller`, `idUser`) VALUES
-('testConseiller', 2),
-('testConsInactif', 4);
+('testConseiller', 2);
 
 -- --------------------------------------------------------
 
@@ -160,7 +158,15 @@ CREATE TABLE IF NOT EXISTS `message` (
   PRIMARY KEY (`idMessage`),
   KEY `fk_message_user1_idx` (`user_idEmetteur`),
   KEY `fk_message_user2_idx` (`user_idRecepteur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `message`
+--
+
+INSERT INTO `message` (`idMessage`, `corpsMessage`, `dateMessage`, `user_idEmetteur`, `user_idRecepteur`) VALUES
+(2, 'vous êtes à decouvert', '2019-08-19 00:00:00', 2, 3),
+(3, 'test', '2018-08-18 00:00:00', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -177,19 +183,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   `tel` varchar(45) NOT NULL,
   `dateConnexion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mdp` varchar(45) NOT NULL,
-  `actifuser` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`idUser`, `nom`, `prenom`, `email`, `tel`, `dateConnexion`, `mdp`, `actifuser`) VALUES
-(1, 'testAdmin', 'testAdmin', 'testAdmin', 'testAdmin', '2019-08-16 08:55:55', 'testAdmin', 1),
-(2, 'testConseiller', 'testConseiller', 'testConseiller', 'testConseiller', '2019-08-16 08:55:55', 'testConseiller', 1),
-(3, 'testClient', 'testClient', 'testClient', 'testClient', '2019-08-16 08:55:55', 'testClient', 1),
-(4, 'testConsIncactif', 'testConsInactif', 'testConsInactif', 'testConsInactif', '2019-08-17 12:29:12', 'testConsInactif', 0);
+INSERT INTO `user` (`idUser`, `nom`, `prenom`, `email`, `tel`, `dateConnexion`, `mdp`) VALUES
+(1, 'testAdmin', 'testAdmin', 'testAdmin', 'testAdmin', '2019-08-16 08:55:55', 'testAdmin'),
+(2, 'testConseiller', 'testConseiller', 'testConseiller', 'testConseiller', '2019-08-16 08:55:55', 'testConseiller'),
+(3, 'testClient', 'testClient', 'testClient', 'testClient', '2019-08-16 08:55:55', 'testClient');
 
 --
 -- Contraintes pour les tables déchargées
