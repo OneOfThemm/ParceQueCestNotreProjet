@@ -59,4 +59,28 @@ public class CompteDao {
 
         ordre.execute();
     }
+     public static Compte getByNum(String numCompte) throws SQLException {
+       
+        String sql = "SELECT * FROM compte numCompte=?";
+        
+        Connection connexion = AccessDao.getConnection();
+
+        PreparedStatement requette = connexion.prepareStatement(sql);
+        requette.setString(1, numCompte);
+
+        ResultSet rs = requette.executeQuery();
+
+       
+
+            Compte c = new Compte();
+            c.setIdCompte(rs.getInt("idCompte"));
+            c.setSolde(rs.getDouble("solde"));
+            c.setPlafond(rs.getDouble("plafond"));
+            c.setDecouvert(rs.getDouble("decouvert"));
+            c.setNumCompte(rs.getString("numCompte"));
+            c.setClient_idUser(rs.getInt("client_idUser"));
+
+            
+        return c;
+     }
 }
