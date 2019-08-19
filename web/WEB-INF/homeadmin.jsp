@@ -22,26 +22,37 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <title>JSP Page</title>
-        
+        <style>
+            div.tab {
+                transform: translateY(6rem);
+                border-radius: 3px;
+                width: 700px;
+                height: 600px;
+                padding-top: 5rem !important;
+                padding: 0 2rem;
+                background: rgba(0,0,0,0.75);
+                margin: auto;
+                position: center;
+            }
+        </style>
         <script>
-            function verifMdp(){
+            function verifMdp() {
                 var mdp1 = document.getElementById("mdp1").value;
                 var mdp2 = document.getElementById("mdp2").value;
-                
-                if (mdp1!== mdp2){
-                    document.querySelector('#alertmdp').innerHTML= 'Les deux mots de passe doivent être identiques.';
+
+                if (mdp1 !== mdp2) {
+                    document.querySelector('#alertmdp').innerHTML = 'Les deux mots de passe doivent être identiques.';
                     document.querySelector("#mdp1").style = "color : red !important";
                     document.querySelector("#mdp2").style = "color : red !important";
                     return false;
-                }
-                else{
+                } else {
                     return true;
                 }
             }
-            
+
         </script>
-        
-        
+
+
     </head>
     <nav class="navbar navbar-dark bg-dark">
         <p style="color:whitesmoke">Bonjour ${adminn.prenom}</p>
@@ -50,7 +61,9 @@
     </nav>
 
     <body>
+
         <br><br><br>
+
         <div class="float-md-right " style="margin-right :200px"> <img src="Image/Logo.png" width="70" alt=""/></div>
         <div class="float-md-left" style="margin-left :200px"> <img src="Image/Logo.png" width="70" alt=""/></div>
         <div class="container text-center">
@@ -68,16 +81,16 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     <c:forEach items="${listconsActifs}" var="conseiller">
                         <tr>
-
                             <td>${conseiller.id}</td>
                             <td>${conseiller.prenom}</td>
                             <td>${conseiller.nom}</td>
                             <td>${conseiller.login_conseiller}</td>
                             <td>${conseiller.email}</td>
                             <td>${conseiller.tel}</td>
-                            <td> <button class="btn"><i class="fa fa-close"></i></button> </td>
+                            <td> <button class="btn"><i class="fa fa-close"data-toggle="modal" onclick="recup(${conseiller.id})" data-target="#desactiver"></i></button> </td>
                         </tr>
 
                     </c:forEach>
@@ -85,9 +98,9 @@
             </table>   
             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal">Ajouter un conseiller</button> 
             <br>        
-            
+
             <p class="text-success">${createOk}</p>            
-            <% HomeServletAdmin.msgCreateCOk = ""; %>            
+            <% HomeServletAdmin.msgCreateCOk = "";%>            
             <br>
             <hr>
         </div>  
@@ -117,10 +130,14 @@
                             <td>${conseiller.login_conseiller}</td>
                             <td>${conseiller.email}</td>
                             <td>${conseiller.tel}</td>
-                            <td> <button class="btn"><i class="fa fa-plus"></i></button> </td>
-                        </tr>
+                    <form method="GET" action="activerconseiller">
+                        <input type="hidden" value="${conseiller.id}" name="conseillerId">
+                        <td> <button type="submit" class="btn" ><i class="fa fa-plus"></i></button> </td>
+                    </form>
+                            
+                    </tr>
 
-                    </c:forEach>
+                </c:forEach>
                 </tbody>
             </table>   
             <br>
@@ -205,13 +222,41 @@
                                 <br>
                                 <p id="alertmdp" class="text-danger">${msg}</p>
                             </div>
-                            
+
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div id="desactiver"class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Désactiver le conseiller</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="desactiverconseiller" method="GET">
+                        <div class="modal-body">
+                            <p>Êtes-vous sûr de vouloir désactiver ce conseiller?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="hidden" name="test" id="test" value="" />
+                            <button type="submit" class="btn btn-raised btn-danger">Désactiver le conseiller</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abandonner</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
+        <script>
+
+            function recup(value) {
+                document.getElementById("test").value = value;
+            }
+        </script>
     </body>
 </html>

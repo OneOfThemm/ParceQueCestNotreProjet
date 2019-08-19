@@ -5,27 +5,22 @@
  */
 package fr.solutec.servlet;
 
-import fr.solutec.bean.ClientDecouvert;
 import fr.solutec.bean.Conseiller;
-import fr.solutec.dao.ClientDecouvertDao;
-import static fr.solutec.dao.ClientDecouvertDao.getAllClients;
 import fr.solutec.dao.ConseillerDao;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author esic
  */
-@WebServlet(name = "VoirAllClientsServlet", urlPatterns = {"/allClients"})
-public class VoirAllClientsServlet extends HttpServlet {
+@WebServlet(name = "DesactiverConseillerServlet", urlPatterns = {"/desactiverconseiller"})
+public class DesactiverConseillerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +39,10 @@ public class VoirAllClientsServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet VoirAllClientsServlet</title>");            
+            out.println("<title>Servlet DesactiverConseillerServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet VoirAllClientsServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DesactiverConseillerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,34 +59,21 @@ public class VoirAllClientsServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {               
         
-        HttpSession session = request.getSession(true);
-        Conseiller u1 = (Conseiller) session.getAttribute("member");        
-        int idConseiller = u1.getId();
-        request.setAttribute("conseiller", u1);        
+        int idConseiller = Integer.parseInt(request.getParameter("test"));
+        Conseiller c = new Conseiller();
+        c.setId(idConseiller);
         
-        
-        if (u1 != null) {
+        try {
+            ConseillerDao.desactiverConseiller(c);
+            response.sendRedirect("homeadmin");
 
-            try {
-               List<Conseiller> conseillers = ConseillerDao.getAll();
-               request.setAttribute("member", conseillers);
-               
-               List<ClientDecouvert> clients = ClientDecouvertDao.getAllClients(idConseiller);               
-               request.setAttribute("clients", clients);
-               
-               request.getRequestDispatcher("WEB-INF/AllClient.jsp").forward(request, response);
-               
-            } catch (Exception e) {
-                PrintWriter out = response.getWriter();
-                out.println(e.getMessage());
-            }
-
-        } else {
-            request.setAttribute("msg", "Petit malin");
-            request.getRequestDispatcher("LoginConseiller.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("msgEr", e.getMessage());
+            request.getRequestDispatcher("homeadmin.jsp").forward(request, response);
         }
+        
     }
 
     /**
