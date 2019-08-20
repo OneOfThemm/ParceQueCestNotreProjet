@@ -353,9 +353,10 @@
                         <button id="validervirement" class="float-left buttondial" type="submit" ><span> Valider Virement </button>
                     </div>               
                 </form>
+                                 
+                                
 
-
-                <p class="text-success">${msgmodif}</p>
+                <p class="text-success" >${msgmodif}</p>
                 <br>
 
             </div>

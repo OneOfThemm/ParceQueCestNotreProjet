@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 19 août 2019 à 14:36
+-- Généré le :  mar. 20 août 2019 à 08:09
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `carte` (
   `dateExpirationCarte` datetime NOT NULL,
   `codeCarte` int(11) NOT NULL,
   `compte_idCompte` int(11) NOT NULL,
+  `actif` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCarte`),
   UNIQUE KEY `numCarte_UNIQUE` (`numCarte`),
   KEY `fk_carte_compte1_idx` (`compte_idCompte`)
@@ -67,8 +68,8 @@ CREATE TABLE IF NOT EXISTS `carte` (
 -- Déchargement des données de la table `carte`
 --
 
-INSERT INTO `carte` (`idCarte`, `numCarte`, `dateExpirationCarte`, `codeCarte`, `compte_idCompte`) VALUES
-(1, 'testCarte', '0000-00-00 00:00:00', 0, 1);
+INSERT INTO `carte` (`idCarte`, `numCarte`, `dateExpirationCarte`, `codeCarte`, `compte_idCompte`, `actif`) VALUES
+(1, 'testCarte', '0000-00-00 00:00:00', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -92,10 +93,9 @@ CREATE TABLE IF NOT EXISTS `client` (
 --
 
 INSERT INTO `client` (`numClient`, `idUser`, `conseiller_idUser`) VALUES
-('testClient', 3, 2);
-('root', 13, 2);
-('RoyalAirForce', 14, 2);
-('numero', 15, 2);
+('testClient', 3, 2),
+('Jean', 4, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -113,17 +113,15 @@ CREATE TABLE IF NOT EXISTS `compte` (
   PRIMARY KEY (`idCompte`),
   UNIQUE KEY `numCompte_UNIQUE` (`numCompte`),
   KEY `fk_compte_client1_idx` (`client_idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `compte`
 --
 
 INSERT INTO `compte` (`idCompte`, `solde`, `plafond`, `decouvert`, `numCompte`, `client_idUser`) VALUES
-(1, 1000, 100, 100, 'testCompte', 3);
-(5, 999, 500, 500, 'RoyalCompt', 14);
-(15, -300, 500, 0, 'RoyalCompt', 14);
-(85, -20, 100, 100, 'barbiegirl', 13);
+(1, 1000, 100, 100, 'testCompte', 3),
+(2, 500, 5000, 5000, 'comptejean', 4);
 
 -- --------------------------------------------------------
 
@@ -163,15 +161,14 @@ CREATE TABLE IF NOT EXISTS `message` (
   PRIMARY KEY (`idMessage`),
   KEY `fk_message_user1_idx` (`user_idEmetteur`),
   KEY `fk_message_user2_idx` (`user_idRecepteur`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `message`
 --
 
 INSERT INTO `message` (`idMessage`, `corpsMessage`, `dateMessage`, `user_idEmetteur`, `user_idRecepteur`) VALUES
-(2, 'vous êtes à decouvert', '2019-08-19 00:00:00', 2, 3),
-(3, 'test', '2018-08-18 00:00:00', 3, 2);
+(1, 'penis', '2019-08-19 17:46:05', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -188,20 +185,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   `tel` varchar(45) NOT NULL,
   `dateConnexion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mdp` varchar(45) NOT NULL,
+  `actifuser` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`idUser`, `nom`, `prenom`, `email`, `tel`, `dateConnexion`, `mdp`) VALUES
-(1, 'testAdmin', 'testAdmin', 'testAdmin', 'testAdmin', '2019-08-16 08:55:55', 'testAdmin'),
-(2, 'testConseiller', 'testConseiller', 'testConseiller', 'testConseiller', '2019-08-16 08:55:55', 'testConseiller'),
-(3, 'testClient', 'testClient', 'testClient', 'testClient', '2019-08-16 08:55:55', 'testClient');
-(13, 'Gusteau', 'Auguste', 'barbie@ken.com', 'barbyTel', '2019-08-16 08:55:55', 'bb');
-(14, 'prince', 'Charmant', 'prince@disney.de', 'snow', '2019-08-16 08:55:55', 'pc');
-(15, 'Marceau', 'Mime', 'dessinemoi@nuage.paris', 'muet', '2019-08-16 08:55:55', 'chut');
+INSERT INTO `user` (`idUser`, `nom`, `prenom`, `email`, `tel`, `dateConnexion`, `mdp`, `actifuser`) VALUES
+(1, 'Pedrolito', 'testClient', 'testClient', 'testClient', '2019-08-16 08:55:55', 'testClient', 1),
+(2, 'Pedrolito', 'testClient', 'testClient', 'testClient', '2019-08-16 08:55:55', 'testClient', 1),
+(3, 'lkazmoldkazd', 'testClient', 'testClient', 'testClient', '2019-08-20 00:00:00', 'testClient', 1),
+(4, 'Jean', 'Jean', 'jean@jean.fr', 'jean', '2019-08-19 17:38:16', 'jean', 1);
+
 --
 -- Contraintes pour les tables déchargées
 --
