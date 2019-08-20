@@ -79,7 +79,7 @@ public class CompteDao {
             c.setSolde(rs.getDouble("solde"));
             c.setPlafond(rs.getDouble("plafond"));
             c.setDecouvert(rs.getDouble("decouvert"));
-            c.setNumCompte(rs.getString("numClient"));
+            c.setNumCompte(rs.getString("numCompte"));
             c.setClient_idUser(rs.getInt("client_idUser"));
 
             result.add(c);           

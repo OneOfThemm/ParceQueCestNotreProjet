@@ -93,7 +93,9 @@ CREATE TABLE IF NOT EXISTS `client` (
 
 INSERT INTO `client` (`numClient`, `idUser`, `conseiller_idUser`) VALUES
 ('testClient', 3, 2);
-
+('root', 13, 2);
+('RoyalAirForce', 14, 2);
+('numero', 15, 2);
 -- --------------------------------------------------------
 
 --
@@ -119,6 +121,9 @@ CREATE TABLE IF NOT EXISTS `compte` (
 
 INSERT INTO `compte` (`idCompte`, `solde`, `plafond`, `decouvert`, `numCompte`, `client_idUser`) VALUES
 (1, 1000, 100, 100, 'testCompte', 3);
+(5, 999, 500, 500, 'RoyalCompt', 14);
+(15, -300, 500, 0, 'RoyalCompt', 14);
+(85, -20, 100, 100, 'barbiegirl', 13);
 
 -- --------------------------------------------------------
 
@@ -194,7 +199,9 @@ INSERT INTO `user` (`idUser`, `nom`, `prenom`, `email`, `tel`, `dateConnexion`, 
 (1, 'testAdmin', 'testAdmin', 'testAdmin', 'testAdmin', '2019-08-16 08:55:55', 'testAdmin'),
 (2, 'testConseiller', 'testConseiller', 'testConseiller', 'testConseiller', '2019-08-16 08:55:55', 'testConseiller'),
 (3, 'testClient', 'testClient', 'testClient', 'testClient', '2019-08-16 08:55:55', 'testClient');
-
+(13, 'Gusteau', 'Auguste', 'barbie@ken.com', 'barbyTel', '2019-08-16 08:55:55', 'bb');
+(14, 'prince', 'Charmant', 'prince@disney.de', 'snow', '2019-08-16 08:55:55', 'pc');
+(15, 'Marceau', 'Mime', 'dessinemoi@nuage.paris', 'muet', '2019-08-16 08:55:55', 'chut');
 --
 -- Contraintes pour les tables déchargées
 --

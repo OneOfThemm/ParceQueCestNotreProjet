@@ -105,7 +105,7 @@
                                         <td>${conseiller.email}</td>
                                         <td>${conseiller.tel}</td>
                                         <td> <button class="btn"><i class="fa fa-close"data-toggle="modal" onclick="recup(${conseiller.id})" data-target="#desactiver"></i></button> </td>
-                                        <td> <button class="btn"><i class="fa fa-address-card-o"data-toggle="modal" data-target="#modifier" ></i></button> </td>
+                                        <td> <button class="btn"><i class="fa fa-address-card-o"data-toggle="modal" onclick="recupCons(${conseiller.id}, '${conseiller.prenom}', '${conseiller.nom}', '${conseiller.login_conseiller}', '${conseiller.email}', '${conseiller.tel}')" data-target="#modifier" ></i></button> </td>
                                     </tr>
 
                                 </c:forEach>
@@ -291,32 +291,33 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="ajoutconseiller" method="POST" >
+                        <form action="adminmodifcons" method="POST" >
+                            <input type="hidden" id="idCons" value="" name="idcons">
                             <div class="form-group">
-                                <input type="text"  name="login" placeholder="Login" required class="form-control">
+                                <input type="text" value="" id="loginCons" name="login" placeholder="Login" required class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <input type="text"  name="nom" placeholder="Nom" required class="form-control">
+                                <input type="text"  value="" name="nom" id="nomCons" placeholder="Nom" required class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <input type="text"  name="prenom" placeholder="Prénom" required class="form-control">
+                                <input type="text" value="" name="prenom" id="prenomCons" placeholder="Prénom" required class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <input type="email"  name="email" placeholder="Email" required class="form-control">
+                                <input type="email"  name="email" id="emailCons" placeholder="Email" required class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <input type="text" name="tel" placeholder="Téléphone" required class="form-control">
+                                <input type="text" name="tel" id="telCons" placeholder="Téléphone" required class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <input id="mdp1" type="password" name ="mdp1"  placeholder="Mot de passe" required class="form-control">
+                                <input id="mdp11" type="password" name ="mdp1"  placeholder="Mot de passe" required class="form-control">
                             </div>
                             <div class="form-group">
-                                <input id="mdp2" type="password" name ="mdp2"  placeholder="Répéter le mot de passe" required class="form-control">
+                                <input id="mdp22" type="password" name ="mdp2"  placeholder="Répéter le mot de passe" required class="form-control">
                             </div>
 
                             <div class="text-center">
@@ -337,7 +338,18 @@
             function recup(value) {
                 document.getElementById("test").value = value;
             }
-            
+
+
+            function recupCons(valid, valprenom, valnom, vallogin, valemail, valtel) {
+                document.getElementById("idCons").value = valid;
+                document.getElementById("prenomCons").value = valprenom;
+                document.getElementById("nomCons").value = valnom;
+                document.getElementById("loginCons").value = vallogin;
+                document.getElementById("emailCons").value = valemail;
+                document.getElementById("telCons").value = valtel;
+            }
+
+
         </script>
     </body>
 </html>
