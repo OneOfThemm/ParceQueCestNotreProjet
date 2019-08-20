@@ -47,16 +47,15 @@ public class ConseillerDao {
         }
         return result;
     }
-    
-    
-        public static Conseiller getConseillerById (int id) throws SQLException {
+
+    public static Conseiller getConseillerById(int id) throws SQLException {
         String sql = "SELECT nom,prenom,email,tel,mdp,loginConseiller FROM user INNER JOIN conseiller ON user.idUser=conseiller.idUser WHERE conseiller.idUser = ?";
         Conseiller c = null;
-        Connection connexion = AccessDao.getConnection();        
+        Connection connexion = AccessDao.getConnection();
         PreparedStatement requette = connexion.prepareStatement(sql);
         requette.setInt(1, id);
         ResultSet rs = requette.executeQuery();
-        
+
         if (rs.next()) {
             c = new Conseiller();
             c.setNom(rs.getString("nom"));
@@ -65,26 +64,45 @@ public class ConseillerDao {
             c.setTel(rs.getString("tel"));
             c.setMdp(rs.getString("mdp"));
             c.setLogin_conseiller(rs.getString("loginConseiller"));
-   
+
         }
-        
+
         return c;
     }
 
-    public static void desactiverConseiller (Conseiller c) throws SQLException {
+    public static void desactiverConseiller(Conseiller c) throws SQLException {
         String sql = "UPDATE user SET actifUser = 0 WHERE idUser =?;";
         Connection connexion = AccessDao.getConnection();
         PreparedStatement ordreModif = connexion.prepareStatement(sql);
         ordreModif.setInt(1, c.getId());
         ordreModif.execute();
     }
-    
-        public static void activerConseiller (Conseiller c) throws SQLException {
+
+    public static void activerConseiller(Conseiller c) throws SQLException {
         String sql = "UPDATE user SET actifUser = 1 WHERE idUser =?;";
         Connection connexion = AccessDao.getConnection();
         PreparedStatement ordreModif = connexion.prepareStatement(sql);
         ordreModif.setInt(1, c.getId());
         ordreModif.execute();
+    }
+
+    public static void upadateConseiller(Conseiller c) throws SQLException {
+        String sqlUser = "UPDATE user set nom=?, prenom=?, email=?, tel=?, mdp=? where idUser=?";
+        Connection connexion = AccessDao.getConnection();
+        PreparedStatement ordreModif = connexion.prepareStatement(sqlUser);
+        ordreModif.setString(1, c.getNom());
+        ordreModif.setString(2, c.getPrenom());
+        ordreModif.setString(3, c.getEmail());
+        ordreModif.setString(4, c.getTel());
+        ordreModif.setString(5, c.getMdp());
+        ordreModif.setInt(6, c.getId());
+        ordreModif.execute();
+
+        String sqlCons = "UPDATE conseiller set loginConseiller=? where idUser=?";
+        PreparedStatement ordreModifCons = connexion.prepareStatement(sqlCons);
+        ordreModifCons.setString(1, c.getLogin_conseiller());
+        ordreModifCons.setInt(2, c.getId());
+
     }
 
     public static void insert(Conseiller person) throws SQLException {
