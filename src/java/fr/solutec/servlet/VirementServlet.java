@@ -5,6 +5,9 @@
  */
 package fr.solutec.servlet;
 
+import fr.solutec.bean.Client;
+import fr.solutec.bean.Compte;
+import fr.solutec.dao.CompteDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,13 +15,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author esic
+ * @author ESIC
  */
-@WebServlet(name = "RetourHomeConseillerServlet", urlPatterns = {"/RetourHomeConseillerServlet"})
-public class RetourHomeConseillerServlet extends HttpServlet {
+@WebServlet(name = "VirementServlet", urlPatterns = {"/VirementServlet"})
+public class VirementServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +41,10 @@ public class RetourHomeConseillerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RetourHomeConseillerServlet</title>");            
+            out.println("<title>Servlet VirementServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RetourHomeConseillerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet VirementServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,8 +61,8 @@ public class RetourHomeConseillerServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-        response.sendRedirect("HomeConseillerServlet");
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -72,7 +76,22 @@ public class RetourHomeConseillerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String numcc = request.getParameter("numCompte1");
+        Double montant = Double.parseDouble(request.getParameter("montant"));
+        String numcd = request.getParameter("numCompte1");
+        try {
+            Compte c1 = CompteDao.getByNum(numcc);
+            Compte c2 = CompteDao.getByNum(numcd);
+            Compte.virement(c1, c2, montant);
+
+            request.setAttribute("msgmodif", "Modifications réalisées avec succès");
+            response.sendRedirect("HomeClientServlet");
+
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.println(e.getMessage());
+
+        }
     }
 
     /**

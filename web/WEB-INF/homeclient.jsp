@@ -4,6 +4,7 @@
     Author     : ESIC
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -147,7 +148,10 @@
                     hide: {
                         effect: "fade",
                         duration: 1000
-                    }
+                    },
+                    minWidth: 800,
+                    minHeight: 170,
+                    position: {my: "center", at: "center", of: window}
                 });
 
                 $("#popupprofil").on("click", function () {
@@ -164,7 +168,10 @@
                     hide: {
                         effect: "fade",
                         duration: 1000
-                    }
+                    },
+                    minWidth: 800,
+                    minHeight: 700,
+                    position: {my: "bottom", at: "bottom", of: window}
 
                 });
 
@@ -186,21 +193,43 @@
                     },
                     maxWidth: 600,
                     modal: true
-                   
-                    
+
+
                 });
                 $("#compteclient").dialog({
                     minWidth: 800,
                     minHeight: 700,
-                    position:{my: "bottom", at: "bottom", of: window}
-                    
-                  
+                    position: {my: "bottom", at: "bottom", of: window}
+
+
                 });
 
                 $("#popupcompte").on("click", function () {
                     $("#compteclient").dialog("open");
 
                 });
+                $("#virement").dialog({
+                    autoOpen: false,
+                    show: {
+                        effect: "fade",
+                        duration: 1000
+                    },
+                    hide: {
+                        effect: "fade",
+                        duration: 1000
+                    },
+                    minWidth: 800,
+                    minHeight: 400,
+                    position: {my: "center", at: "center", of: window}
+
+
+                });
+
+                $("#popupvirement").on("click", function () {
+                    $("#virement").dialog("open");
+
+                });
+
 
             })
 
@@ -232,7 +261,7 @@
                         <button id="popupprofil" class="buttonmenu" style="color: aliceblue"> <span>Profil </button>
                         <button class="buttonmenu" style="color: aliceblue" onclick="location.href = 'MessagesClient'"> <span>Messages </button>
                         <button id="popupcompte" class="buttonmenu" style="color: aliceblue"> <span>Comptes </button>
-                        <button id="popupprofil" class="buttonmenu" style="color: aliceblue"> <span>Dépenses </button>
+                        <button id="popupvirement" class="buttonmenu" style="color: aliceblue"> <span>Virement </button>
                         <button class="buttonmenu" onclick="location.href = 'deco'"> <span>Deconnexion </button>
 
                     </div>
@@ -240,11 +269,14 @@
 
                 </div>
                 <div id="profil" class="modal-fade" title="Votre Profil Client">
-                    <p>${client.nom} ${client.prenom}</p>
-                    <br>
-                    <p>Numéro Client : ${client.numClient}</p>
-                    <p>E-mail : ${client.email}</p>
-                    <p>Téléphone : ${client.tel}</p>
+                    <div class="row">
+                        <p class="text-center col-sm-12">${client.nom} ${client.prenom}</p>
+                        <br>
+                        <p class="text-center col-sm-6">Numéro Client : ${client.numClient}</p>
+                        <p class="text-center col-sm-6">E-mail : ${client.email}</p>
+                        <p class="text-center col-sm-6">Téléphone : ${client.tel}</p>
+
+                    </div>
                     <button id="popupmodifprofil" class="float-left buttondial"><span> Modifier votre profil </button>
                 </div>
                 <div id="modifprofil" title="Modification de Votre Profil Client">
@@ -274,10 +306,10 @@
 
 
                 <div id="compteclient" class="modal-fade" title="Vos Comptes">                  
-                    <table id="tablecompte" class="table ">
+                    <table id="tablecompte" class="table">
                         <thead class="thead thead-dark">
                             <tr>
-                                <th scope="row">Numéro de compte</th>
+                                <th>Numéro de compte</th>
                                 <th>Solde</th>
                                 <th>Plafond</th>
                                 <th>Découvert</th>
@@ -287,19 +319,42 @@
                         </thead>
                         <tbody>
 
-                        <c:forEach items="${comptes}" var="Compte">
-                            <tr>
-                                <td>${Compte.idCompte}</td>
-                                <td>${Compte.solde}</td>
-                                <td>${Compte.plafond}</td>
-                                <td>${Compte.decouvert}</td>
-                            </tr>
-                        </c:forEach>
+                            <c:forEach items="${comptes}" var="compte">
+                                <tr>
+                                    <td>${compte.idCompte}</td>
+                                    <td>${compte.solde}</td>
+                                    <td>${compte.plafond}</td>
+                                    <td>${compte.decouvert}</td>
+                                </tr>
+                            </c:forEach>
 
                         </tbody>
 
                     </table>
                 </div>
+                <form action="VirementServlet" method="POST">
+                    <div id="virement" class="modal-fade" title="Interface de Virement">
+                        <div>
+                            <p class="text-center">  Numéro du Compte à Débiter : </p>
+                            <input type="text" 
+                                   required class="form-control text-center" name="numCompte1" style="color: whitesmoke">
+                        </div>
+                        <div>
+                            <p class="text-center">  Numéro du Compte Bénéficiaire : </p>
+                            <input type="text" 
+                                   required class="form-control text-center" name="numCompte2" style="color: whitesmoke">
+                        </div>
+                        <br>
+                        <p class="text-center"> Montant : </p>
+                        <div>
+                            <input type="text"
+                                   required class="form-control text-center" name="montant" style="color: whitesmoke">
+                        </div>
+                        <button id="validervirement" class="float-left buttondial" type="submit" ><span> Valider Virement </button>
+                    </div>               
+                </form>
+
+
                 <p class="text-success">${msgmodif}</p>
                 <br>
 

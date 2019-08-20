@@ -14,6 +14,7 @@ import java.sql.Date;
 public class Client extends User {
     
     protected String numClient;
+    private int conseiller_idUser;
 
     public Client(String numClient, int id, String nom, String prenom, String email, String tel, Date dateConnexion, String mdp, boolean actifuser) {
         super(id, nom, prenom, email, tel, dateConnexion, mdp, actifuser);
@@ -57,6 +58,12 @@ public class Client extends User {
         return mdp;
     }
 
+    public int getConseiller_idUser() {
+        return conseiller_idUser;
+    }
+    
+    
+
     public void setNumClient(String numClient) {
         this.numClient = numClient;
     }
@@ -88,6 +95,11 @@ public class Client extends User {
     public void setMdp(String mdp) {
         this.mdp = mdp;
     }
+
+    public void setConseiller_idUser(int conseiller_idUser) {
+        this.conseiller_idUser = conseiller_idUser;
+    }
+    
     
    
 }
