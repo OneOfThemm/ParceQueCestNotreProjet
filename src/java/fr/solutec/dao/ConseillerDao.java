@@ -58,6 +58,7 @@ public class ConseillerDao {
 
         if (rs.next()) {
             c = new Conseiller();
+            c.setId(id);
             c.setNom(rs.getString("nom"));
             c.setPrenom(rs.getString("prenom"));
             c.setEmail(rs.getString("email"));
@@ -86,8 +87,8 @@ public class ConseillerDao {
         ordreModif.execute();
     }
 
-    public static void upadateConseiller(Conseiller c) throws SQLException {
-        String sqlUser = "UPDATE user set nom=?, prenom=?, email=?, tel=?, mdp=? where idUser=?";
+    public static void updateConseiller(Conseiller c) throws SQLException {
+        String sqlUser = "UPDATE user SET nom= ? , prenom = ?, email = ? , tel = ? , mdp = ?  WHERE idUser=?;";
         Connection connexion = AccessDao.getConnection();
         PreparedStatement ordreModif = connexion.prepareStatement(sqlUser);
         ordreModif.setString(1, c.getNom());
@@ -98,7 +99,7 @@ public class ConseillerDao {
         ordreModif.setInt(6, c.getId());
         ordreModif.execute();
 
-        String sqlCons = "UPDATE conseiller set loginConseiller=? where idUser=?";
+        String sqlCons = "UPDATE conseiller SET loginConseiller=? WHERE idUser=?;";
         PreparedStatement ordreModifCons = connexion.prepareStatement(sqlCons);
         ordreModifCons.setString(1, c.getLogin_conseiller());
         ordreModifCons.setInt(2, c.getId());

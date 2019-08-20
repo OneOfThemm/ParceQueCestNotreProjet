@@ -153,9 +153,8 @@
                                 <form method="GET" action="activerconseiller">
                                     <input type="hidden" value="${conseiller.id}" name="conseillerId">
                                     <td> <button type="submit" class="btn" ><i class="fa fa-plus"></i></button> </td>
-                                    <td> <button class="btn"><i class="fa fa-address-card-o"></i></button> </td>
                                 </form>
-
+                                <td> <button class="btn"><i class="fa fa-address-card-o"data-toggle="modal" onclick="recupCons(${conseiller.id}, '${conseiller.prenom}', '${conseiller.nom}', '${conseiller.login_conseiller}', '${conseiller.email}', '${conseiller.tel}')" data-target="#modifier" ></i></button> </td>
                                 </tr>
 
                             </c:forEach>

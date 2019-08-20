@@ -87,13 +87,16 @@ public class ModifConfByAdminServlet extends HttpServlet {
             request.setAttribute("msg", "Les deux mots de passe doivent être indentiques. Échec de l'ajout d'un conseiller");
             request.getRequestDispatcher("WEB-INF/homeadmin.jsp").forward(request, response);
         } else {
-            try {
-                try {
+            try {                
                     c = new Conseiller();
                     c = ConseillerDao.getConseillerById(id);
-                } catch (Exception e) {
-                }
-                ConseillerDao.upadateConseiller(c);
+                    c.setLogin_conseiller(loginConseiller);
+                    c.setNom(nom);
+                    c.setPrenom(prenom);
+                    c.setEmail(email);
+                    c.setTel(tel);
+                    c.setMdp(mdp1);                
+                ConseillerDao.updateConseiller(c);
                 response.sendRedirect("homeadmin");
             } catch (Exception e) {
                 PrintWriter out = response.getWriter();
